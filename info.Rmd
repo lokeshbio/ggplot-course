@@ -55,6 +55,6 @@ cat(dfr$description)
 
 ## Contact
 
-If you would like to get in touch with us regarding this course, it's contents, or if you have suggestions to improve it, please contact Johan Reimegård (`johan.reimegard@scilifelab.se`).  
+If you would like to get in touch with us regarding this course, it's contents, or if you have suggestions to improve it, please contact Lokeshwaran Manoharan (`lokeshwaran.manoharan@nbis.se`).  
 
 **End of document.**

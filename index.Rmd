@@ -1,5 +1,5 @@
 ---
-title: GENECO Workshop on ggplot
+title: Workshop on ggplot
 subtitle: "13-14 May 2020"
 output:
   bookdown::html_document2:
