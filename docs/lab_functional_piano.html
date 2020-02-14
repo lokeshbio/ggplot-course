@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Ashfaq Ali • 28-Nov-2019" />
+
+
+<title>Gene Function Annotation</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="assets/lab.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><b>NBIS • Workshop on RNA-Seq</b></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="schedule.html">
+    <span class="fa fa-clipboard-list"></span>
+     
+    Schedule
+  </a>
+</li>
+<li>
+  <a href="lab.html">
+    <span class="fa fa-flask"></span>
+     
+    Lab
+  </a>
+</li>
+<li>
+  <a href="precourse.html">
+    <span class="fa fa-pencil-alt"></span>
+     
+    Precourse
+  </a>
+</li>
+<li>
+  <a href="info.html">
+    <span class="fa fa-info"></span>
+     
+    Info
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Gene Function Annotation</h1>
+<h3 class="subtitle">Workshop on RNA-Seq</h3>
+<h4 class="author"><b>Ashfaq Ali</b> • 28-Nov-2019</h4>
+
+</div>
+
+
+<!-- rmd lab header -->
+<!-- custom fonts -->
+<p><link href="https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro:300,400,600|Ubuntu+Mono&amp;subset=latin-ext" rel="stylesheet"></p>
+<p><br></p>
+<div id="loading-data" class="section level1">
+<h1><span class="header-section-number">1</span> Loading data</h1>
+<div class="instruction">
+<p><i class="fas fa-exclamation-circle"></i> The data and the gene setscan be downloaded from <a href="https://github.com/NBISweden/course_rnaseq/tree/master/data">this location</a>. The files needed are <strong>dg</strong>, <strong>data/MSigDB_files/c2.cp.kegg.v6.2.symbols.gmt.txt</strong> and <strong>data/MSigDB_files/h.all.v6.2.symbols.gmt.txt</strong>. Place the files in a directory named <code>data</code> in your current working directory.</p>
+</div>
+<p>Loading packages and data.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pheatmap)
+<span class="kw">library</span>(rafalib)
+<span class="kw">library</span>(DESeq2)
+<span class="kw">library</span>(pvclust)
+<span class="kw">library</span>(biomaRt)
+<span class="kw">library</span>(enrichR)
+<span class="kw">library</span>(fgsea)
+<span class="kw">library</span>(piano)
+metadata &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/metadata_raw.csv&quot;</span>,<span class="dt">row.names =</span> <span class="dv">1</span>,<span class="dt">stringsAsFactors =</span> T)
+
+<span class="co">#Load data and metadata</span>
+cpms &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/cpm.csv&quot;</span>,<span class="dt">row.names =</span> <span class="dv">1</span>)</code></pre></div>
+</div>
+<div id="gsea-with-piano" class="section level2">
+<h2><span class="header-section-number">1.1</span> GSEA with Piano</h2>
+<p>Here we will use <a href="http://bioconductor.org/packages/release/bioc/html/piano.html">piano</a> R package that allows various kinds of gene set enrichment analyses. It also allows various very nice visualization which you can read more about in the package vignette.</p>
+<div id="optional-annotation-of-de-genes" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Optional: Annotation of DE genes</h3>
+<p>Since the MSigDB has genes in hgnc symbol format, we can convert our ensemble gene ids to hgcn. In this case we will downlaod some extra id’s fpr potential use.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mart &lt;-<span class="st"> </span><span class="kw">useMart</span>(<span class="st">&quot;ENSEMBL_MART_ENSEMBL&quot;</span>)
+mart &lt;-<span class="st"> </span><span class="kw">useDataset</span>(<span class="dt">mart=</span>mart,<span class="dt">dataset=</span><span class="st">&quot;hsapiens_gene_ensembl&quot;</span>)
+la &lt;-<span class="st"> </span><span class="kw">listAttributes</span>(<span class="dt">mart=</span>mart)
+la
+<span class="kw">searchAttributes</span>(<span class="dt">mart=</span>mart,<span class="dt">pattern=</span><span class="st">&quot;ID&quot;</span>)
+dg&lt;-<span class="kw">as.data.frame</span>(dg2)
+dg &lt;-<span class="kw">rownames_to_column</span>(dg, <span class="dt">var =</span> <span class="st">&quot;ensembl_gene_id&quot;</span>)
+ids &lt;-<span class="kw">getBM</span>(<span class="dt">attributes=</span><span class="kw">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>,<span class="st">&quot;hgnc_symbol&quot;</span>, <span class="st">&quot;external_gene_name&quot;</span>, <span class="st">&quot;entrezgene_id&quot;</span> , <span class="st">&quot;hgnc_id&quot;</span>), <span class="dt">mart=</span>mart)
+
+
+ids&lt;-<span class="st"> </span>ids[<span class="op">!</span><span class="kw">duplicated</span>(ids<span class="op">$</span>ensembl_gene_id),]
+ids&lt;-<span class="st"> </span>ids[<span class="op">!</span><span class="kw">duplicated</span>(ids<span class="op">$</span>hgnc_symbol),]
+
+<span class="co">#rownames(ids)&lt;-ids$ensembl_gene_id</span>
+dg &lt;-<span class="st"> </span><span class="kw">inner_join</span>(ids, dg, <span class="dt">by=</span> <span class="st">&quot;ensembl_gene_id&quot;</span>)
+dg &lt;-<span class="st"> </span>dg[ <span class="op">!</span><span class="kw">is.na</span>(dg<span class="op">$</span>padj),]
+<span class="kw">saveRDS</span>(dg, <span class="st">&quot;data/dg.rds&quot;</span>)</code></pre></div>
+</div>
+<p>Piano package requires a <strong>Gene Set</strong> and <strong>Gene level statistics</strong>.</p>
+<p>We will use the MSigDB hall mark genes and Kegg pathways for our exploratory analyses.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GSC &lt;-<span class="st"> </span>piano<span class="op">::</span><span class="kw">loadGSC</span>(<span class="st">&quot;data/MSigDB_files/h.all.v6.2.symbols.gmt.txt&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;gmt&quot;</span>)
+
+GSC_<span class="dv">2</span> &lt;-<span class="st"> </span>piano<span class="op">::</span><span class="kw">loadGSC</span>(<span class="st">&quot;data/MSigDB_files/c2.cp.kegg.v6.2.symbols.gmt.txt&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;gmt&quot;</span>)</code></pre></div>
+</div>
+<p>First we prepare the statistics Piano can use for analyses.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dk &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/dg.rds&quot;</span>) <span class="co"># This is data that we can use for statistics </span>
+
+myPval&lt;-<span class="st"> </span>dk<span class="op">$</span>pvalue
+<span class="kw">names</span>(myPval)&lt;-<span class="kw">as.character</span>(dk<span class="op">$</span>hgnc_symbol)
+myFC&lt;-dk<span class="op">$</span>log2FoldChange
+<span class="kw">names</span>(myFC)&lt;-<span class="kw">as.character</span>(dk<span class="op">$</span>hgnc_symbol)
+direction&lt;-<span class="kw">ifelse</span>(myFC<span class="op">&gt;</span><span class="dv">0</span>, <span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>) <span class="co"># The dircetion of regulation is an important distinction in Piano that helps contextualize results.</span>
+gene_stats&lt;-<span class="kw">cbind</span>(myPval,myFC, direction)</code></pre></div>
+</div>
+<p>Lets run piano using <code>runGSA</code> function from the piano package. The analyses this package allows takes a bit of time to understand and you are not expected to follow it all in this course. You are welcome to ask questions about the analyses or results if you want to know more about how it works.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">piano_gene_sets&lt;-<span class="kw">runGSA</span>(<span class="dt">geneLevelStats =</span> myPval, <span class="dt">directions =</span> direction, <span class="dt">gsc=</span>GSC, <span class="dt">geneSetStat=</span><span class="st">&quot;fisher&quot;</span>, <span class="dt">signifMethod=</span><span class="st">&quot;nullDist&quot;</span>, <span class="dt">nPerm=</span><span class="dv">1000</span>, <span class="dt">gsSizeLim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">500</span>))
+
+piano_pathways&lt;-<span class="kw">runGSA</span>(<span class="dt">geneLevelStats =</span> myPval, <span class="dt">directions =</span> direction, <span class="dt">gsc=</span>GSC_<span class="dv">2</span>, <span class="dt">geneSetStat=</span><span class="st">&quot;fisher&quot;</span>, <span class="dt">signifMethod=</span><span class="st">&quot;nullDist&quot;</span>, <span class="dt">nPerm=</span><span class="dv">1000</span>, <span class="dt">gsSizeLim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">500</span>))</code></pre></div>
+</div>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exploreGSAres</span>(piano_pathways)
+
+<span class="kw">exploreGSAres</span>(piano_gene_sets)</code></pre></div>
+</div>
+<p><strong>End of document</strong></p>
+</div>
+</div>
+</div>
+
+
+<div class="footer">
+<div class="container" style="padding-top:5px;padding-bottom:5px;">
+<p>
+<span style="float:left; vertical-align:middle">
+<b>2019 </b><a href="https://nbis.se/">NBIS</a> • <a href="https://www.scilifelab.se/">SciLifeLab</a>
+</span>
+<span style="float:right; vertical-align:middle">
+<span class="footericon" style="padding-right:4px; padding-left:4px">
+<a href="https://nbis.se/"><i class="fas fa-globe-americas"></i></a>
+</span>
+<span class="footericon" style="padding-right:4px; padding-left:4px">
+<a href="https://twitter.com/NBISwe"><i class="fab fa-twitter"></i></a>
+</span>
+<span class="footericon" style="padding-left:4px">
+<a href="https://www.linkedin.com/company/nbisweden/"><i class="fab fa-linkedin"></i></a>
+</span>
+</span>
+</p>
+</div>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 
 <div>
 <span style="float:left; vertical-align:middle">
-<b>2020</b> [NBIS][1] • [SciLifeLab][2] • [GENECO][3]
+<b>2020</b> [NBIS](https://nbis.se/) • [SciLifeLab](https://www.scilifelab.se/)
 </span>
 <span style="float:right; vertical-align:middle">
 <span class="footericon" style="padding-right:4px; padding-left:4px">
@@ -17,8 +17,3 @@
 </span>
 </span>
 </div>
-
-
-[1]: https://nbis.se
-[2]: https://scilifelab.se
-[3]: https://www.biology.lu.se/education/phd-studies/graduate-research-school-in-genomic-ecology

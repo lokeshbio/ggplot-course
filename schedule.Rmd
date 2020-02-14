@@ -77,23 +77,6 @@ s %>%
   pack_rows(index=r,label_row_css="background:white;",escape=F,indent=FALSE)
 ```
 
-<!-- marker legend -->
-<p class="small" style="margin-top:20px;">
-<span>
-<span style='margin-left:6px;margin-right:6px;>
-<i class='fas fa-calendar' style='margin-left:4px;margin-right:4px;'></i> Date
-</span>
-<span style='margin-left:6px;margin-right:6px;>
-<i class='fas fa-map-marker-alt' style='margin-left:4px;margin-right:4px;'></i> Room number
-</span>
-<span style='margin-left:6px;margin-right:6px;>
-<i class='fas fa-file-powerpoint' style='margin-left:4px;margin-right:4px;'></i> Presentation
-</span>
-<span style='margin-left:6px;margin-right:6px;>
-<i class='fas fa-file-alt' style='margin-left:4px;margin-right:4px;'></i> Lab exercises
-</span>
-</span>
-</p>
 
 </div>
 
