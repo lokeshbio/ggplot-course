@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Differential Gene Expression Workflow</title>
+  <meta name="description" content="Differential Gene Expression Workflow" />
+  <meta name="generator" content="bookdown #bookdown:version# and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Differential Gene Expression Workflow" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Differential Gene Expression Workflow" />
+  
+  
+  
+
+<meta name="author" content="Roy Francis | 24-Nov-2019" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<!--bookdown:link_prev-->
+<!--bookdown:link_next-->
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link id="font-awesome-1-attachment" rel="attachment" href="libs/font-awesome-5.1.0/fonts/fontawesome-webfont.ttf"/>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+<!--bookdown:title:start-->
+<div id="header">
+<h1 class="title">Differential Gene Expression Workflow</h1>
+<h2 class="subtitle"><em>Workshop on RNA-Seq</em></h2>
+<p class="author"><em><b>Roy Francis</b> | 24-Nov-2019</em></p>
+</div>
+<!--bookdown:title:end-->
+
+<!--bookdown:toc:start-->
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+<!--bookdown:toc2:start-->
+<ul>
+<li><a href="#raw-data"><span class="toc-section-number">0.1</span> Raw data</a></li>
+<li><a href="#normalisation"><span class="toc-section-number">0.2</span> Normalisation</a></li>
+<li><a href="#normalisation-1"><span class="toc-section-number">0.3</span> Normalisation</a></li>
+<li><a href="#exploratory-correlation"><span class="toc-section-number">0.4</span> Exploratory | Correlation</a></li>
+<li><a href="#exploratory-pca"><span class="toc-section-number">0.5</span> Exploratory | PCA</a></li>
+<li><a href="#dge-size-factors"><span class="toc-section-number">0.6</span> DGE | Size factors</a></li>
+<li><a href="#dge-dispersion"><span class="toc-section-number">0.7</span> DGE | Dispersion</a></li>
+<li><a href="#dge-test"><span class="toc-section-number">0.8</span> DGE | Test</a></li>
+<li><a href="#acknowledgements"><span class="toc-section-number">1</span> Acknowledgements</a><ul>
+<li><a href="#exploratory-correlation-1"><span class="toc-section-number">1.1</span> Exploratory | Correlation</a></li>
+<li><a href="#exploratory-pca-1"><span class="toc-section-number">1.2</span> Exploratory | PCA</a></li>
+<li><a href="#dge-size-factors-1"><span class="toc-section-number">1.3</span> DGE | Size factors</a></li>
+<li><a href="#dge-dispersion-1"><span class="toc-section-number">1.4</span> DGE | Dispersion</a></li>
+<li><a href="#dge-test-1"><span class="toc-section-number">1.5</span> DGE | Test</a></li>
+<li><a href="#dge-test-2"><span class="toc-section-number">1.6</span> DGE | Test</a></li>
+<li><a href="#dge-lfc-shrink"><span class="toc-section-number">1.7</span> DGE | LFC Shrink</a></li>
+<li><a href="#dge-lfc-shrink-1"><span class="toc-section-number">1.8</span> DGE | LFC Shrink</a></li>
+</ul></li>
+<li><a href="#acknowledgements-1"><span class="toc-section-number">2</span> Acknowledgements</a><ul>
+<li><a href="#introduction"><span class="toc-section-number">2.1</span> Introduction</a></li>
+<li><a href="#gene-sets-go"><span class="toc-section-number">2.2</span> Gene sets • GO</a></li>
+<li><a href="#gene-set-analyses-gsa"><span class="toc-section-number">2.3</span> Gene set analyses (GSA)</a></li>
+<li><a href="#gene-set-enrichment-analyses-gsea"><span class="toc-section-number">2.4</span> Gene set enrichment analyses (GSEA)</a></li>
+<li><a href="#tools"><span class="toc-section-number">2.5</span> Tools</a><ul>
+<li><a href="#r-packages"><span class="toc-section-number">2.5.1</span> R packages</a></li>
+<li><a href="#online"><span class="toc-section-number">2.5.2</span> Online</a></li>
+<li><a href="#downloadable"><span class="toc-section-number">2.5.3</span> Downloadable</a></li>
+</ul></li>
+<li><a href="#acknowledgements-2"><span class="toc-section-number">2.6</span> Acknowledgements</a></li>
+</ul></li>
+<li><a href="#thank-you.-questions"><span class="toc-section-number">3</span> Thank you. Questions?</a></li>
+</ul>
+<!--bookdown:toc2:end-->
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Differential Gene Expression Workflow</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!--bookdown:toc:end-->
+<!--bookdown:body:start-->
+<p>exclude: true
+count: false</p>
+<p><link href="https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro:300,400,600|Ubuntu+Mono&amp;subset=latin-ext" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"></p>
+<!-- ------------ Only edit title, subtitle & author above this ------------ -->
+<p>name: raw</p>
+<div id="raw-data" class="section level2">
+<h2><span class="header-section-number">0.1</span> Raw data</h2>
+<ul>
+<li>Raw count table</li>
+</ul>
+<pre><code>##                 Sample_1 Sample_2 Sample_3 Sample_4 Sample_5 Sample_6
+## ENSG00000000003      321      303      204      492      455      359
+## ENSG00000000005        0        0        0        0        0        0
+## ENSG00000000419      696      660      472      951      963      689
+## ENSG00000000457       59       54       44      109       73       66
+## ENSG00000000460      399      405      236      445      454      374
+## ENSG00000000938        0        0        0        0        0        1</code></pre>
+<ul>
+<li>Metadata</li>
+</ul>
+<pre><code>##          Sample_ID Sample_Name Time Replicate Cell
+## Sample_1  Sample_1        t0_A   t0         A A431
+## Sample_2  Sample_2        t0_B   t0         B A431
+## Sample_3  Sample_3        t0_C   t0         C A431
+## Sample_4  Sample_4        t2_A   t2         A A431
+## Sample_5  Sample_5        t2_B   t2         B A431
+## Sample_6  Sample_6        t2_C   t2         C A431</code></pre>
+<p>name: norm-1</p>
+</div>
+<div id="normalisation" class="section level2">
+<h2><span class="header-section-number">0.2</span> Normalisation</h2>
+<p>.pull-left-50[
+- Make counts comparable across samples
+- Control for sequencing depth</p>
+<p><img src="images/normalization_methods_depth.png" /></p>
+<pre><code>##   s1 s2 s1_tc s2_tc
+## x 20  6  0.33  0.38
+## y 25  6  0.42  0.38
+## z 15  4  0.25  0.25</code></pre>
+<p>]</p>
+<p>–</p>
+<p>.pull-right-50[
+- Control for sequencing bias
+<img src="images/normalization_methods_composition.png" /></p>
+<pre><code>##     s1 s2 s1_tc s2_tc
+## x   20 20  0.12  0.39
+## y   25 25  0.16  0.49
+## z   15  4  0.09  0.08
+## de 100  2  0.62  0.04</code></pre>
+<p>]</p>
+<p>name: norm-3</p>
+</div>
+<div id="normalisation-1" class="section level2">
+<h2><span class="header-section-number">0.3</span> Normalisation</h2>
+<ul>
+<li>CPM, RPKM, FPKM, TPM, RLE, MRN, Q, UQ, TMM, VST, RLOG, VOOM … Too many…</li>
+</ul>
+<p>–</p>
+<ul>
+<li><strong>CPM</strong>: Controls for sequencing depth when dividing by total count. Not for within-sample comparison or DE.</li>
+</ul>
+<p>–</p>
+<ul>
+<li><strong>RPKM/FPKM</strong>: Controls for sequencing depth and gene length. Good for technical replicates, not good for sample-sample due to compositional bias. Assumes total RNA output is same in all samples. Not for DE.</li>
+</ul>
+<p>–</p>
+<ul>
+<li><strong>TPM</strong>: Similar to RPKM/FPKM. Corrects for sequencing depth and gene length. Also comparable between samples but no correction for compositional bias.</li>
+</ul>
+<p>–</p>
+<ul>
+<li><strong>TMM/RLE/MRN</strong>: Improved assumption: The output between samples for a core set only of genes is similar. Corrects for compositional bias. Used for DE. RLE and MRN are very similar and correlates well with sequencing depth. <code>edgeR::calcNormFactors()</code> implements TMM, TMMwzp, RLE &amp; UQ. <code>DESeq2::estimateSizeFactors</code> implements median ratio method (RLE). Does not correct for gene length.</li>
+</ul>
+<p>–</p>
+<ul>
+<li><strong>VST/RLOG/VOOM</strong>: Variance is stabilised across the range of mean values. For use in exploratory analyses. Not for DE. <code>vst()</code> and <code>rlog()</code> functions from <em>DESeq2</em>. <code>voom()</code> function from <em>Limma</em> converts data to normal distribution.</li>
+</ul>
+<p>–</p>
+<ul>
+<li><strong><a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2246-7">geTMM</a></strong>: Gene length corrected TMM.</li>
+</ul>
+<p>.citation[
+.cite[<i class="fas fa-link"></i> Dillies, Marie-Agnes, <em>et al</em>. “A comprehensive evaluation of normalization methods for Illumina high-throughput RNA sequencing data analysis.” <a href="https://www.ncbi.nlm.nih.gov/pubmed/22988256">Briefings in bioinformatics 14.6 (2013): 671-683</a>]<br />
+.cite[<i class="fas fa-link"></i> Evans, Ciaran, Johanna Hardin, and Daniel M. Stoebel. “Selecting between-sample RNA-Seq normalization methods from the perspective of their assumptions.” <a href="https://arxiv.org/abs/1609.00959">Briefings in bioinformatics (2017)</a>]<br />
+]</p>
+<p>name: eda-cor</p>
+</div>
+<div id="exploratory-correlation" class="section level2">
+<h2><span class="header-section-number">0.4</span> Exploratory | Correlation</h2>
+<ul>
+<li>Correlation between samples</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">dmat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">cor</span>(cv,<span class="dt">method=</span><span class="st">&quot;spearman&quot;</span>))</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">pheatmap<span class="op">::</span><span class="kw">pheatmap</span>(dmat,<span class="dt">border_color=</span><span class="ot">NA</span>,<span class="dt">annotation_col=</span>mr[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F],</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">         <span class="dt">annotation_row=</span>mr[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F],<span class="dt">annotation_legend=</span>T)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-14-1.svg" width="528" style="display: block; margin: auto auto auto 0;" /></p>
+<p>name: eda-pca</p>
+</div>
+<div id="exploratory-pca" class="section level2">
+<h2><span class="header-section-number">0.5</span> Exploratory | PCA</h2>
+<ul>
+<li>Relationship between samples</li>
+</ul>
+<p>.pull-left-40[
+<img src="_main_files/figure-html/unnamed-chunk-16-1.svg" width="336" style="display: block; margin: auto auto auto 0;" />]</p>
+<p>.pull-right-60[
+<img src="_main_files/figure-html/unnamed-chunk-17-1.svg" width="432" style="display: block; margin: auto auto auto 0;" />]</p>
+<p>name: dge-sf</p>
+</div>
+<div id="dge-size-factors" class="section level2">
+<h2><span class="header-section-number">0.6</span> DGE | Size factors</h2>
+<ul>
+<li>Normalisation factors are computed</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">d &lt;-<span class="st"> </span>DESeq2<span class="op">::</span><span class="kw">estimateSizeFactors</span>(d,<span class="dt">type=</span><span class="st">&quot;ratio&quot;</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">sizeFactors</span>(d)</a></code></pre></div>
+<pre><code>##  Sample_1  Sample_2  Sample_3  Sample_4  Sample_5  Sample_6  Sample_7  Sample_8  Sample_9 
+## 0.9003753 0.8437393 0.5106445 1.1276451 1.0941383 0.8133849 0.7553903 1.1744008 1.0189325 
+## Sample_10 Sample_11 Sample_12 
+## 1.3642797 1.2325485 1.8555904</code></pre>
+<p>name: dge-dispersion-2</p>
+</div>
+<div id="dge-dispersion" class="section level2">
+<h2><span class="header-section-number">0.7</span> DGE | Dispersion</h2>
+<ul>
+<li>D is unreliable for low mean counts</li>
+<li>Genes with similar mean values must have similar dispersion</li>
+<li>Estimate likely (ML) dispersion for each gene based on counts</li>
+<li>Fit a curve through the gene-wise estimates</li>
+<li>Shrink dispersion towards the curve</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">d &lt;-<span class="st"> </span>DESeq2<span class="op">::</span><span class="kw">estimateDispersions</span>(d)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">{<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">plotDispEsts</span>(d)}</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-23-1.svg" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<p>name: dge-test-2</p>
+</div>
+<div id="dge-test" class="section level2">
+<h2><span class="header-section-number">0.8</span> DGE | Test</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">res1 &lt;-<span class="st"> </span><span class="kw">results</span>(dg,<span class="dt">name=</span><span class="st">&quot;Time_t2_vs_t0&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">summary</span>(res1)</a></code></pre></div>
+<pre><code>## 
+## out of 14578 with nonzero total read count
+## adjusted p-value &lt; 0.05
+## LFC &gt; 0 (up)       : 413, 2.8%
+## LFC &lt; 0 (down)     : 696, 4.8%
+## outliers [1]       : 0, 0%
+## low counts [2]     : 2261, 16%
+## (mean count &lt; 26)
+## [1] see &#39;cooksCutoff&#39; argument of ?results
+## [2] see &#39;independentFiltering&#39; argument of ?results</code></pre>
+</div>
+<div id="acknowledgements" class="section level1">
+<h1><span class="header-section-number">1</span> Acknowledgements</h1>
+<ul>
+<li><a href="https://www.ebi.ac.uk/sites/ebi.ac.uk/files/content.ebi.ac.uk/materials/2012/121029_HTS/ernest_turro_normalising_rna-seq_data.pdf">Normalising RNA-seq data</a> by Ernest Turro<br />
+</li>
+<li>RNA-seq analysis <a href="http://master.bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html">Bioconductor vignette</a></li>
+<li><a href="https://github.com/hbctraining/DGE_workshop/tree/master/lessons">DGE Workshop</a> by HBC training</li>
+</ul>
+<p>title: “Exploratory and differential expression analyses”
+subtitle: “Workshop on RNA-Seq”
+author: “<b>Ashfaq Ali</b> | 24-Nov-2019”
+institute: NBIS, SciLifeLab
+keywords: bioinformatics, course, scilifelab, nbis
+output:
+xaringan::moon_reader:
+encoding: ‘UTF-8’
+self_contained: false
+chakra: ‘assets/remark-latest.min.js’
+css: ‘assets/presentation.css’
+lib_dir: libs
+nature:
+ratio: ‘4:3’
+highlightLanguage: r
+highlightStyle: github
+highlightLines: true
+countIncrementalSlides: false
+slideNumberFormat: “%current%/%total%”
+—
+exclude: true
+count: false</p>
+<p><link href="https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro:300,400,600|Ubuntu+Mono&amp;subset=latin-ext" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"></p>
+<!-- ------------ Only edit title, subtitle & author above this ------------ -->
+<p>name: eda-cor
+## Exploratory Analyses</p>
+<ul>
+<li><strong>Exploratory analyses on samples</strong></li>
+<li>Detect outliers using PCA</li>
+<li>Filter out low quality samples if possible</li>
+<li>Map meta data on PCA plot to find any confounding factors</li>
+<li><p>Sample to sample correlations</p></li>
+<li><p><strong>Exploratory analyses on gene level estimates</strong></p></li>
+<li>Gene counts/library size</li>
+<li>Check if the treatment groups relate to library size</li>
+<li><p>Gene dispersion estimate and visulizations</p></li>
+<li><strong>Exploratory analyses on statitics</strong></li>
+<li>MA plot of base mean vs. LFC</li>
+<li>Histogram of p-values</li>
+<li><p>Plot counts of individual genes</p></li>
+<li><p><strong>Look for warning signs and take action on all levels and use visulizations as much as possible.</strong></p></li>
+</ul>
+<hr />
+<div id="exploratory-correlation-1" class="section level2">
+<h2><span class="header-section-number">1.1</span> Exploratory | Correlation</h2>
+<ul>
+<li>Correlation between samples</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">dmat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">cor</span>(cv,<span class="dt">method=</span><span class="st">&quot;spearman&quot;</span>))</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">pheatmap<span class="op">::</span><span class="kw">pheatmap</span>(dmat,<span class="dt">border_color=</span><span class="ot">NA</span>,<span class="dt">annotation_col=</span>mr[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F],</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">         <span class="dt">annotation_row=</span>mr[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F],<span class="dt">annotation_legend=</span>T)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-32-1.svg" width="528" style="display: block; margin: auto auto auto 0;" /></p>
+<p>name: eda-pca</p>
+</div>
+<div id="exploratory-pca-1" class="section level2">
+<h2><span class="header-section-number">1.2</span> Exploratory | PCA</h2>
+<ul>
+<li>Relationship between samples</li>
+</ul>
+<p>.pull-left-40[
+<img src="_main_files/figure-html/unnamed-chunk-34-1.svg" width="336" style="display: block; margin: auto auto auto 0;" />]</p>
+<p>.pull-right-60[
+<img src="_main_files/figure-html/unnamed-chunk-35-1.svg" width="432" style="display: block; margin: auto auto auto 0;" />]</p>
+<p>name: dge-sf</p>
+</div>
+<div id="dge-size-factors-1" class="section level2">
+<h2><span class="header-section-number">1.3</span> DGE | Size factors</h2>
+<ul>
+<li>Normalisation factors are computed</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">d &lt;-<span class="st"> </span>DESeq2<span class="op">::</span><span class="kw">estimateSizeFactors</span>(d,<span class="dt">type=</span><span class="st">&quot;ratio&quot;</span>)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">sizeFactors</span>(d)</a></code></pre></div>
+<pre><code>##  Sample_1  Sample_2  Sample_3  Sample_4  Sample_5  Sample_6  Sample_7  Sample_8  Sample_9 
+## 0.9003753 0.8437393 0.5106445 1.1276451 1.0941383 0.8133849 0.7553903 1.1744008 1.0189325 
+## Sample_10 Sample_11 Sample_12 
+## 1.3642797 1.2325485 1.8555904</code></pre>
+<table style="width:4%;">
+<colgroup>
+<col width="4%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>.pull-left-50[
+<img src="_main_files/figure-html/unnamed-chunk-39-1.svg" width="336" style="display: block; margin: auto auto auto 0;" />]</td>
+</tr>
+<tr class="even">
+<td>.pull-right-50[
+<img src="_main_files/figure-html/unnamed-chunk-40-1.svg" width="336" style="display: block; margin: auto auto auto 0;" />]</td>
+</tr>
+</tbody>
+</table>
+<p>name: dge-dispersion</p>
+</div>
+<div id="dge-dispersion-1" class="section level2">
+<h2><span class="header-section-number">1.4</span> DGE | Dispersion</h2>
+<ul>
+<li>We need a measure variability of gene counts</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">dm &lt;-<span class="st"> </span><span class="kw">apply</span>(cd,<span class="dv">1</span>,mean)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">dv &lt;-<span class="st"> </span><span class="kw">apply</span>(cd,<span class="dv">1</span>,var)</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">cva &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">sd</span>(x)<span class="op">/</span><span class="kw">mean</span>(x)</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">dc &lt;-<span class="st"> </span><span class="kw">apply</span>(cd,<span class="dv">1</span>,cva)</a></code></pre></div>
+<p>–</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-42-1.svg" width="480" style="display: block; margin: auto auto auto 0;" /></p>
+<ul>
+<li>Dispersion is a measure of variability in gene expression for a given mean</li>
+</ul>
+<p>name: dge-test</p>
+</div>
+<div id="dge-test-1" class="section level2">
+<h2><span class="header-section-number">1.5</span> DGE | Test</h2>
+<ul>
+<li>Log2 fold changes changes are computed after GLM fitting</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">dg &lt;-<span class="st"> </span><span class="kw">nbinomWaldTest</span>(d)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">resultsNames</span>(dg)</a></code></pre></div>
+<pre><code>## [1] &quot;Intercept&quot;      &quot;Time_t2_vs_t0&quot;  &quot;Time_t24_vs_t0&quot; &quot;Time_t6_vs_t0&quot;</code></pre>
+<p>–</p>
+<ul>
+<li>Use <code>results()</code> to customise/return results
+<ul>
+<li>Set coefficients using <code>contrast</code> or <code>name</code></li>
+<li>Filtering by fold change using <code>lfcThreshold</code></li>
+<li><code>cooksCutoff</code> removes outliers</li>
+<li><code>independentFiltering</code></li>
+<li><code>pAdjustMethod</code></li>
+<li><code>alpha</code></li>
+</ul></li>
+</ul>
+<p>name: dge-test-3</p>
+</div>
+<div id="dge-test-2" class="section level2">
+<h2><span class="header-section-number">1.6</span> DGE | Test</h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">head</span>(res1)</a></code></pre></div>
+<pre><code>## log2 fold change (MLE): Time t2 vs t0 
+## Wald test p-value: Time t2 vs t0 
+## DataFrame with 6 rows and 6 columns
+##                         baseMean     log2FoldChange              lfcSE              stat
+##                        &lt;numeric&gt;          &lt;numeric&gt;          &lt;numeric&gt;         &lt;numeric&gt;
+## ENSG00000000003 490.017213130775  0.220619809383817  0.112761083786837  1.95652437857795
+## ENSG00000000419 817.780657499214 0.0592719659603648  0.101481284660981 0.584067950641097
+## ENSG00000000457  82.078767893562  0.207748623173336  0.220404896511899 0.942577168026391
+## ENSG00000000460  356.07160020304 -0.129186381676168  0.115139182333228 -1.12200190289945
+## ENSG00000001036 919.606750211436 0.0288826917736049  0.085150069191275 0.339197513847286
+## ENSG00000001084 529.593965301543  0.211964772147083 0.0929810563101642  2.27965545411762
+##                             pvalue              padj
+##                          &lt;numeric&gt;         &lt;numeric&gt;
+## ENSG00000000003 0.0504034135059863 0.263505451677943
+## ENSG00000000419   0.55917459631142 0.830262316253793
+## ENSG00000000457   0.34589722283033 0.689945926089258
+## ENSG00000000460  0.261861630821574 0.612624613827207
+## ENSG00000001036  0.734460942031804 0.909638554349496
+## ENSG00000001084 0.0226281312354094 0.159263252815164</code></pre>
+<p>–</p>
+<ul>
+<li><h2 id="use-lfcshrink-to-correct-fold-changes-for-high-dispersion-genes"><span class="header-section-number">1.6</span> Use <code>lfcShrink()</code> to correct fold changes for high dispersion genes</h2>
+names: dge-lfcSrink-1</li>
+</ul>
+</div>
+<div id="dge-lfc-shrink" class="section level2">
+<h2><span class="header-section-number">1.7</span> DGE | LFC Shrink</h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># Perform LFC shrinkage.</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">dg2&lt;-<span class="st"> </span><span class="kw">lfcShrink</span>(dg, <span class="dt">res =</span> res1, <span class="dt">coef =</span><span class="st">&quot;Time_t2_vs_t0&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">res2 &lt;-<span class="st"> </span>dg2[<span class="kw">which</span>(dg2<span class="op">$</span>padj<span class="op">&lt;</span><span class="fl">0.05</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">abs</span>(dg2<span class="op">$</span>log2FoldChange) <span class="op">&gt;</span><span class="fl">0.58</span>), ]</a></code></pre></div>
+<table style="width:4%;">
+<colgroup>
+<col width="4%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>.pull-left-50[</td>
+</tr>
+<tr class="even">
+<td><code>r summary(res2)</code></td>
+</tr>
+<tr class="odd">
+<td><code>## ## out of 126 with nonzero total read count ## adjusted p-value &lt; 0.05 ## LFC &gt; 0 (up)       : 46, 37% ## LFC &lt; 0 (down)     : 80, 63% ## outliers [1]       : 0, 0% ## low counts [2]     : 0, 0% ## (mean count &lt; 26) ## [1] see 'cooksCutoff' argument of ?results ## [2] see 'independentFiltering' argument of ?results</code>
+]</td>
+</tr>
+<tr class="even">
+<td>.pull-right-50[</td>
+</tr>
+<tr class="odd">
+<td><code>r res11 &lt;- res1[which(res1$padj&lt;0.05 &amp; abs(res1$log2FoldChange) &gt;0.58), ] # Order based on original LFC summary(res11)</code></td>
+</tr>
+<tr class="even">
+<td><code>## ## out of 382 with nonzero total read count ## adjusted p-value &lt; 0.05 ## LFC &gt; 0 (up)       : 177, 46% ## LFC &lt; 0 (down)     : 205, 54% ## outliers [1]       : 0, 0% ## low counts [2]     : 0, 0% ## (mean count &lt; 26) ## [1] see 'cooksCutoff' argument of ?results ## [2] see 'independentFiltering' argument of ?results</code></td>
+</tr>
+<tr class="odd">
+<td>]</td>
+</tr>
+</tbody>
+</table>
+<p>names: dge-lfcSrink-1</p>
+</div>
+<div id="dge-lfc-shrink-1" class="section level2">
+<h2><span class="header-section-number">1.8</span> DGE | LFC Shrink</h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># Order based on shrinked LFC</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">res2[<span class="kw">order</span>(<span class="kw">abs</span>(res2<span class="op">$</span>log2FoldChange), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>),<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)][<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,]</a></code></pre></div>
+<pre><code>## log2 fold change (MAP): Time t2 vs t0 
+##  
+## DataFrame with 3 rows and 2 columns
+##                         baseMean    log2FoldChange
+##                        &lt;numeric&gt;         &lt;numeric&gt;
+## ENSG00000120875 712.536673053803 -2.30638870245528
+## ENSG00000142627 1572.22058641611 -1.98604476740172
+## ENSG00000139289 1300.91800509536 -1.73454657526826</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># Order based on original LFC</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">res11[<span class="kw">order</span>(<span class="kw">abs</span>(res11<span class="op">$</span>log2FoldChange),<span class="dt">decreasing =</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">             <span class="ot">TRUE</span>),<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)][<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,]</a></code></pre></div>
+<pre><code>## log2 fold change (MLE): Time t2 vs t0 
+##  
+## DataFrame with 3 rows and 2 columns
+##                         baseMean    log2FoldChange
+##                        &lt;numeric&gt;         &lt;numeric&gt;
+## ENSG00000120875 712.536673053803 -2.76414118057782
+## ENSG00000142627 1572.22058641611 -2.38780612309795
+## ENSG00000139318 101.530389195382 -2.38675628664027</code></pre>
+<p><strong><em>The ranks of top DE genes changes after <code>lfcSrink</code></em></strong>, note the <strong>base means</strong>.</p>
+</div>
+</div>
+<div id="acknowledgements-1" class="section level1">
+<h1><span class="header-section-number">2</span> Acknowledgements</h1>
+<ul>
+<li>Slides Originally created by <a href="https://nbis.se/about/staff/roy-francis/">Roy Francis</a> at NBIS</li>
+<li><a href="https://www.ebi.ac.uk/sites/ebi.ac.uk/files/content.ebi.ac.uk/materials/2012/121029_HTS/ernest_turro_normalising_rna-seq_data.pdf">Normalising RNA-seq data</a> by Ernest Turro</li>
+<li>RNA-seq analysis <a href="http://master.bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html">Bioconductor vignette</a></li>
+<li><a href="https://github.com/hbctraining/DGE_workshop/tree/master/lessons">DGE Workshop</a> by HBC training</li>
+</ul>
+<p>title: “Functional analyses”
+subtitle: “Workshop on RNA-Seq”
+author: “<b>Roy Francis</b> | 24-Nov-2019”
+institute: NBIS, SciLifeLab
+keywords: bioinformatics, course, scilifelab, nbis
+output:
+xaringan::moon_reader:
+encoding: ‘UTF-8’
+self_contained: false
+chakra: ‘assets/remark-latest.min.js’
+css: ‘assets/presentation.css’
+lib_dir: libs
+nature:
+ratio: ‘4:3’
+highlightLanguage: r
+highlightStyle: github
+highlightLines: true
+countIncrementalSlides: false
+slideNumberFormat: “%current%/%total%”
+—
+exclude: true
+count: false</p>
+<p><link href="https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro:300,400,600|Ubuntu+Mono&amp;subset=latin-ext" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"></p>
+<!-- ------------ Only edit title, subtitle & author above this ------------ -->
+<p>name: intro</p>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">2.1</span> Introduction</h2>
+<pre><code>  ensembl_gene_id  baseMean log2FoldChange       pvalue    padj
+1 ENSG00000000003 490.01721      0.9145204 3.661641e-17 0.00376
+2 ENSG00000000419 817.78066     -0.1894651 6.001737e-02 0.04354
+3 ENSG00000000457  82.07877      0.3307639 1.207585e-01 0.00005
+4 ENSG00000000460 356.07160     -1.8636578 4.096103e-51 0.00025
+5 ENSG00000001036 919.60675     -0.3482723 3.922539e-05 0.19231
+6 ENSG00000001084 529.59397     -0.6764194 8.192621e-13 0.06244</code></pre>
+<p>–</p>
+<blockquote>
+<p>Is there a pattern in my list of DEGs?</p>
+</blockquote>
+<p>–</p>
+<ul>
+<li>Do my DEGs work together?</li>
+<li>Are they involved in a biological process?</li>
+<li>Are they involved in a pathway?</li>
+<li>Reduce gene lists to terms</li>
+<li>Pick interesting genes based on function</li>
+<li>Less prone to false-positives on the gene-level</li>
+<li>Interpretation of genome-wide results</li>
+</ul>
+<p>name: go</p>
+</div>
+<div id="gene-sets-go" class="section level2">
+<h2><span class="header-section-number">2.2</span> Gene sets • GO</h2>
+<p>.pull-left-50[
+- Three categories: Biological process, Molecular function, Cellular component
+- Displayed as a network graph
+- Genes are shared between multiple terms</p>
+<p><img src="images/go-network.jpg" />
+]</p>
+<p>.pull-right-50[
+- Almost hierarchical
+- Terms get detailed down the hierarchy
+- A term can have multiple parents</p>
+<p><img src="images/go.png" />
+]</p>
+<p>name: gsa</p>
+</div>
+<div id="gene-set-analyses-gsa" class="section level2">
+<h2><span class="header-section-number">2.3</span> Gene set analyses (GSA)</h2>
+<ul>
+<li>Requires cut-off</li>
+<li>Omits any expression metric</li>
+<li>Good to test overlap of signif genes in two comparisons</li>
+<li>Computationally fast</li>
+</ul>
+<p>.size-90[<img src="images/ora.png" />]</p>
+<p>name: gsea</p>
+</div>
+<div id="gene-set-enrichment-analyses-gsea" class="section level2">
+<h2><span class="header-section-number">2.4</span> Gene set enrichment analyses (GSEA)</h2>
+<ul>
+<li>All genes are used</li>
+<li>Ranked by an expression metric/gene-level statistic</li>
+</ul>
+<p><img src="images/gsea.jpg" /></p>
+<p>name: tools</p>
+</div>
+<div id="tools" class="section level2">
+<h2><span class="header-section-number">2.5</span> Tools</h2>
+<div id="r-packages" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> R packages</h3>
+<p>topGO, goana, goseq, topKEGG, kegga, enrichR, piano, clusterProfiler, Pathview, fgsea, gprofileR</p>
+</div>
+<div id="online" class="section level3">
+<h3><span class="header-section-number">2.5.2</span> Online</h3>
+<p><a href="https://david.ncifcrf.gov/">DAVID</a>, <a href="http://cbl-gorilla.cs.technion.ac.il/">GOrilla</a>, <a href="https://amp.pharm.mssm.edu/Enrichr/">Enrichr</a>, <a href="http://revigo.irb.hr/">Revigo</a>, <a href="http://webgestalt.org/">Webgestalt</a>, <a href="http://pantherdb.org/">Panther</a>, <a href="https://www.arabidopsis.org/tools/go_term_enrichment.jsp">Tair</a></p>
+</div>
+<div id="downloadable" class="section level3">
+<h3><span class="header-section-number">2.5.3</span> Downloadable</h3>
+<p><a href="http://software.broadinstitute.org/gsea/index.jsp">GSEA</a>, <a href="https://erminej.msl.ubc.ca/">ErmineJ</a>, <a href="https://www.qiagenbioinformatics.com/products/ingenuity-pathway-analysis/">Ingenity Pathway analyses</a></p>
+<p>name: ack</p>
+</div>
+</div>
+<div id="acknowledgements-2" class="section level2">
+<h2><span class="header-section-number">2.6</span> Acknowledgements</h2>
+<ul>
+<li>Slides by Leif Wigge</li>
+</ul>
+<hr />
+<p>name: end_slide
+class: end-slide, middle
+count: false</p>
+</div>
+</div>
+<div id="thank-you.-questions" class="section level1">
+<h1><span class="header-section-number">3</span> Thank you. Questions?</h1>
+.end-text[
+<p>
+R version 3.6.1 (2019-07-05)<br>
+<p>
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+</p>
+<p>
+OS: macOS Catalina 10.15.1
+</p>
+<p><br></p>
+<hr>
+<p><span class="small">Built on : <i class='fa fa-calendar' aria-hidden='true'></i> 24-Nov-2019 at <i class='fa fa-clock-o' aria-hidden='true'></i> 20:10:06</span></p>
+<p><b>2019</b> • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://nbis.se/">NBIS</a>
+]</p>
+<!--chapter:end:presentation_functional.Rmd-->
+</div>
+<!--bookdown:body:end-->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<!--bookdown:link_prev-->
+<!--bookdown:link_next-->
+    </div>
+  </div>
+<!--bookdown:config-->
+
+</body>
+
+</html>
