@@ -1,12 +1,12 @@
-name: Workshop on RNA-Seq
+name: Workshop on ggplot
 favicon: assets/favicon.png
 output_dir: docs
 exclude: ["data","docs","README.md","schedule.csv","LICENSE"]
 navbar:
-  title: "<b>NBIS • Workshop on RNA-Seq</b>"
+  title: "<b>NBIS • Workshop on ggplot</b>"
   logo:
     image: "assets/logo-white.svg"
-    href: https://nbisweden.github.io/course_rnaseq
+    href: https://nbisweden.github.io/Workshop_geneco_2005
   right:
     - text: Home
       icon: fa-home
