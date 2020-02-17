@@ -1,6 +1,6 @@
 # course_rnaseq
 
-This repo contains the course material for NBIS course **Workshop on RNA-Seq**. The rendered view of this repo is available [here](https://nbisweden.github.io/rnaseq_201911/docs).   
+This repo contains the course material for the NBIS/GENECO course **Workshop on ggplot**. The rendered view of this repo is available [here](https://nbisweden.github.io/Workshop_geneco_2020_05/docs/).   
 
 ## Contributing
 
@@ -76,5 +76,5 @@ For testing purposes, you can run `rmarkdown::render("bla.Rmd")` on individual R
 
 ---
 
-**2019** NBIS | SciLifeLab
-# rnaseq_201911
+**2020** NBIS | SciLifeLab
+# Workshop_geneco_2020_05

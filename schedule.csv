@@ -1,38 +1,24 @@
 date;room;dur;topic;person;link_presentation;link_lab;link_room
-26/11/2019;"Retina; D227";40;Welcome;Dag Ahrén;;;https://tinyurl.com/yyaf3zbb
-;;40;RNA Introduction;Dag Ahrén;presentations/RNA_introduction.pdf;;
+13/05/2020;"Retina; D227";30;Welcome;Dag Ahrén;;;https://tinyurl.com/yyaf3zbb
+;;30;R Introduction lecture;Lokesh;;;
 ;;20;Coffee Break;;;;
-;;40;RNA-Seq Introduction;Dag Ahrén;presentations/RNAseq_Introduction.pdf;;
-;;40;Unix & Uppmax;Dag Ahrén;presentations/Uppmax.pdf;;
+;;70;R Introduction Lab (ggplot specific stuffs);Lokesh;;;
+;;30;Basic ggplot lecture;;;
 ;;60;Lunch;;;;
-;;40;Pre-alignment QC;Lokesh Manoharan;presentations/After_sequencing_QC.pdf;lab_qc.html;
-;;40;Mapping;Lokesh Manoharan;presentations/RNAseq_aligners.pdf;lab_mapping.html;
-;;40;Post-alignment QC;Lokesh Manoharan;presentations/After_mapping_QC.pdf;lab_qc.html;
+;;50;Basic plotting (geoms, aesthetics and stats);Lokesh;;;
+;;20;colors shape axes and facet (lecture);Lokesh;;;
+;;50;colors shape axes and facet (lab);Lokesh;;;
 ;;20;Coffee Break;;;;
-;;40;Quantification;Markus Ringnér;presentations/Quantification.pdf;lab_quantification.html;
-;;40;Pseudoaligners;Markus Ringnér ;presentations/Pseudoaligners.pdf;lab_kallisto.html;
-27/11/2019;"Retina; D227";40;Intro to R;Lokesh Manoharan;;lab_r.html;
-;;40;Retrieving Data;Lokesh Manoharan;;lab_download.html;
+;;20;co-ordinates legend and theme (lecture);Lokesh;;;
+;;80;co-ordinates legend and theme (lab);Lokesh;;;
+14/05/2020;"Retina; D227";30;Grid graphics (lecture);Markus;;;https://tinyurl.com/yyaf3zbb
+;;30;Plotting PCA, heatmap and others (lecture);Markus;;;
 ;;20;Coffee Break;;;;
-;;40;Data Preprocessing;Lokesh Manoharan;presentations/presentation_dge.html;lab_dge.html;
-;;40;Normalisation;Lokesh Manoharan;;;
+;;50;making PCA, heatmap and others (lab);Markus;;;
+;;50;combining plots (lab);Lokesh;;;
 ;;60;Lunch;;;;
-;;40;Exploratory Analyses;Ashfaq Ali;presentations/presentation_exploratory_analyses.pdf;lab_dge.html;
-;;40;DGE;Ashfaq Ali;;;
-;;40;DGE;Ashfaq Ali;;;
+;;60;making PCA, heatmap and others (more lab);Markus;;;
+;;60;combining plots (more lab);Lokesh;;;
 ;;20;Coffee Break;;;;
-;;40;DGE Visualisation;Markus Ringnér;;;
-;;40;DGE Visualisation;Markus Ringnér;;;
-;;80;Break;;;;
-;;120;"Course dinner at 1800 or 1830 in Valvet";;;https://goo.gl/maps/3RysNYTSS5os7CTq8
-28/11/2019;"Retina; D227";40;PCA;Markus Ringnér;;;
-;;40;Hierarchical Clustering;Markus Ringnér;;;
-;;20;Coffee Break;;;;
-;;40;Hierarchical Clustering;Markus Ringnér;;;
-;;40;GSA & GSEA;Ashfaq Ali;presentations/presentation_functional.html;lab_functional.html;
-;;60;Lunch;;;;
-;;40;GSA & GSEA;Ashfaq Ali;;;
-;;40;GEO;Ashfaq Ali;;lab_functional_piano.html;
-;;40;Free Exercises;-;;;
-;;20;Coffee Break;;;;
-;;40;Conclusion;TBA;;;
+;;50;Optional exercises with phylogenetic tree (lab);Lokesh;;;
+;;50;Optional exercises with map-data (lab);Lokesh;;;

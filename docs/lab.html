@@ -495,73 +495,13 @@ sh
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p>Most of the analyses is carried out in R and it will be useful to learn some basic R.</p>
 <p><a href="lab_r.html"><i class="fas fa-link"></i> <span class="large">Introduction to R</span></a></p>
-<p>This topic covers retrieving supporting data needed for RNA-seq analyses. These include gene annotation IDs such as mapping between Ensembl IDs and Gene IDs, GO terms and transcript IDs. We also cover retrieving genomic data from Ensembl.</p>
+<p>This topic covers retrieving data needed for all the exercises in the entire course can be found in the following link.</p>
 <p><a href="lab_download.html"><i class="fas fa-link"></i> <span class="large">Downloading data</span></a></p>
 </div>
 <div id="main-lab" class="section level1">
 <h1><span class="header-section-number">2</span> Main lab</h1>
-<div id="data" class="section level2">
-<h2><span class="header-section-number">2.1</span> Data</h2>
-<p>In most of the exercises, we will use RNA-seq data (Illumina short reads) from the human A431 cell line. It is an epidermoid carcinoma cell line which is often used to study cancer and the cell cycle, and as a sort of positive control of epidermal growth factor receptor (EGFR) expression. A431 cells express very high levels of EGFR, in contrast to normal human fibroblasts.</p>
-<p>The A431 cells were treated with gefinitib, which is an EGFR inhibitor and is used (under the trade name Iressa) as a drug to treat cancers with mutated and overactive EGFR. In the experiment, RNA was extracted at four time points: before the gefinitib treatment (t=0), and two, six and twenty-four hours after treatment (t=2, t=6, t=24, respectively), and sequenced using an Illumina HiSeq instrument in triplicates (thus there are 3x4=12 samples).</p>
-<p>This data set or parts of it will be used in the labs on read mapping, transcript assembly, visualization, quality control and differential expression. There are many relevant questions that could be asked based on these measurements. In the QC exercise, we are going to examine if the RNA libraries that we work with are what we think they are or if there is any mislabelling. In the isoform exercise, we are going to look at some specific regions where the mass-spectrometry data indicated that novel exons or splice variants could be present at the protein level. We will use (part of) the RNA-seq data to examine if there is corresponding evidence on the mRNA level, and how different software tools could be used to detect novel gene variants.</p>
-</div>
-<div id="quality-control" class="section level2">
-<h2><span class="header-section-number">2.2</span> Quality control</h2>
-<p>Before doing any other analysis on mapped RNA-seq reads it is always important to do quality control of your mapped reads and that you do not have any obvious errors in your RNA-seq data.</p>
-<p><a href="lab_qc.html"><i class="fas fa-link"></i> <span class="large">Quality control</span></a></p>
-</div>
-<div id="mapping" class="section level2">
-<h2><span class="header-section-number">2.3</span> Mapping</h2>
-<p>This section contains information on how to map reads to a reference genome using splice-aware aligner STAR and HISAT2.</p>
-<p><a href="lab_mapping.html"><i class="fas fa-link"></i> <span class="large">Mapping reads using STAR</span></a></p>
-</div>
-<div id="igv" class="section level2">
-<h2><span class="header-section-number">2.4</span> IGV</h2>
-<p>Mapped reads in BAM files are visualised using integrated genome viewer.</p>
-<p><a href="lab_igv.html"><i class="fas fa-link"></i> <span class="large">Using IGV</span></a></p>
-</div>
-<div id="quantification" class="section level2">
-<h2><span class="header-section-number">2.5</span> Quantification</h2>
-<p>Gene counts are quantified from BAM files using featureCounts.</p>
-<p><a href="lab_quantification.html"><i class="fas fa-link"></i> <span class="large">Quantification</span></a></p>
-</div>
-<div id="differential-gene-expression" class="section level2">
-<h2><span class="header-section-number">2.6</span> Differential gene expression</h2>
-<p>We find genes that are differentially expressed between our time points.</p>
-<p><a href="lab_dge.html"><i class="fas fa-link"></i> <span class="large">DGE using DEseq2</span></a></p>
-</div>
-<div id="functional-analysis" class="section level2">
-<h2><span class="header-section-number">2.7</span> Functional analysis</h2>
-<p>We will perform functional analysis on the differentially expressed genes to place them into a function context and possibly explain the biological consequences of DE. Methods covered are GSA (Gene set analysis) and GSEA (Gene set enrichment analysis).</p>
-<p><a href="lab_functional.html"><i class="fas fa-link"></i> <span class="large">Functional analysis</span></a></p>
-</div>
-</div>
-<div id="bonus-labs" class="section level1">
-<h1><span class="header-section-number">3</span> Bonus labs</h1>
-<div id="exploratory-data-analyses" class="section level2">
-<h2><span class="header-section-number">3.1</span> Exploratory data analyses</h2>
-<p>This section dives deeper into exploratory analyses PCA and hierarchical clustering.</p>
-<p><a href="lab_eda.html"><i class="fas fa-link"></i> <span class="large">PCA &amp; Hierarchical clustering</span></a></p>
-</div>
-<div id="pseudoaligners" class="section level2">
-<h2><span class="header-section-number">3.2</span> Pseudoaligners</h2>
-<p>Kallisto uses FastQ reads and a reference transcriptome (cDNA+ncRNA) to quantify transcripts using rapid pseudo-alignment along with bootstrap replicates to assess quantification inaccuracy. Kallisto is significantly faster than STAR or HISAT2 and has a small memory footprint. Differential gene expression is carried out using Sleuth which utilises bootstrap replicates.</p>
-<p><a href="lab_kallisto.html"><i class="fas fa-link"></i> <span class="large">Mapping and quantification using Kallisto, DGE using Sleuth</span></a></p>
-</div>
-<div id="small-rna-analyses" class="section level2">
-<h2><span class="header-section-number">3.3</span> small RNA analyses</h2>
-<p>RNA-seq differential analyses workflow on microRNAs from Fruit fly.</p>
-<p><a href="lab_smallrna.html"><i class="fas fa-link"></i> <span class="large">Small RNA-seq analyses</span></a></p>
-</div>
-<div id="assembly-annotation" class="section level2">
-<h2><span class="header-section-number">3.4</span> Assembly &amp; annotation</h2>
-<p>Raw sequencing short reads are assembled into transcripts using two approaches. Genome-guided assembly using HiSat2 and StringTie. De-novo transcriptome assembly using Trinity. Assembled transcriptomes are functionally annotated to identify genes.</p>
-<p><a href="lab_assembly.html"><i class="fas fa-link"></i> <span class="large">Reference-guided assembly using StringTie</span></a><br />
-<a href="lab_assembly.html"><i class="fas fa-link"></i> <span class="large">De-novo assembly using Trinity</span></a><br />
-<a href="lab_annotation.html"><i class="fas fa-link"></i> <span class="large">Transcriptome annotation</span></a></p>
+<p><em>Each of the labs will be updated here eventually</em></p>
 <p><strong>End of document</strong></p>
-</div>
 </div>
 
 

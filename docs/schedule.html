@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
@@ -14,16 +13,16 @@
 
 <title> Schedule</title>
 
-<script src="schedule_files/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="schedule_files/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
-<script src="schedule_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="schedule_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="schedule_files/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="schedule_files/navigation-1.1/tabsets.js"></script>
-<script src="schedule_files/kePrint-0.0.1/kePrint.js"></script>
-<link href="schedule_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="schedule_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 
 
@@ -71,7 +70,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -220,6 +218,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -255,7 +254,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html"><b>NBIS • Workshop on RNA-Seq</b></a>
+      <a class="navbar-brand" href="index.html"><b>NBIS • Workshop on ggplot</b></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -336,14 +335,14 @@ Person
 <td colspan="3" style="background:white;">
 <strong>
 <p style="font-size:110%;padding-top:10px;padding-bottom:5px;margin-top:10px;">
-<span style="font-weight:bold;"><span style="color:#0093BD;"><i class="fas fa-calendar" style="margin-left:5px;margin-right:5px;"></i></span>26-Nov-2019</span><span style="color:white;border-radius:4px;padding-right:4px;padding-left:4px;background:#0093BD;margin-left:9px;margin-right:7px;">Tue</span><span style="color:#0093BD;"><i class="fas fa-map-marker-alt" style="margin-left:5px;margin-right:5px;"></i></span><a href="https://tinyurl.com/yyaf3zbb">Retina; D227</a>
+<span style="font-weight:bold;"><span style="color:#0093BD;"><i class="fas fa-calendar" style="margin-left:5px;margin-right:5px;"></i></span>13-May-2020</span><span style="color:white;border-radius:4px;padding-right:4px;padding-left:4px;background:#0093BD;margin-left:9px;margin-right:7px;">Wed</span><span style="color:#0093BD;"><i class="fas fa-map-marker-alt" style="margin-left:5px;margin-right:5px;"></i></span><a href="https://tinyurl.com/yyaf3zbb">Retina; D227</a>
 </p>
 </strong>
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-09:00 - 09:40<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+09:00 - 09:30<span style="color:lightgrey;margin-left:4px;">(30 min)</span>
 </td>
 <td style="text-align:left;">
 <span style="margin-right:5px;">Welcome</span>
@@ -354,18 +353,18 @@ Dag Ahrén
 </tr>
 <tr>
 <td style="text-align:left;">
-09:40 - 10:20<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+09:30 - 10:00<span style="color:lightgrey;margin-left:4px;">(30 min)</span>
 </td>
 <td style="text-align:left;">
-<span><span style="margin-right:5px;">RNA Introduction</span><a href="presentations/RNA_introduction.pdf"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span>
+<span style="margin-right:5px;">R Introduction lecture</span>
 </td>
 <td style="text-align:left;">
-Dag Ahrén
+Lokesh
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-10:20 - 10:40<span style="color:lightgrey;margin-left:4px;">(20 min)</span>
+10:00 - 10:20<span style="color:lightgrey;margin-left:4px;">(20 min)</span>
 </td>
 <td style="text-align:left;">
 <span style="color:white;font-weight:bold;border-radius:4px;padding:4px;background:#BDBDBD;">Coffee Break</span>
@@ -375,24 +374,23 @@ Dag Ahrén
 </tr>
 <tr>
 <td style="text-align:left;">
-10:40 - 11:20<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+10:20 - 11:30<span style="color:lightgrey;margin-left:4px;">(70 min)</span>
 </td>
 <td style="text-align:left;">
-<span><span style="margin-right:5px;">RNA-Seq Introduction</span><a href="presentations/RNAseq_Introduction.pdf"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span>
+<span style="margin-right:5px;">R Introduction Lab (ggplot specific stuffs)</span>
 </td>
 <td style="text-align:left;">
-Dag Ahrén
+Lokesh
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-11:20 - 12:00<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+11:30 - 12:00<span style="color:lightgrey;margin-left:4px;">(30 min)</span>
 </td>
 <td style="text-align:left;">
-<span><span style="margin-right:5px;">Unix &amp; Uppmax</span><a href="presentations/Uppmax.pdf"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span>
+<span style="margin-right:5px;">Basic ggplot lecture</span>
 </td>
 <td style="text-align:left;">
-Dag Ahrén
 </td>
 </tr>
 <tr>
@@ -407,173 +405,35 @@ Dag Ahrén
 </tr>
 <tr>
 <td style="text-align:left;">
-13:00 - 13:40<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+13:00 - 13:50<span style="color:lightgrey;margin-left:4px;">(50 min)</span>
 </td>
 <td style="text-align:left;">
-<span><span><span style="margin-right:5px;">Pre-alignment QC</span><a href="presentations/After_sequencing_QC.pdf"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span><a href="lab_qc.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
+<span style="margin-right:5px;">Basic plotting (geoms, aesthetics and stats)</span>
 </td>
 <td style="text-align:left;">
-Lokesh Manoharan
+Lokesh
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-13:40 - 14:20<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+13:50 - 14:10<span style="color:lightgrey;margin-left:4px;">(20 min)</span>
 </td>
 <td style="text-align:left;">
-<span><span><span style="margin-right:5px;">Mapping</span><a href="presentations/RNAseq_aligners.pdf"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span><a href="lab_mapping.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
+<span style="margin-right:5px;">colors shape axes and facet (lecture)</span>
 </td>
 <td style="text-align:left;">
-Lokesh Manoharan
+Lokesh
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-14:20 - 15:00<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+14:10 - 15:00<span style="color:lightgrey;margin-left:4px;">(50 min)</span>
 </td>
 <td style="text-align:left;">
-<span><span><span style="margin-right:5px;">Post-alignment QC</span><a href="presentations/After_mapping_QC.pdf"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span><a href="lab_qc.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
+<span style="margin-right:5px;">colors shape axes and facet (lab)</span>
 </td>
 <td style="text-align:left;">
-Lokesh Manoharan
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-15:00 - 15:20<span style="color:lightgrey;margin-left:4px;">(20 min)</span>
-</td>
-<td style="text-align:left;">
-<span style="color:white;font-weight:bold;border-radius:4px;padding:4px;background:#BDBDBD;">Coffee Break</span>
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-15:20 - 16:00<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span><span><span style="margin-right:5px;">Quantification</span><a href="presentations/Quantification.pdf"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span><a href="lab_quantification.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
-</td>
-<td style="text-align:left;">
-Markus Ringnér
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-16:00 - 16:40<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span><span><span style="margin-right:5px;">Pseudoaligners</span><a href="presentations/Pseudoaligners.pdf"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span><a href="lab_kallisto.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
-</td>
-<td style="text-align:left;">
-Markus Ringnér
-</td>
-</tr>
-<tr grouplength="14">
-<td colspan="3" style="background:white;">
-<strong>
-<p style="font-size:110%;padding-top:10px;padding-bottom:5px;margin-top:10px;">
-<span style="font-weight:bold;"><span style="color:#0093BD;"><i class="fas fa-calendar" style="margin-left:5px;margin-right:5px;"></i></span>27-Nov-2019</span><span style="color:white;border-radius:4px;padding-right:4px;padding-left:4px;background:#0093BD;margin-left:9px;margin-right:7px;">Wed</span><span style="color:#0093BD;"><i class="fas fa-map-marker-alt" style="margin-left:5px;margin-right:5px;"></i></span><a href="https://tinyurl.com/yyaf3zbb">Retina; D227</a>
-</p>
-</strong>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-09:00 - 09:40<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span><span style="margin-right:5px;">Intro to R</span><a href="lab_r.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
-</td>
-<td style="text-align:left;">
-Lokesh Manoharan
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-09:40 - 10:20<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span><span style="margin-right:5px;">Retrieving Data</span><a href="lab_download.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
-</td>
-<td style="text-align:left;">
-Lokesh Manoharan
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-10:20 - 10:40<span style="color:lightgrey;margin-left:4px;">(20 min)</span>
-</td>
-<td style="text-align:left;">
-<span style="color:white;font-weight:bold;border-radius:4px;padding:4px;background:#BDBDBD;">Coffee Break</span>
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-10:40 - 11:20<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span><span><span style="margin-right:5px;">Data Preprocessing</span><a href="presentations/presentation_dge.html"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span><a href="lab_dge.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
-</td>
-<td style="text-align:left;">
-Lokesh Manoharan
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-11:20 - 12:00<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span style="margin-right:5px;">Normalisation</span>
-</td>
-<td style="text-align:left;">
-Lokesh Manoharan
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-12:00 - 13:00<span style="color:lightgrey;margin-left:4px;">(60 min)</span>
-</td>
-<td style="text-align:left;">
-<span style="color:white;font-weight:bold;border-radius:4px;padding:4px;background:#BDBDBD;">Lunch</span>
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-13:00 - 13:40<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span><span><span style="margin-right:5px;">Exploratory Analyses</span><a href="presentations/presentation_exploratory_analyses.pdf"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span><a href="lab_dge.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
-</td>
-<td style="text-align:left;">
-Ashfaq Ali
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-13:40 - 14:20<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span style="margin-right:5px;">DGE</span>
-</td>
-<td style="text-align:left;">
-Ashfaq Ali
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-14:20 - 15:00<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span style="margin-right:5px;">DGE</span>
-</td>
-<td style="text-align:left;">
-Ashfaq Ali
+Lokesh
 </td>
 </tr>
 <tr>
@@ -588,80 +448,60 @@ Ashfaq Ali
 </tr>
 <tr>
 <td style="text-align:left;">
-15:20 - 16:00<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+15:20 - 15:40<span style="color:lightgrey;margin-left:4px;">(20 min)</span>
 </td>
 <td style="text-align:left;">
-<span style="margin-right:5px;">DGE Visualisation</span>
+<span style="margin-right:5px;">co-ordinates legend and theme (lecture)</span>
 </td>
 <td style="text-align:left;">
-Markus Ringnér
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-16:00 - 16:40<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span style="margin-right:5px;">DGE Visualisation</span>
-</td>
-<td style="text-align:left;">
-Markus Ringnér
+Lokesh
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-16:40 - 18:00<span style="color:lightgrey;margin-left:4px;">(80 min)</span>
+15:40 - 17:00<span style="color:lightgrey;margin-left:4px;">(80 min)</span>
 </td>
 <td style="text-align:left;">
-<span style="margin-right:5px;">Break</span>
+<span style="margin-right:5px;">co-ordinates legend and theme (lab)</span>
 </td>
 <td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-18:00 - 20:00<span style="color:lightgrey;margin-left:4px;">(120 min)</span>
-</td>
-<td style="text-align:left;">
-<span><span style="margin-right:5px;">Course dinner at 1800 or 1830 in Valvet</span><a href="https://goo.gl/maps/3RysNYTSS5os7CTq8"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
-</td>
-<td style="text-align:left;">
+Lokesh
 </td>
 </tr>
 <tr groupLength="11">
 <td colspan="3" style="background:white;">
 <strong>
 <p style="font-size:110%;padding-top:10px;padding-bottom:5px;margin-top:10px;">
-<span style="font-weight:bold;"><span style="color:#0093BD;"><i class="fas fa-calendar" style="margin-left:5px;margin-right:5px;"></i></span>28-Nov-2019</span><span style="color:white;border-radius:4px;padding-right:4px;padding-left:4px;background:#0093BD;margin-left:9px;margin-right:7px;">Thu</span><span style="color:#0093BD;"><i class="fas fa-map-marker-alt" style="margin-left:5px;margin-right:5px;"></i></span><a href="https://tinyurl.com/yyaf3zbb">Retina; D227</a>
+<span style="font-weight:bold;"><span style="color:#0093BD;"><i class="fas fa-calendar" style="margin-left:5px;margin-right:5px;"></i></span>14-May-2020</span><span style="color:white;border-radius:4px;padding-right:4px;padding-left:4px;background:#0093BD;margin-left:9px;margin-right:7px;">Thu</span><span style="color:#0093BD;"><i class="fas fa-map-marker-alt" style="margin-left:5px;margin-right:5px;"></i></span><a href="https://tinyurl.com/yyaf3zbb">Retina; D227</a>
 </p>
 </strong>
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-09:00 - 09:40<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+09:00 - 09:30<span style="color:lightgrey;margin-left:4px;">(30 min)</span>
 </td>
 <td style="text-align:left;">
-<span style="margin-right:5px;">PCA</span>
+<span style="margin-right:5px;">Grid graphics (lecture)</span>
 </td>
 <td style="text-align:left;">
-Markus Ringnér
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-09:40 - 10:20<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span style="margin-right:5px;">Hierarchical Clustering</span>
-</td>
-<td style="text-align:left;">
-Markus Ringnér
+Markus
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-10:20 - 10:40<span style="color:lightgrey;margin-left:4px;">(20 min)</span>
+09:30 - 10:00<span style="color:lightgrey;margin-left:4px;">(30 min)</span>
+</td>
+<td style="text-align:left;">
+<span style="margin-right:5px;">Plotting PCA, heatmap and others (lecture)</span>
+</td>
+<td style="text-align:left;">
+Markus
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10:00 - 10:20<span style="color:lightgrey;margin-left:4px;">(20 min)</span>
 </td>
 <td style="text-align:left;">
 <span style="color:white;font-weight:bold;border-radius:4px;padding:4px;background:#BDBDBD;">Coffee Break</span>
@@ -671,24 +511,24 @@ Markus Ringnér
 </tr>
 <tr>
 <td style="text-align:left;">
-10:40 - 11:20<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+10:20 - 11:10<span style="color:lightgrey;margin-left:4px;">(50 min)</span>
 </td>
 <td style="text-align:left;">
-<span style="margin-right:5px;">Hierarchical Clustering</span>
+<span style="margin-right:5px;">making PCA, heatmap and others (lab)</span>
 </td>
 <td style="text-align:left;">
-Markus Ringnér
+Markus
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-11:20 - 12:00<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+11:10 - 12:00<span style="color:lightgrey;margin-left:4px;">(50 min)</span>
 </td>
 <td style="text-align:left;">
-<span><span><span style="margin-right:5px;">GSA &amp; GSEA</span><a href="presentations/presentation_functional.html"><i class="fas fa-file-powerpoint" style="margin-left:4px;margin-right:4px;"></i></a></span><a href="lab_functional.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
+<span style="margin-right:5px;">combining plots (lab)</span>
 </td>
 <td style="text-align:left;">
-Ashfaq Ali
+Lokesh
 </td>
 </tr>
 <tr>
@@ -703,36 +543,25 @@ Ashfaq Ali
 </tr>
 <tr>
 <td style="text-align:left;">
-13:00 - 13:40<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+13:00 - 14:00<span style="color:lightgrey;margin-left:4px;">(60 min)</span>
 </td>
 <td style="text-align:left;">
-<span style="margin-right:5px;">GSA &amp; GSEA</span>
+<span style="margin-right:5px;">making PCA, heatmap and others (more lab)</span>
 </td>
 <td style="text-align:left;">
-Ashfaq Ali
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-13:40 - 14:20<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
-</td>
-<td style="text-align:left;">
-<span><span style="margin-right:5px;">GEO</span><a href="lab_functional_piano.html"><i class="fas fa-file-alt" style="margin-left:4px;margin-right:4px;"></i></a></span>
-</td>
-<td style="text-align:left;">
-Ashfaq Ali
+Markus
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-14:20 - 15:00<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+14:00 - 15:00<span style="color:lightgrey;margin-left:4px;">(60 min)</span>
 </td>
 <td style="text-align:left;">
-<span style="margin-right:5px;">Free Exercises</span>
+<span style="margin-right:5px;">combining plots (more lab)</span>
 </td>
 <td style="text-align:left;">
-<ul>
-<li></td>
+Lokesh
+</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -746,26 +575,29 @@ Ashfaq Ali
 </tr>
 <tr>
 <td style="text-align:left;">
-15:20 - 16:00<span style="color:lightgrey;margin-left:4px;">(40 min)</span>
+15:20 - 16:10<span style="color:lightgrey;margin-left:4px;">(50 min)</span>
 </td>
 <td style="text-align:left;">
-<span style="margin-right:5px;">Conclusion</span>
+<span style="margin-right:5px;">Optional exercises with phylogenetic tree (lab)</span>
 </td>
 <td style="text-align:left;">
-TBA
+Lokesh
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+16:10 - 17:00<span style="color:lightgrey;margin-left:4px;">(50 min)</span>
+</td>
+<td style="text-align:left;">
+<span style="margin-right:5px;">Optional exercises with map-data (lab)</span>
+</td>
+<td style="text-align:left;">
+Lokesh
 </td>
 </tr>
 </tbody>
-</table></li>
-</ul>
-<!-- marker legend -->
-<p class="small" style="margin-top:20px;">
-<span> <span style="margin-left:6px;margin-right:6px;&gt;
-&lt;i class=" fas="" fa-calendar'="" style="margin-left:4px;margin-right:4px;"> <i class='fas fa-calendar' style='margin-left:4px;margin-right:4px;'></i> Date </span> <span style="margin-left:6px;margin-right:6px;&gt;
-&lt;i class=" fas="" fa-map-marker-alt'="" style="margin-left:4px;margin-right:4px;"> <i class='fas fa-map-marker-alt' style='margin-left:4px;margin-right:4px;'></i> Room number </span> <span style="margin-left:6px;margin-right:6px;&gt;
-&lt;i class=" fas="" fa-file-powerpoint'="" style="margin-left:4px;margin-right:4px;"> <i class='fas fa-file-powerpoint' style='margin-left:4px;margin-right:4px;'></i> Presentation </span> <span style="margin-left:6px;margin-right:6px;&gt;
-&lt;i class=" fas="" fa-file-alt'="" style="margin-left:4px;margin-right:4px;"> <i class='fas fa-file-alt' style='margin-left:4px;margin-right:4px;'></i> Lab exercises </span> </span>
-</p>
+</table>
+<p><span> <i class='fas fa-calendar' style='margin-left:4px;margin-right:4px;'></i> Date </span> <i class='fas fa-map-marker-alt' style='margin-left:4px;margin-right:4px;'></i> Room number </span> <i class='fas fa-file-powerpoint' style='margin-left:4px;margin-right:4px;'></i> Presentation </span><i class='fas fa-file-alt' style='margin-left:4px;margin-right:4px;'></i> Lab exercises </span> </span></p>
 </div>
 
 
@@ -773,7 +605,7 @@ TBA
 <div class="container" style="padding-top:5px;padding-bottom:5px;">
 <p>
 <span style="float:left; vertical-align:middle">
-<b>2019 </b><a href="https://nbis.se/">NBIS</a> • <a href="https://www.scilifelab.se/">SciLifeLab</a>
+<b>2020 </b><a href="https://nbis.se/">NBIS</a> • <a href="https://www.scilifelab.se/">SciLifeLab</a> • <a href="https://www.biology.lu.se/education/phd-studies/graduate-research-school-in-genomic-ecology">GENECO</a>
 </span>
 <span style="float:right; vertical-align:middle">
 <span class="footericon" style="padding-right:4px; padding-left:4px">

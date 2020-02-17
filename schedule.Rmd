@@ -78,6 +78,9 @@ s %>%
 ```
 
 
+<span> <i class='fas fa-calendar' style='margin-left:4px;margin-right:4px;'></i> Date </span> <i class='fas fa-map-marker-alt' style='margin-left:4px;margin-right:4px;'></i> Room number </span> <i class='fas fa-file-powerpoint' style='margin-left:4px;margin-right:4px;'></i> Presentation </span><i class='fas fa-file-alt' style='margin-left:4px;margin-right:4px;'></i> Lab exercises </span> </span>
+
+
 </div>
 
 

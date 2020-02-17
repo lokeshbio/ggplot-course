@@ -403,33 +403,26 @@ $(document).ready(function () {
 <!-- custom fonts -->
 <p><link href="https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro:300,400,600|Ubuntu+Mono&amp;subset=latin-ext" rel="stylesheet"></p>
 <p><br></p>
-<p>These are steps to be completed before the course.</p>
-<ul>
-<li><p>A remote computing cluster (UPPMAX) will be use for handling raw sequence data. A SUPR/SNIC account is needed to use UPPMAX resources. If you do not already have one, <a href="https://supr.snic.se/">create an account</a>. Log in to <a href="https://supr.snic.se/">SUPR/SNIC</a> and request membership to the project <strong>g2019XXX</strong>.</p></li>
-<li><p>Make sure you can connect to the Uppmax cluster Rackham through a terminal. If you are on a PC, we recommend <a href="http://mobaxterm.mobatek.net">MobaXterm</a>. For MobaXterm users, it is recommended that you install the program and not use the portable version. Type <code>ssh -Y user@rackham.uppmax.uu.se</code> and then enter your password. The password will not be visible as you type.</p></li>
-<li><p>If you do not feel comfortable working in a terminal, please take the time to do the first three parts in the <em><a href="http://www.ee.surrey.ac.uk/Teaching/Unix/">Unix tutorial for beginners</a></em> before the workshop. Otherwise, it may be difficult for you to follow the exercises during the course.</p></li>
-<li><p>Make sure that you can read and write in the workshop folder. Go to <code>/proj/g2019008/nobackup/</code> and create a directory with your username. You will work inside this directory for the course. If you cannot write to the folder, the most likely reason is that you have not requested access to the workshop project via SUPR.</p></li>
-</ul>
+<p>These are absolutely necessary for the course, if you do not already have a working R environment with R studio:</p>
 <div class="instruction">
-<p><i class="fas fa-exclamation-circle"></i> Note that it may take an hour or so from request approval, before you can actually write to the folder.<br />
-<i class="fas fa-exclamation-circle"></i> We will check before the workshop that all students have logged in and done this, so do not forget!</p>
+<p><i class="fas fa-exclamation-circle"></i> Download and install the latest version of R from <a href="https://cloud.r-project.org/">r-project.org</a>. Install Rtools from <a href="https://cran.r-project.org/bin/">https://cran.r-project.org/bin/</a>. Rtools may be needed for installing new packages from source.</p>
+<p><i class="fas fa-exclamation-circle"></i> Install <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>. RStudio provides you with tools like code editor with highlighting, project management, version control, package building, debugger, profiler and more.</p>
 </div>
+<p>The following are the steps that are recommended for the course participants.</p>
 <ul>
-<li><p>Download IGV on your own computer and make sure that you have hg19 genome available. The data we will work with is from human and we will visualise the results in the IGV genome browser. IGV can be downloaded from the <a href="https://www.broadinstitute.org/igv/">Broad Institute</a>.</p></li>
-<li><p>Download and install the latest version of R from <a href="https://cloud.r-project.org/">r-project.org</a>. Install Rtools from <a href="https://cran.r-project.org/bin/">https://cran.r-project.org/bin/</a>. Rtools may be needed for installing new packages from source.</p></li>
-<li><p>Install <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>. RStudio provides you with tools like code editor with highlighting, project management, version control, package building, debugger, profiler and more.</p></li>
+<li><p>As a pre-requisite to this course, all the participants have been asked to take the course: <a href="https://www.biology.lu.se/education/phd-studies/geneco-graduate-research-school-in-genomic-ecology/courses-workshops">Introduction to R</a>.</p></li>
+<li><p>Although you would have a small session on how to handle data in R, it is advisible for you to freshen up your memory on data-types such as <code>data.frame</code>, <code>matrix</code> and <code>read/write files</code> and so on.</p></li>
+<li><p>Some warm-up exercises in R if you are interested can be found <a href="https://immuntech.github.io/Bioinformatics_Workshop_ImmTech/Data/2019-10-15/R_exercise_Lokesh.html">here</a></p></li>
 <li><p>The following R packages will be used in the course exercises. It might save you some time if you have these installed in advance.</p></li>
 </ul>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># set repositories to CRAN and Bioconductor</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">setRepositories</span>(<span class="dt">graphics=</span>F,<span class="dt">ind=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># install R packages from CRAN and Bioconductor</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;DESeq2&quot;</span>,<span class="st">&quot;edgeR&quot;</span>,<span class="st">&quot;tidyverse&quot;</span>,<span class="st">&quot;biomaRt&quot;</span>,<span class="st">&quot;pheatmap&quot;</span>,<span class="st">&quot;pvclust&quot;</span>,<span class="st">&quot;rafalib&quot;</span>,<span class="st">&quot;enrichR&quot;</span>,<span class="st">&quot;fgsea&quot;</span>,<span class="st">&quot;devtools&quot;</span>),<span class="dt">dep=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># install from github (optional)</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># devtools::install_github(&quot;pachterlab/sleuth&quot;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install R packages from CRAN</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;ggtree&quot;</span>,<span class="st">&quot;tidyverse&quot;</span>,<span class="st">&quot;ggmap&quot;</span>,<span class="st">&quot;pheatmap&quot;</span>,<span class="st">&quot;devtools&quot;</span>),<span class="dt">dep=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># install from github (optional)</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># devtools::install_github(&quot;pachterlab/sleuth&quot;)</span></a></code></pre></div>
 </div>
 <p><strong>End of document.</strong></p>
 
