@@ -1,4 +1,4 @@
-# course_rnaseq
+# Workshop_Geneco
 
 This repo contains the course material for the NBIS/GENECO course **Workshop on ggplot**. The rendered view of this repo is available [here](https://nbisweden.github.io/Workshop_geneco_2020_05/docs/).   
 
@@ -7,7 +7,7 @@ This repo contains the course material for the NBIS/GENECO course **Workshop on 
 To add or update contents of this repo (for collaborators), first clone the repo.
 
 ```
-git clone https://github.com/nbisweden/course_rnaseq.git
+git clone git@github.com:NBISweden/Workshop_geneco_2020_05.git
 ```
 
 Make changes/updates as needed. Add the changed files. Commit it. Then push the repo back.
