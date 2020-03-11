@@ -1,6 +1,6 @@
 date;room;dur;topic;person;link_presentation;link_lab;link_room
 13/05/2020;"Retina; D227";30;Welcome;Dag Ahrén;;;https://tinyurl.com/yyaf3zbb
-;;30;R Introduction lecture;Lokesh;;;
+;;30;R Introduction lecture;Lokesh;;lab_r.html;
 ;;20;Coffee Break;;;;
 ;;70;R Introduction Lab (ggplot specific stuffs);Lokesh;;;
 ;;30;Basic ggplot lecture;;;
