@@ -37,6 +37,7 @@ library(ggplot2)
 
 R is a programming language for statistical computing, and data wrangling. It is open-source, widely used in data science, has a wide range of functions and algorithms for graphing and data analyses.
 
+We will use R in this course for generating plots from different biological data that are of higher quality and standard for publications. To do this, you will brush-up your memory on some important aspects of R that are important for this course below:
 
 # Input/Output
 
@@ -82,13 +83,9 @@ write.table(dfr1,"iris-setosa.txt",sep="\t",row.names=F,quote=F)
 
 # Data-Frames
 
-Vectors positions can be accessed using `[]`. R follows 1-based indexing.
+You have probably learnt about `data.frame` in your previous course and this is the most important data structure for generating plots using `ggplot`. So, below you have some quick exercises on how to work with Data-Frames.
 
-```{r}
-x <- c(2,3,4,5,6)
-x
-x[2]
-```
+Vectors positions can be accessed using `[]`. R follows 1-based indexing, meaning that the indexing starts at 1.
 
 Dataframe or matrix positions can be accessed using `[]` specifying row and column like `[row,column]`.
 
@@ -135,17 +132,6 @@ merge(dfr1,dfr2,by="x")
 merge(dfr1,dfr2,by="x",all.x=T)
 merge(dfr1,dfr2,by="x",all.y=T)
 merge(dfr1,dfr2,by="x",all=T)
-```
-
-
-# Packages
-
-R packages extend the functionality of base R. R packages are stored in repositories of which the most commonly used is called [CRAN](https://cran.r-project.org/) (The Comprehensive R Archive Network).
-
-Packages are installed using the function `install.packages()`. Let's install the graphics and plotting package `ggplot2` which will be useful in later sections.
-
-```{r,eval=FALSE}
-install.packages("ggplot2",dependencies=TRUE)
 ```
 
 # Graphics
