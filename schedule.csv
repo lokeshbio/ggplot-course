@@ -1,11 +1,11 @@
 date;room;dur;topic;person;link_presentation;link_lab;link_room
 13/05/2020;"Cerebrum; D215";30;Welcome;Dag Ahrén;;;https://tinyurl.com/yyaf3zbb
-;;30;R Introduction lecture;Lokesh;;lab_r.html;
+;;30;R Introduction lecture;Lokesh;;;
 ;;20;Coffee Break;;;;
-;;70;R Introduction Lab (ggplot specific stuffs);Lokesh;;;
+;;70;R Introduction Lab;Lokesh;;lab_r.html;
 ;;30;Basic ggplot lecture;;;
 ;;60;Lunch;;;;
-;;50;Basic plotting (geoms, aesthetics and stats);Lokesh;;;
+;;50;Basic plotting (geoms, aesthetics and stats);Lokesh;;lab_base_grid.html;
 ;;20;colors shape axes and facet (lecture);Lokesh;;;
 ;;50;colors shape axes and facet (lab);Lokesh;;;
 ;;20;Coffee Break;;;;
