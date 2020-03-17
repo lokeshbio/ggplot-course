@@ -150,3 +150,11 @@ dev.off()
 ```{r,eval=FALSE}
 ggsave(filename="plot-ggplot-2.png",plot=p)
 ```
+
+# Session info
+
+```{r,echo=FALSE}
+sessionInfo()
+```
+
+__End of document__

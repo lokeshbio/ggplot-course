@@ -1,4 +1,4 @@
-Sample_1	Sample_2	Sample_3	Sample_4	Sample_5	Sample_6	Sample_7	Sample_8	Sample_9	Sample_10	Sample_11	Sample_12
+Gene	Sample_1	Sample_2	Sample_3	Sample_4	Sample_5	Sample_6	Sample_7	Sample_8	Sample_9	Sample_10	Sample_11	Sample_12
 ENSG00000000003	321	303	204	492	455	359	376	523	450	950	760	1436
 ENSG00000000419	696	660	472	951	963	689	706	1041	796	1036	789	1413
 ENSG00000000457	59	54	44	109	73	66	60	125	74	108	115	174

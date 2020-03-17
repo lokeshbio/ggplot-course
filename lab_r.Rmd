@@ -24,7 +24,8 @@ output:
 ```{r,include=FALSE}
 # data handling
 library(dplyr)
-#library(tidyr)
+library(tidyverse)
+library(kableExtra)
 #library(stringr)
 
 # plotting
@@ -134,7 +135,83 @@ merge(dfr1,dfr2,by="x",all.y=T)
 merge(dfr1,dfr2,by="x",all=T)
 ```
 
-# Data formats (Wide vs Long)
+# Data formats 
+
+In terms of the R (and other similar progamming languages), the data can be viewed or stored in two main formats! They are called `wide` and `long` formats. Below you will see what exactly they stand for and why is it important for plottong in ggplot.
+
+## Wide format
+
+A quick preview: 
+
+**Counts Table**
+
+```{r, echo=FALSE}
+gc <- read.table("data/counts_filtered.txt", header = T, row.names = 1, sep = "\t")
+kable(gc[c(1:6),c(1:4)]) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+And we usually have our metadata related to the samples in another table like below:
+
+**Metadata Table**
+
+```{r, echo=FALSE}
+md <- read.table("data/metadata_raw.csv", header = T, sep = ";")
+kable(md[c(1:4),]) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+* Wide format data is called “wide” because it typically has a lot of columns which stretch widely across the page or your computer screen.
+* Most of us are familiar with looking at wide format data
+  + It is convenient and we are more used to looking at data this way in our Excel sheets. 
+  + It often lets you see more of the data, at one time, on your screen
+
+## Long format
+
+Below is glimpse how the long format of the same data look like:
+
+```{r echo=FALSE}
+samples <- colnames(gc[,c(1:4)])
+gc[c(1:6),c(1:4)] %>%
+  rownames_to_column(var = "Gene") %>%
+  gather(Samples, counts, -Gene) %>% 
+  head(10) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+Or to be even more complete and precise:
+
+```{r echo=FALSE}
+samples <- colnames(gc[,c(1:4)])
+gc[c(1:6),c(1:4)] %>%
+  rownames_to_column(var = "Gene") %>%
+  gather(Sample_ID, counts, -Gene) %>% 
+  full_join(md[c(1:4),], by = "Sample_ID") %>% 
+  select(Sample_ID, everything()) %>% 
+  select(-c(Gene,counts), c(Gene,counts)) %>%
+  head(10) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+* Long format data is typically less familiar to most humans
+  + It seems awfully hard to get a good look at all (or most) of it
+  + It seems like it would require more storage on your hard disk
+  + It seems like it would be harder to enter data in a long format
+
+## Which is better?
+
+* Well, there are some contexts where putting things in wide format is computationally efficient because you can treat data in a matrix format and to efficient matrix calculations on it.
+* However, adding data to wide format data sets is very hard:
+  1. It is very difficult to conceive of analytical schemes that apply generally across all wide-format data sets.
+  2. Many tools in R want data in long format **like ggplot**
+  3. The long format for data corresponds to the relational model for storing data, which is the model used in most modern data bases like the SQL family of data base systems.
+
+
+# Acknowledgements
+
+Much of the data format explanations and exercises were obtained from the GitHub of [Eric C. Anderson](https://github.com/eriqande) 
 
 # Getting help
 

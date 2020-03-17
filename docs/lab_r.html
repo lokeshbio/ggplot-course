@@ -24,6 +24,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -650,11 +651,677 @@ R
 ## 6 6 &lt;NA&gt;    o</code></pre>
 </div>
 </div>
-<div id="data-formats-wide-vs-long" class="section level1">
-<h1><span class="header-section-number">3</span> Data formats (Wide vs Long)</h1>
+<div id="data-formats" class="section level1">
+<h1><span class="header-section-number">3</span> Data formats</h1>
+<p>In terms of the R (and other similar progamming languages), the data can be viewed or stored in two main formats! They are called <code>wide</code> and <code>long</code> formats. Below you will see what exactly they stand for and why is it important for plottong in ggplot.</p>
+<div id="wide-format" class="section level2">
+<h2><span class="header-section-number">3.1</span> Wide format</h2>
+<p>A quick preview:</p>
+<p><strong>Counts Table</strong></p>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Sample_1
+</th>
+<th style="text-align:right;">
+Sample_2
+</th>
+<th style="text-align:right;">
+Sample_3
+</th>
+<th style="text-align:right;">
+Sample_4
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+ENSG00000000003
+</td>
+<td style="text-align:right;">
+321
+</td>
+<td style="text-align:right;">
+303
+</td>
+<td style="text-align:right;">
+204
+</td>
+<td style="text-align:right;">
+492
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000419
+</td>
+<td style="text-align:right;">
+696
+</td>
+<td style="text-align:right;">
+660
+</td>
+<td style="text-align:right;">
+472
+</td>
+<td style="text-align:right;">
+951
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000457
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+109
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000460
+</td>
+<td style="text-align:right;">
+399
+</td>
+<td style="text-align:right;">
+405
+</td>
+<td style="text-align:right;">
+236
+</td>
+<td style="text-align:right;">
+445
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000001036
+</td>
+<td style="text-align:right;">
+844
+</td>
+<td style="text-align:right;">
+808
+</td>
+<td style="text-align:right;">
+495
+</td>
+<td style="text-align:right;">
+1065
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000001084
+</td>
+<td style="text-align:right;">
+535
+</td>
+<td style="text-align:right;">
+458
+</td>
+<td style="text-align:right;">
+290
+</td>
+<td style="text-align:right;">
+722
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>And we usually have our metadata related to the samples in another table like below:</p>
+<p><strong>Metadata Table</strong></p>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Sample_ID
+</th>
+<th style="text-align:left;">
+Sample_Name
+</th>
+<th style="text-align:left;">
+Time
+</th>
+<th style="text-align:left;">
+Replicate
+</th>
+<th style="text-align:left;">
+Cell
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:left;">
+t0_A
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A431
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_2
+</td>
+<td style="text-align:left;">
+t0_B
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:left;">
+A431
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_3
+</td>
+<td style="text-align:left;">
+t0_C
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+A431
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_4
+</td>
+<td style="text-align:left;">
+t2_A
+</td>
+<td style="text-align:left;">
+t2
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A431
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Wide format data is called “wide” because it typically has a lot of columns which stretch widely across the page or your computer screen.</li>
+<li>Most of us are familiar with looking at wide format data
+<ul>
+<li>It is convenient and we are more used to looking at data this way in our Excel sheets.</li>
+<li>It often lets you see more of the data, at one time, on your screen</li>
+</ul></li>
+</ul>
+</div>
+<div id="long-format" class="section level2">
+<h2><span class="header-section-number">3.2</span> Long format</h2>
+<p>Below is glimpse how the long format of the same data look like:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Gene
+</th>
+<th style="text-align:left;">
+Samples
+</th>
+<th style="text-align:right;">
+counts
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+ENSG00000000003
+</td>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:right;">
+321
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000419
+</td>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:right;">
+696
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000457
+</td>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:right;">
+59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000460
+</td>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:right;">
+399
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000001036
+</td>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:right;">
+844
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000001084
+</td>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:right;">
+535
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000003
+</td>
+<td style="text-align:left;">
+Sample_2
+</td>
+<td style="text-align:right;">
+303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000419
+</td>
+<td style="text-align:left;">
+Sample_2
+</td>
+<td style="text-align:right;">
+660
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000457
+</td>
+<td style="text-align:left;">
+Sample_2
+</td>
+<td style="text-align:right;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENSG00000000460
+</td>
+<td style="text-align:left;">
+Sample_2
+</td>
+<td style="text-align:right;">
+405
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Or to be even more complete and precise:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Sample_ID
+</th>
+<th style="text-align:left;">
+Sample_Name
+</th>
+<th style="text-align:left;">
+Time
+</th>
+<th style="text-align:left;">
+Replicate
+</th>
+<th style="text-align:left;">
+Cell
+</th>
+<th style="text-align:left;">
+Gene
+</th>
+<th style="text-align:right;">
+counts
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:left;">
+t0_A
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A431
+</td>
+<td style="text-align:left;">
+ENSG00000000003
+</td>
+<td style="text-align:right;">
+321
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:left;">
+t0_A
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A431
+</td>
+<td style="text-align:left;">
+ENSG00000000419
+</td>
+<td style="text-align:right;">
+696
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:left;">
+t0_A
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A431
+</td>
+<td style="text-align:left;">
+ENSG00000000457
+</td>
+<td style="text-align:right;">
+59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:left;">
+t0_A
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A431
+</td>
+<td style="text-align:left;">
+ENSG00000000460
+</td>
+<td style="text-align:right;">
+399
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:left;">
+t0_A
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A431
+</td>
+<td style="text-align:left;">
+ENSG00000001036
+</td>
+<td style="text-align:right;">
+844
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_1
+</td>
+<td style="text-align:left;">
+t0_A
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+A431
+</td>
+<td style="text-align:left;">
+ENSG00000001084
+</td>
+<td style="text-align:right;">
+535
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_2
+</td>
+<td style="text-align:left;">
+t0_B
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:left;">
+A431
+</td>
+<td style="text-align:left;">
+ENSG00000000003
+</td>
+<td style="text-align:right;">
+303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_2
+</td>
+<td style="text-align:left;">
+t0_B
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:left;">
+A431
+</td>
+<td style="text-align:left;">
+ENSG00000000419
+</td>
+<td style="text-align:right;">
+660
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_2
+</td>
+<td style="text-align:left;">
+t0_B
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:left;">
+A431
+</td>
+<td style="text-align:left;">
+ENSG00000000457
+</td>
+<td style="text-align:right;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample_2
+</td>
+<td style="text-align:left;">
+t0_B
+</td>
+<td style="text-align:left;">
+t0
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:left;">
+A431
+</td>
+<td style="text-align:left;">
+ENSG00000000460
+</td>
+<td style="text-align:right;">
+405
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Long format data is typically less familiar to most humans
+<ul>
+<li>It seems awfully hard to get a good look at all (or most) of it</li>
+<li>It seems like it would require more storage on your hard disk</li>
+<li>It seems like it would be harder to enter data in a long format</li>
+</ul></li>
+</ul>
+</div>
+<div id="which-is-better" class="section level2">
+<h2><span class="header-section-number">3.3</span> Which is better?</h2>
+<ul>
+<li>Well, there are some contexts where putting things in wide format is computationally efficient because you can treat data in a matrix format and to efficient matrix calculations on it.</li>
+<li>However, adding data to wide format data sets is very hard:
+<ol style="list-style-type: decimal">
+<li>It is very difficult to conceive of analytical schemes that apply generally across all wide-format data sets.</li>
+<li>Many tools in R want data in long format <strong>like ggplot</strong></li>
+<li>The long format for data corresponds to the relational model for storing data, which is the model used in most modern data bases like the SQL family of data base systems.</li>
+</ol></li>
+</ul>
+</div>
+</div>
+<div id="acknowledgements" class="section level1">
+<h1><span class="header-section-number">4</span> Acknowledgements</h1>
+<p>Much of the data format explanations and exercises were obtained from the GitHub of <a href="https://github.com/eriqande">Eric C. Anderson</a></p>
 </div>
 <div id="getting-help" class="section level1">
-<h1><span class="header-section-number">4</span> Getting help</h1>
+<h1><span class="header-section-number">5</span> Getting help</h1>
 <ul>
 <li>Use <code>?function</code> to get function documentation</li>
 <li>Use <code>??bla</code> to search for a function</li>
@@ -666,7 +1333,7 @@ R
 </ul>
 </div>
 <div id="session-info" class="section level1">
-<h1><span class="header-section-number">5</span> Session info</h1>
+<h1><span class="header-section-number">6</span> Session info</h1>
 <div class="block-title-parent">
 <div class="block-title small">
 Output
@@ -691,18 +1358,26 @@ Output
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_3.2.1   dplyr_0.8.3     captioner_2.2.3 bookdown_0.17  
-## [5] knitr_1.27     
+##  [1] kableExtra_1.1.0 forcats_0.4.0    stringr_1.4.0    purrr_0.3.3     
+##  [5] readr_1.3.1      tidyr_1.0.2      tibble_2.1.3     ggplot2_3.2.1   
+##  [9] tidyverse_1.3.0  dplyr_0.8.3      captioner_2.2.3  bookdown_0.17   
+## [13] knitr_1.27      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.3       magrittr_1.5     munsell_0.5.0    tidyselect_0.2.5
-##  [5] colorspace_1.4-1 R6_2.4.1         rlang_0.4.3      stringr_1.4.0   
-##  [9] tools_3.6.1      grid_3.6.1       gtable_0.3.0     xfun_0.12       
-## [13] withr_2.1.2      htmltools_0.4.0  lazyeval_0.2.2   yaml_2.2.0      
-## [17] digest_0.6.23    assertthat_0.2.1 lifecycle_0.1.0  tibble_2.1.3    
-## [21] crayon_1.3.4     purrr_0.3.3      glue_1.3.1       evaluate_0.14   
-## [25] rmarkdown_2.1    stringi_1.4.5    compiler_3.6.1   pillar_1.4.3    
-## [29] scales_1.1.0     pkgconfig_2.0.3</code></pre>
+##  [1] tidyselect_0.2.5  xfun_0.12         haven_2.2.0       lattice_0.20-38  
+##  [5] colorspace_1.4-1  vctrs_0.2.2       generics_0.0.2    viridisLite_0.3.0
+##  [9] htmltools_0.4.0   yaml_2.2.0        rlang_0.4.3       pillar_1.4.3     
+## [13] withr_2.1.2       glue_1.3.1        DBI_1.1.0         dbplyr_1.4.2     
+## [17] modelr_0.1.5      readxl_1.3.1      lifecycle_0.1.0   munsell_0.5.0    
+## [21] gtable_0.3.0      cellranger_1.1.0  rvest_0.3.5       evaluate_0.14    
+## [25] fansi_0.4.1       highr_0.8         broom_0.5.4       Rcpp_1.0.3       
+## [29] scales_1.1.0      backports_1.1.5   webshot_0.5.2     jsonlite_1.6     
+## [33] fs_1.3.1          hms_0.5.3         digest_0.6.23     stringi_1.4.5    
+## [37] grid_3.6.1        cli_2.0.1         tools_3.6.1       magrittr_1.5     
+## [41] lazyeval_0.2.2    crayon_1.3.4      pkgconfig_2.0.3   ellipsis_0.3.0   
+## [45] xml2_1.2.2        reprex_0.3.0      lubridate_1.7.4   assertthat_0.2.1 
+## [49] rmarkdown_2.1     httr_1.4.1        rstudioapi_0.10   R6_2.4.1         
+## [53] nlme_3.1-141      compiler_3.6.1</code></pre>
 </div>
 <p><strong>End of document</strong></p>
 </div>
