@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 17-Mar-2020" />
+<meta name="author" content="Lokesh Mano • 18-Mar-2020" />
 
 
 <title>Intro to R</title>
@@ -474,7 +474,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Intro to R</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 17-Mar-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 18-Mar-2020</h4>
 
 </div>
 
@@ -513,7 +513,7 @@ R
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">str</span>(dfr)</a></code></pre></div>
 </div>
 <p>Check <code>?read.table</code> for other wrapper functions to read in text files.</p>
-<p>Let’s filter this data.frame and create a new dataset.</p>
+<p>Let’s filter this data.frame and create a new data set.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -578,7 +578,7 @@ R
 ## 2 2 b 5 e
 ## 3 3 c 6 f</code></pre>
 </div>
-<p>Similarily, <code>rbind()</code> is used to join two dataframes row-wise.</p>
+<p>Similarly, <code>rbind()</code> is used to join two dataframes row-wise.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -653,7 +653,7 @@ R
 </div>
 <div id="data-formats" class="section level1">
 <h1><span class="header-section-number">3</span> Data formats</h1>
-<p>In terms of the R (and other similar progamming languages), the data can be viewed or stored in two main formats! They are called <code>wide</code> and <code>long</code> formats. Below you will see what exactly they stand for and why is it important for plottong in ggplot.</p>
+<p>In terms of the R (and other similar programming languages), the data can be viewed or stored in two main formats! They are called <code>wide</code> and <code>long</code> formats. Below you will see what exactly they stand for and why is it important for plotting in ggplot.</p>
 <div id="wide-format" class="section level2">
 <h2><span class="header-section-number">3.1</span> Wide format</h2>
 <p>A quick preview:</p>
@@ -1309,19 +1309,432 @@ ENSG00000000460
 <li>Well, there are some contexts where putting things in wide format is computationally efficient because you can treat data in a matrix format and to efficient matrix calculations on it.</li>
 <li>However, adding data to wide format data sets is very hard:
 <ol style="list-style-type: decimal">
-<li>It is very difficult to conceive of analytical schemes that apply generally across all wide-format data sets.</li>
+<li>It is very difficult to conceive of analytic schemes that apply generally across all wide-format data sets.</li>
 <li>Many tools in R want data in long format <strong>like ggplot</strong></li>
 <li>The long format for data corresponds to the relational model for storing data, which is the model used in most modern data bases like the SQL family of data base systems.</li>
 </ol></li>
+<li>A more technical treatment of wide versus long data requires some terminology:
+<ul>
+<li><span style="color:blue">Identifier variables</span> are often categorical things that cross-classify observations into categories.</li>
+<li><span style="color:red">Measured variables</span> are the names given to properties or characteristics that you can go out and measure.</li>
+<li><span style="color:orange">Values</span> are the values that you measure are record for any particular measured variable.</li>
+</ul></li>
+<li>In any particular data set, what you might want to call an <span style="color:blue">Identifier variables</span> versus a <span style="color:red">Measured variables</span> can not always be entirely clear.
+<ul>
+<li>Other people might choose to define things differently.</li>
+</ul></li>
+<li>However, to my mind, it is less important to be able to precisely recognize these three entities in every possible situation (where there might be some fuzziness about which is which)</li>
+<li>And it is more important to understand how <span style="color:blue">Identifier variables</span>, <span style="color:red">Measured variables</span>, and <span style="color:orange">Values</span> interact and behave when we are transforming data between wide and long formats.</li>
 </ul>
 </div>
 </div>
+<div id="conversion-between-formats" class="section level1">
+<h1><span class="header-section-number">4</span> Conversion between formats</h1>
+<p>As for the biological data analysis, to be able to use tools such as <strong>ggplot</strong>, in simple terms we should learn to convert our data:</p>
+<p>As per our previous examples: We should learn to convert</p>
+<p><strong>From this format</strong></p>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: blue !important;">
+</th>
+<th style="text-align:right;font-weight: bold;color: blue !important;">
+Sample_1
+</th>
+<th style="text-align:right;font-weight: bold;color: blue !important;">
+Sample_2
+</th>
+<th style="text-align:right;font-weight: bold;color: blue !important;">
+Sample_3
+</th>
+<th style="text-align:right;font-weight: bold;color: blue !important;">
+Sample_4
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+ENSG00000000003
+</td>
+<td style="text-align:right;color: orange !important;">
+321
+</td>
+<td style="text-align:right;color: orange !important;">
+303
+</td>
+<td style="text-align:right;color: orange !important;">
+204
+</td>
+<td style="text-align:right;color: orange !important;">
+492
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+ENSG00000000419
+</td>
+<td style="text-align:right;color: orange !important;">
+696
+</td>
+<td style="text-align:right;color: orange !important;">
+660
+</td>
+<td style="text-align:right;color: orange !important;">
+472
+</td>
+<td style="text-align:right;color: orange !important;">
+951
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+ENSG00000000457
+</td>
+<td style="text-align:right;color: orange !important;">
+59
+</td>
+<td style="text-align:right;color: orange !important;">
+54
+</td>
+<td style="text-align:right;color: orange !important;">
+44
+</td>
+<td style="text-align:right;color: orange !important;">
+109
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+ENSG00000000460
+</td>
+<td style="text-align:right;color: orange !important;">
+399
+</td>
+<td style="text-align:right;color: orange !important;">
+405
+</td>
+<td style="text-align:right;color: orange !important;">
+236
+</td>
+<td style="text-align:right;color: orange !important;">
+445
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+ENSG00000001036
+</td>
+<td style="text-align:right;color: orange !important;">
+844
+</td>
+<td style="text-align:right;color: orange !important;">
+808
+</td>
+<td style="text-align:right;color: orange !important;">
+495
+</td>
+<td style="text-align:right;color: orange !important;">
+1065
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+ENSG00000001084
+</td>
+<td style="text-align:right;color: orange !important;">
+535
+</td>
+<td style="text-align:right;color: orange !important;">
+458
+</td>
+<td style="text-align:right;color: orange !important;">
+290
+</td>
+<td style="text-align:right;color: orange !important;">
+722
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>To this format</strong></p>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Sample_ID
+</th>
+<th style="text-align:left;">
+Sample_Name
+</th>
+<th style="text-align:left;">
+Time
+</th>
+<th style="text-align:left;">
+Replicate
+</th>
+<th style="text-align:left;">
+Cell
+</th>
+<th style="text-align:left;">
+Gene
+</th>
+<th style="text-align:right;">
+counts
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;color: blue !important;">
+Sample_1
+</td>
+<td style="text-align:left;color: blue !important;">
+t0_A
+</td>
+<td style="text-align:left;color: blue !important;">
+t0
+</td>
+<td style="text-align:left;color: blue !important;">
+A
+</td>
+<td style="text-align:left;color: blue !important;">
+A431
+</td>
+<td style="text-align:left;color: red !important;">
+ENSG00000000003
+</td>
+<td style="text-align:right;color: orange !important;">
+321
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+Sample_1
+</td>
+<td style="text-align:left;color: blue !important;">
+t0_A
+</td>
+<td style="text-align:left;color: blue !important;">
+t0
+</td>
+<td style="text-align:left;color: blue !important;">
+A
+</td>
+<td style="text-align:left;color: blue !important;">
+A431
+</td>
+<td style="text-align:left;color: red !important;">
+ENSG00000000419
+</td>
+<td style="text-align:right;color: orange !important;">
+696
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+Sample_1
+</td>
+<td style="text-align:left;color: blue !important;">
+t0_A
+</td>
+<td style="text-align:left;color: blue !important;">
+t0
+</td>
+<td style="text-align:left;color: blue !important;">
+A
+</td>
+<td style="text-align:left;color: blue !important;">
+A431
+</td>
+<td style="text-align:left;color: red !important;">
+ENSG00000000457
+</td>
+<td style="text-align:right;color: orange !important;">
+59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+Sample_1
+</td>
+<td style="text-align:left;color: blue !important;">
+t0_A
+</td>
+<td style="text-align:left;color: blue !important;">
+t0
+</td>
+<td style="text-align:left;color: blue !important;">
+A
+</td>
+<td style="text-align:left;color: blue !important;">
+A431
+</td>
+<td style="text-align:left;color: red !important;">
+ENSG00000000460
+</td>
+<td style="text-align:right;color: orange !important;">
+399
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+Sample_1
+</td>
+<td style="text-align:left;color: blue !important;">
+t0_A
+</td>
+<td style="text-align:left;color: blue !important;">
+t0
+</td>
+<td style="text-align:left;color: blue !important;">
+A
+</td>
+<td style="text-align:left;color: blue !important;">
+A431
+</td>
+<td style="text-align:left;color: red !important;">
+ENSG00000001036
+</td>
+<td style="text-align:right;color: orange !important;">
+844
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+Sample_1
+</td>
+<td style="text-align:left;color: blue !important;">
+t0_A
+</td>
+<td style="text-align:left;color: blue !important;">
+t0
+</td>
+<td style="text-align:left;color: blue !important;">
+A
+</td>
+<td style="text-align:left;color: blue !important;">
+A431
+</td>
+<td style="text-align:left;color: red !important;">
+ENSG00000001084
+</td>
+<td style="text-align:right;color: orange !important;">
+535
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+Sample_2
+</td>
+<td style="text-align:left;color: blue !important;">
+t0_B
+</td>
+<td style="text-align:left;color: blue !important;">
+t0
+</td>
+<td style="text-align:left;color: blue !important;">
+B
+</td>
+<td style="text-align:left;color: blue !important;">
+A431
+</td>
+<td style="text-align:left;color: red !important;">
+ENSG00000000003
+</td>
+<td style="text-align:right;color: orange !important;">
+303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+Sample_2
+</td>
+<td style="text-align:left;color: blue !important;">
+t0_B
+</td>
+<td style="text-align:left;color: blue !important;">
+t0
+</td>
+<td style="text-align:left;color: blue !important;">
+B
+</td>
+<td style="text-align:left;color: blue !important;">
+A431
+</td>
+<td style="text-align:left;color: red !important;">
+ENSG00000000419
+</td>
+<td style="text-align:right;color: orange !important;">
+660
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+Sample_2
+</td>
+<td style="text-align:left;color: blue !important;">
+t0_B
+</td>
+<td style="text-align:left;color: blue !important;">
+t0
+</td>
+<td style="text-align:left;color: blue !important;">
+B
+</td>
+<td style="text-align:left;color: blue !important;">
+A431
+</td>
+<td style="text-align:left;color: red !important;">
+ENSG00000000457
+</td>
+<td style="text-align:right;color: orange !important;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+Sample_2
+</td>
+<td style="text-align:left;color: blue !important;">
+t0_B
+</td>
+<td style="text-align:left;color: blue !important;">
+t0
+</td>
+<td style="text-align:left;color: blue !important;">
+B
+</td>
+<td style="text-align:left;color: blue !important;">
+A431
+</td>
+<td style="text-align:left;color: red !important;">
+ENSG00000000460
+</td>
+<td style="text-align:right;color: orange !important;">
+405
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here we will only cover the conversion from <code>wide</code> to <code>long</code>, as this is more relevant to us. For the other way around, one can look into <code>spread()</code> from the <code>tidyr</code> package.</p>
+</div>
 <div id="acknowledgements" class="section level1">
-<h1><span class="header-section-number">4</span> Acknowledgements</h1>
+<h1><span class="header-section-number">5</span> Acknowledgements</h1>
 <p>Much of the data format explanations and exercises were obtained from the GitHub of <a href="https://github.com/eriqande">Eric C. Anderson</a></p>
 </div>
 <div id="getting-help" class="section level1">
-<h1><span class="header-section-number">5</span> Getting help</h1>
+<h1><span class="header-section-number">6</span> Getting help</h1>
 <ul>
 <li>Use <code>?function</code> to get function documentation</li>
 <li>Use <code>??bla</code> to search for a function</li>
@@ -1333,7 +1746,7 @@ ENSG00000000460
 </ul>
 </div>
 <div id="session-info" class="section level1">
-<h1><span class="header-section-number">6</span> Session info</h1>
+<h1><span class="header-section-number">7</span> Session info</h1>
 <div class="block-title-parent">
 <div class="block-title small">
 Output
