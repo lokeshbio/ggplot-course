@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 18-Mar-2020" />
+<meta name="author" content="Lokesh Mano • 31-Mar-2020" />
 
 
 <title>Intro to R</title>
@@ -474,7 +474,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Intro to R</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 18-Mar-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 31-Mar-2020</h4>
 
 </div>
 
@@ -911,7 +911,7 @@ Gene
 Samples
 </th>
 <th style="text-align:right;">
-counts
+count
 </th>
 </tr>
 </thead>
@@ -1056,7 +1056,7 @@ Cell
 Gene
 </th>
 <th style="text-align:right;">
-counts
+count
 </th>
 </tr>
 </thead>
@@ -1358,7 +1358,7 @@ Sample_4
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+<td style="text-align:left;color: orange !important;color: red !important;">
 ENSG00000000003
 </td>
 <td style="text-align:right;color: orange !important;">
@@ -1375,7 +1375,7 @@ ENSG00000000003
 </td>
 </tr>
 <tr>
-<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+<td style="text-align:left;color: orange !important;color: red !important;">
 ENSG00000000419
 </td>
 <td style="text-align:right;color: orange !important;">
@@ -1392,7 +1392,7 @@ ENSG00000000419
 </td>
 </tr>
 <tr>
-<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+<td style="text-align:left;color: orange !important;color: red !important;">
 ENSG00000000457
 </td>
 <td style="text-align:right;color: orange !important;">
@@ -1409,7 +1409,7 @@ ENSG00000000457
 </td>
 </tr>
 <tr>
-<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+<td style="text-align:left;color: orange !important;color: red !important;">
 ENSG00000000460
 </td>
 <td style="text-align:right;color: orange !important;">
@@ -1426,7 +1426,7 @@ ENSG00000000460
 </td>
 </tr>
 <tr>
-<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+<td style="text-align:left;color: orange !important;color: red !important;">
 ENSG00000001036
 </td>
 <td style="text-align:right;color: orange !important;">
@@ -1443,7 +1443,7 @@ ENSG00000001036
 </td>
 </tr>
 <tr>
-<td style="text-align:left;color: orange !important;font-weight: bold;color: red !important;">
+<td style="text-align:left;color: orange !important;color: red !important;">
 ENSG00000001084
 </td>
 <td style="text-align:right;color: orange !important;">
@@ -1489,7 +1489,7 @@ Cell
 Gene
 </th>
 <th style="text-align:right;">
-counts
+count
 </th>
 </tr>
 </thead>
@@ -1728,6 +1728,61 @@ ENSG00000000460
 </table>
 </div>
 <p>Here we will only cover the conversion from <code>wide</code> to <code>long</code>, as this is more relevant to us. For the other way around, one can look into <code>spread()</code> from the <code>tidyr</code> package.</p>
+<div id="using-reshape2" class="section level2">
+<h2><span class="header-section-number">4.1</span> Using reshape2</h2>
+<p>By using the <code>melt()</code> function from the <strong>reshape2</strong> package we can convert the wide-formatted data into long-formatted data! Here, to combine the metadata table to the gene counts table, we will also use the <code>merge()</code> function like we did before!</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">library</span>(reshape2)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">gc &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/counts_filtered.txt&quot;</span>, <span class="dt">header =</span> T, <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">md &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/metadata_raw.csv&quot;</span>, <span class="dt">header =</span> T, <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>)</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="kw">rownames</span>(md) &lt;-<span class="st"> </span>md<span class="op">$</span>Sample_ID</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#merging gene counts table with metadata</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7">merged_data_wide &lt;-<span class="st"> </span><span class="kw">merge</span>(md, <span class="kw">t</span>(gc), <span class="dt">by =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#removing redundant columns</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9">merged_data_wide<span class="op">$</span>Row.names &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11">merged_data_long &lt;-<span class="st"> </span><span class="kw">melt</span>(merged_data_wide, <span class="dt">id.vars =</span> <span class="kw">c</span>(<span class="st">&quot;Sample_ID&quot;</span>,<span class="st">&quot;Sample_Name&quot;</span>,<span class="st">&quot;Time&quot;</span>,<span class="st">&quot;Replicate&quot;</span>,<span class="st">&quot;Cell&quot;</span>), <span class="dt">variable.name =</span> <span class="st">&quot;Gene&quot;</span>, <span class="dt">value.name =</span> <span class="st">&quot;count&quot;</span>)  </a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="kw">head</span>(merged_data_long)</a></code></pre></div>
+<pre><code>##   Sample_ID Sample_Name Time Replicate Cell            Gene count
+## 1  Sample_1        t0_A   t0         A A431 ENSG00000000003   321
+## 2 Sample_10       t24_A  t24         A A431 ENSG00000000003   950
+## 3 Sample_11       t24_B  t24         B A431 ENSG00000000003   760
+## 4 Sample_12       t24_C  t24         C A431 ENSG00000000003  1436
+## 5  Sample_2        t0_B   t0         B A431 ENSG00000000003   303
+## 6  Sample_3        t0_C   t0         C A431 ENSG00000000003   204</code></pre>
+</div>
+</div>
+<div id="using-tidyr" class="section level2">
+<h2><span class="header-section-number">4.2</span> Using tidyr</h2>
+<p>If you are more familiar with using <code>tidyverse</code> or <code>tidyr</code> packages, you can combine tables by <code>join()</code> and then use <code>gather()</code> to make long formatted data in the same command. This is powerful and more a cleaner way of dealing with data in R.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">gc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;Gene&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>(Sample_ID, count, <span class="op">-</span>Gene) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">full_join</span>(md, <span class="dt">by =</span> <span class="st">&quot;Sample_ID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(Sample_ID, <span class="kw">everything</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(Gene,count), <span class="kw">c</span>(Gene,count)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>)</a></code></pre></div>
+<pre><code>##    Sample_ID Sample_Name Time Replicate Cell            Gene count
+## 1   Sample_1        t0_A   t0         A A431 ENSG00000000003   321
+## 2   Sample_1        t0_A   t0         A A431 ENSG00000000419   696
+## 3   Sample_1        t0_A   t0         A A431 ENSG00000000457    59
+## 4   Sample_1        t0_A   t0         A A431 ENSG00000000460   399
+## 5   Sample_1        t0_A   t0         A A431 ENSG00000001036   844
+## 6   Sample_1        t0_A   t0         A A431 ENSG00000001084   535
+## 7   Sample_1        t0_A   t0         A A431 ENSG00000001167   493
+## 8   Sample_1        t0_A   t0         A A431 ENSG00000001460   150
+## 9   Sample_1        t0_A   t0         A A431 ENSG00000001461   491
+## 10  Sample_1        t0_A   t0         A A431 ENSG00000001497  1136</code></pre>
+</div>
+</div>
 </div>
 <div id="acknowledgements" class="section level1">
 <h1><span class="header-section-number">5</span> Acknowledgements</h1>
@@ -1771,26 +1826,26 @@ Output
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] kableExtra_1.1.0 forcats_0.4.0    stringr_1.4.0    purrr_0.3.3     
-##  [5] readr_1.3.1      tidyr_1.0.2      tibble_2.1.3     ggplot2_3.2.1   
-##  [9] tidyverse_1.3.0  dplyr_0.8.3      captioner_2.2.3  bookdown_0.17   
-## [13] knitr_1.27      
+##  [1] reshape2_1.4.3   kableExtra_1.1.0 forcats_0.4.0    stringr_1.4.0   
+##  [5] purrr_0.3.3      readr_1.3.1      tidyr_1.0.2      tibble_2.1.3    
+##  [9] ggplot2_3.2.1    tidyverse_1.3.0  dplyr_0.8.3      captioner_2.2.3 
+## [13] bookdown_0.17    knitr_1.27      
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] tidyselect_0.2.5  xfun_0.12         haven_2.2.0       lattice_0.20-38  
 ##  [5] colorspace_1.4-1  vctrs_0.2.2       generics_0.0.2    viridisLite_0.3.0
 ##  [9] htmltools_0.4.0   yaml_2.2.0        rlang_0.4.3       pillar_1.4.3     
 ## [13] withr_2.1.2       glue_1.3.1        DBI_1.1.0         dbplyr_1.4.2     
-## [17] modelr_0.1.5      readxl_1.3.1      lifecycle_0.1.0   munsell_0.5.0    
-## [21] gtable_0.3.0      cellranger_1.1.0  rvest_0.3.5       evaluate_0.14    
-## [25] fansi_0.4.1       highr_0.8         broom_0.5.4       Rcpp_1.0.3       
-## [29] scales_1.1.0      backports_1.1.5   webshot_0.5.2     jsonlite_1.6     
-## [33] fs_1.3.1          hms_0.5.3         digest_0.6.23     stringi_1.4.5    
-## [37] grid_3.6.1        cli_2.0.1         tools_3.6.1       magrittr_1.5     
-## [41] lazyeval_0.2.2    crayon_1.3.4      pkgconfig_2.0.3   ellipsis_0.3.0   
-## [45] xml2_1.2.2        reprex_0.3.0      lubridate_1.7.4   assertthat_0.2.1 
-## [49] rmarkdown_2.1     httr_1.4.1        rstudioapi_0.10   R6_2.4.1         
-## [53] nlme_3.1-141      compiler_3.6.1</code></pre>
+## [17] modelr_0.1.5      readxl_1.3.1      plyr_1.8.5        lifecycle_0.1.0  
+## [21] munsell_0.5.0     gtable_0.3.0      cellranger_1.1.0  rvest_0.3.5      
+## [25] evaluate_0.14     fansi_0.4.1       highr_0.8         broom_0.5.4      
+## [29] Rcpp_1.0.3        scales_1.1.0      backports_1.1.5   webshot_0.5.2    
+## [33] jsonlite_1.6      fs_1.3.1          hms_0.5.3         digest_0.6.23    
+## [37] stringi_1.4.5     grid_3.6.1        cli_2.0.1         tools_3.6.1      
+## [41] magrittr_1.5      lazyeval_0.2.2    crayon_1.3.4      pkgconfig_2.0.3  
+## [45] ellipsis_0.3.0    xml2_1.2.2        reprex_0.3.0      lubridate_1.7.4  
+## [49] assertthat_0.2.1  rmarkdown_2.1     httr_1.4.1        rstudioapi_0.10  
+## [53] R6_2.4.1          nlme_3.1-141      compiler_3.6.1</code></pre>
 </div>
 <p><strong>End of document</strong></p>
 </div>

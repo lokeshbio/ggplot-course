@@ -174,7 +174,7 @@ Below is glimpse how the long format of the same data look like:
 samples <- colnames(gc[,c(1:4)])
 gc[c(1:6),c(1:4)] %>%
   rownames_to_column(var = "Gene") %>%
-  gather(Samples, counts, -Gene) %>% 
+  gather(Samples, count, -Gene) %>% 
   head(10) %>%
   kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
@@ -186,10 +186,10 @@ Or to be even more complete and precise:
 samples <- colnames(gc[,c(1:4)])
 gc[c(1:6),c(1:4)] %>%
   rownames_to_column(var = "Gene") %>%
-  gather(Sample_ID, counts, -Gene) %>% 
+  gather(Sample_ID, count, -Gene) %>% 
   full_join(md[c(1:4),], by = "Sample_ID") %>% 
   select(Sample_ID, everything()) %>% 
-  select(-c(Gene,counts), c(Gene,counts)) %>%
+  select(-c(Gene,count), c(Gene,count)) %>%
   head(10) %>%
   kable() %>%
   kable_styling("striped", full_width = F)
@@ -242,10 +242,10 @@ kable(gc[c(1:6),c(1:4)]) %>%
 samples <- colnames(gc[,c(1:4)])
 gc[c(1:6),c(1:4)] %>%
   rownames_to_column(var = "Gene") %>%
-  gather(Sample_ID, counts, -Gene) %>% 
+  gather(Sample_ID, count, -Gene) %>% 
   full_join(md[c(1:4),], by = "Sample_ID") %>% 
   select(Sample_ID, everything()) %>% 
-  select(-c(Gene,counts), c(Gene,counts)) %>%
+  select(-c(Gene,count), c(Gene,count)) %>%
   head(10) %>%
   kable() %>%
   kable_styling("striped", full_width = F) %>%
@@ -254,9 +254,40 @@ gc[c(1:6),c(1:4)] %>%
   column_spec(7, color = "orange")
 ```
 
-
-
 Here we will only cover the conversion from `wide` to `long`, as this is more relevant to us. For the other way around, one can look into `spread()` from the `tidyr` package.
+
+## Using reshape2
+
+By using the `melt()` function from the **reshape2** package we can convert the wide-formatted data into long-formatted data! Here, to combine the metadata table to the gene counts table, we will also use the `merge()` function like we did before!
+
+```{r}
+library(reshape2)
+gc <- read.table("data/counts_filtered.txt", header = T, row.names = 1, sep = "\t")
+md <- read.table("data/metadata_raw.csv", header = T, sep = ";")
+rownames(md) <- md$Sample_ID
+
+#merging gene counts table with metadata
+merged_data_wide <- merge(md, t(gc), by = 0)
+#removing redundant columns
+merged_data_wide$Row.names <- NULL
+
+merged_data_long <- melt(merged_data_wide, id.vars = c("Sample_ID","Sample_Name","Time","Replicate","Cell"), variable.name = "Gene", value.name = "count")  
+head(merged_data_long)
+```
+
+## Using tidyr
+
+If you are more familiar with using `tidyverse` or `tidyr` packages, you can combine tables by `join()` and then use `gather()` to make long formatted data in the same command. This is powerful and more a cleaner way of dealing with data in R.
+
+```{r, warning=FALSE, message=FALSE}
+gc %>%
+  rownames_to_column(var = "Gene") %>%
+  gather(Sample_ID, count, -Gene) %>% 
+  full_join(md, by = "Sample_ID") %>% 
+  select(Sample_ID, everything()) %>% 
+  select(-c(Gene,count), c(Gene,count)) %>%
+  head(10)
+```
 
 
 
