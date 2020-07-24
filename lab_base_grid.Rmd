@@ -97,7 +97,7 @@ barplot(ldr$b,names.arg=ldr$a)
 
 Grid graphics have a completely different underlying framework compared to base graphics. Generally, base graphics and grid graphics cannot be plotted together. The most popular grid-graphics based plotting library is **ggplot2**.
 
-Let's create the same plot are before using **ggplot2**. Make sure you have the package installed.
+Let's create the same plot as before using **ggplot2**. Make sure you have the package installed.
 
 ```{r}
 library(ggplot2)

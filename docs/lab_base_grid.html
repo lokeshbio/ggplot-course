@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 17-Mar-2020" />
+<meta name="author" content="Lokesh Mano • 24-Jul-2020" />
 
 
 <title>Base and Grid graphics</title>
@@ -30,9 +30,9 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -42,14 +42,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -58,9 +60,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -473,7 +475,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Base and Grid graphics</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 17-Mar-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 24-Jul-2020</h4>
 
 </div>
 
@@ -492,14 +494,14 @@ div.tocify {
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">dfr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a=</span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">10</span>),<span class="dt">b=</span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">10</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>dfr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a=</span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">10</span>),<span class="dt">b=</span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">10</span>))</span></code></pre></div>
 </div>
 <p>Now we have a dataframe with two continuous variables that can be plotted against each other.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">plot</span>(dfr<span class="op">$</span>a,dfr<span class="op">$</span>b)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">plot</span>(dfr<span class="op">$</span>a,dfr<span class="op">$</span>b)</span></code></pre></div>
 <img src="lab_base_grid_files/figure-html/unnamed-chunk-4-1.svg" width="672" style="display: block; margin: auto auto auto 0;" />
 </div>
 <p>This is probably the simplest and most basic plots. We can modify the x and y axis labels.</p>
@@ -507,7 +509,7 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">plot</span>(dfr<span class="op">$</span>a,dfr<span class="op">$</span>b,<span class="dt">xlab=</span><span class="st">&quot;Variable a&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Variable b&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">plot</span>(dfr<span class="op">$</span>a,dfr<span class="op">$</span>b,<span class="dt">xlab=</span><span class="st">&quot;Variable a&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Variable b&quot;</span>)</span></code></pre></div>
 <img src="lab_base_grid_files/figure-html/unnamed-chunk-5-1.svg" width="672" style="display: block; margin: auto auto auto 0;" />
 </div>
 <p>We can change the point to a line.</p>
@@ -515,7 +517,7 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">plot</span>(dfr<span class="op">$</span>a,dfr<span class="op">$</span>b,<span class="dt">xlab=</span><span class="st">&quot;Variable a&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Variable b&quot;</span>,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">plot</span>(dfr<span class="op">$</span>a,dfr<span class="op">$</span>b,<span class="dt">xlab=</span><span class="st">&quot;Variable a&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Variable b&quot;</span>,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</span></code></pre></div>
 <img src="lab_base_grid_files/figure-html/unnamed-chunk-6-1.svg" width="672" style="display: block; margin: auto auto auto 0;" />
 </div>
 <p>Let’s add a categorical column to our dataframe.</p>
@@ -523,22 +525,22 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">dfr<span class="op">$</span>cat &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;C1&quot;</span>,<span class="st">&quot;C2&quot;</span>),<span class="dt">each=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>dfr<span class="op">$</span>cat &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;C1&quot;</span>,<span class="st">&quot;C2&quot;</span>),<span class="dt">each=</span><span class="dv">5</span>)</span></code></pre></div>
 </div>
 <p>And then colour the points by category.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># subset data</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">dfr_c1 &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr,dfr<span class="op">$</span>cat <span class="op">==</span><span class="st"> &quot;C1&quot;</span>)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">dfr_c2 &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr,dfr<span class="op">$</span>cat <span class="op">==</span><span class="st"> &quot;C2&quot;</span>)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">plot</span>(dfr_c1<span class="op">$</span>a,dfr_c1<span class="op">$</span>b,<span class="dt">xlab=</span><span class="st">&quot;Variable a&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Variable b&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">pch=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw">points</span>(dfr_c2<span class="op">$</span>a,dfr_c2<span class="op">$</span>b,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">pch=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="kw">legend</span>(<span class="dt">x=</span><span class="st">&quot;topright&quot;</span>,<span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;C1&quot;</span>,<span class="st">&quot;C2&quot;</span>),</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>),<span class="dt">pch=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># subset data</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>dfr_c1 &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr,dfr<span class="op">$</span>cat <span class="op">==</span><span class="st"> &quot;C1&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>dfr_c2 &lt;-<span class="st"> </span><span class="kw">subset</span>(dfr,dfr<span class="op">$</span>cat <span class="op">==</span><span class="st"> &quot;C2&quot;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">plot</span>(dfr_c1<span class="op">$</span>a,dfr_c1<span class="op">$</span>b,<span class="dt">xlab=</span><span class="st">&quot;Variable a&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Variable b&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">pch=</span><span class="dv">1</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="kw">points</span>(dfr_c2<span class="op">$</span>a,dfr_c2<span class="op">$</span>b,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">pch=</span><span class="dv">2</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="kw">legend</span>(<span class="dt">x=</span><span class="st">&quot;topright&quot;</span>,<span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;C1&quot;</span>,<span class="st">&quot;C2&quot;</span>),</span>
+<span id="cb6-9"><a href="#cb6-9"></a>       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>),<span class="dt">pch=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span></code></pre></div>
 <img src="lab_base_grid_files/figure-html/unnamed-chunk-8-1.svg" width="672" style="display: block; margin: auto auto auto 0;" />
 </div>
 <p>Let’s create a barplot.</p>
@@ -546,24 +548,24 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">ldr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a=</span>letters[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>],<span class="dt">b=</span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,<span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">barplot</span>(ldr<span class="op">$</span>b,<span class="dt">names.arg=</span>ldr<span class="op">$</span>a)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>ldr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a=</span>letters[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>],<span class="dt">b=</span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,<span class="dv">10</span>))</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">barplot</span>(ldr<span class="op">$</span>b,<span class="dt">names.arg=</span>ldr<span class="op">$</span>a)</span></code></pre></div>
 <img src="lab_base_grid_files/figure-html/unnamed-chunk-9-1.svg" width="672" style="display: block; margin: auto auto auto 0;" />
 </div>
 </div>
 <div id="grid" class="section level2">
 <h2><span class="header-section-number">1.2</span> Grid</h2>
 <p>Grid graphics have a completely different underlying framework compared to base graphics. Generally, base graphics and grid graphics cannot be plotted together. The most popular grid-graphics based plotting library is <strong>ggplot2</strong>.</p>
-<p>Let’s create the same plot are before using <strong>ggplot2</strong>. Make sure you have the package installed.</p>
+<p>Let’s create the same plot as before using <strong>ggplot2</strong>. Make sure you have the package installed.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">ggplot</span>(dfr,<span class="kw">aes</span>(<span class="dt">x=</span>a,<span class="dt">y=</span>b,<span class="dt">colour=</span>cat))<span class="op">+</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Variable a&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Variable b&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">ggplot</span>(dfr,<span class="kw">aes</span>(<span class="dt">x=</span>a,<span class="dt">y=</span>b,<span class="dt">colour=</span>cat))<span class="op">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Variable a&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Variable b&quot;</span>)</span></code></pre></div>
 <img src="lab_base_grid_files/figure-html/unnamed-chunk-10-1.svg" width="672" style="display: block; margin: auto auto auto 0;" />
 </div>
 <p>It is generally easier and more consistent to create plots using the ggplot2 package compared to the base graphics.</p>
@@ -572,8 +574,8 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">ggplot</span>(ldr,<span class="kw">aes</span>(<span class="dt">x=</span>a,<span class="dt">y=</span>b))<span class="op">+</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">ggplot</span>(ldr,<span class="kw">aes</span>(<span class="dt">x=</span>a,<span class="dt">y=</span>b))<span class="op">+</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 <img src="lab_base_grid_files/figure-html/unnamed-chunk-11-1.svg" width="672" style="display: block; margin: auto auto auto 0;" />
 </div>
 </div>
@@ -588,11 +590,11 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">dfr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a=</span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">10</span>),<span class="dt">b=</span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">png</span>(<span class="dt">filename=</span><span class="st">&quot;plot-base.png&quot;</span>)</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">plot</span>(dfr<span class="op">$</span>a,dfr<span class="op">$</span>b)</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="kw">dev.off</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>dfr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a=</span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">10</span>),<span class="dt">b=</span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">10</span>))</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">png</span>(<span class="dt">filename=</span><span class="st">&quot;plot-base.png&quot;</span>)</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="kw">plot</span>(dfr<span class="op">$</span>a,dfr<span class="op">$</span>b)</span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="kw">dev.off</span>()</span></code></pre></div>
 </div>
 </div>
 <div id="ggplot2" class="section level2">
@@ -602,20 +604,62 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dfr,<span class="kw">aes</span>(a,b)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">png</span>(<span class="dt">filename=</span><span class="st">&quot;plot-ggplot-1.png&quot;</span>)</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">print</span>(p)</a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw">dev.off</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dfr,<span class="kw">aes</span>(a,b)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="kw">png</span>(<span class="dt">filename=</span><span class="st">&quot;plot-ggplot-1.png&quot;</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="kw">print</span>(p)</span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="kw">dev.off</span>()</span></code></pre></div>
 </div>
 <p><strong>ggplot2</strong> also has another easier helper function to export images.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">ggsave</span>(<span class="dt">filename=</span><span class="st">&quot;plot-ggplot-2.png&quot;</span>,<span class="dt">plot=</span>p)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">ggsave</span>(<span class="dt">filename=</span><span class="st">&quot;plot-ggplot-2.png&quot;</span>,<span class="dt">plot=</span>p)</span></code></pre></div>
 </div>
 </div>
+</div>
+<div id="session-info" class="section level1">
+<h1><span class="header-section-number">2</span> Session info</h1>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+<pre><code>## R version 3.6.3 (2020-02-29)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] ggplot2_3.3.0   dplyr_0.8.5     captioner_2.2.3 bookdown_0.17  
+## [5] knitr_1.28     
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.4.6     magrittr_1.5     munsell_0.5.0    tidyselect_1.1.0
+##  [5] colorspace_1.4-1 R6_2.4.1         rlang_0.4.6      stringr_1.4.0   
+##  [9] tools_3.6.3      grid_3.6.3       gtable_0.3.0     xfun_0.13       
+## [13] withr_2.2.0      htmltools_0.4.0  ellipsis_0.3.0   yaml_2.2.1      
+## [17] digest_0.6.25    assertthat_0.2.1 tibble_3.0.1     lifecycle_0.2.0 
+## [21] crayon_1.3.4     farver_2.0.3     purrr_0.3.4      vctrs_0.3.0     
+## [25] glue_1.4.0       evaluate_0.14    rmarkdown_2.1    labeling_0.3    
+## [29] stringi_1.4.6    compiler_3.6.3   pillar_1.4.4     scales_1.1.1    
+## [33] pkgconfig_2.0.3</code></pre>
+</div>
+<p><strong>End of document</strong></p>
 </div>
 
 

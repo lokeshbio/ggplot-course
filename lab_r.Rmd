@@ -88,7 +88,7 @@ You have probably learnt about `data.frame` in your previous course and this is 
 
 Vectors positions can be accessed using `[]`. R follows 1-based indexing, meaning that the indexing starts at 1.
 
-Dataframe or matrix positions can be accessed using `[]` specifying row and column like `[row,column]`.
+Data-frame or matrix positions can be accessed using `[]` specifying row and column like `[row,column]`.
 
 ```{r}
 dfr <- data.frame(x = 1:3, y = c("a", "b", "c"))
@@ -99,7 +99,7 @@ dfr[2,2]
 ```
 
 
-The function `cbind()` is used to join two dataframes column-wise.
+The function `cbind()` is used to join two data-frames column-wise.
 
 ```{r}
 dfr1 <- data.frame(x = 1:3, y = c("a", "b", "c"))
@@ -110,7 +110,7 @@ dfr2
 cbind(dfr1,dfr2)
 ```
 
-Similarly, `rbind()` is used to join two dataframes row-wise.
+Similarly, `rbind()` is used to join two data-frames row-wise.
 
 ```{r}
 dfr1 <- data.frame(x = 1:3, y = c("a", "b", "c"))
@@ -121,7 +121,7 @@ dfr2
 rbind(dfr1,dfr2)
 ```
 
-Two dataframes can be merged based on a shared column using the `merge()` function.
+Two data-frames can be merged based on a shared column using the `merge()` function.
 
 ```{r}
 dfr1 <- data.frame(x = 1:4, p = c("a", "b", "c","d"))
@@ -277,7 +277,7 @@ head(merged_data_long)
 
 ## Using tidyr
 
-If you are more familiar with using `tidyverse` or `tidyr` packages, you can combine tables by `join()` and then use `gather()` to make long formatted data in the same command. This is powerful and more a cleaner way of dealing with data in R.
+If you are more familiar with using `tidyverse` or `tidyr` packages, you can combine tables by `join()` and then use `gather()` to make long formatted data in the same command. This is a powerful and more cleaner way of dealing with data in R.
 
 ```{r, warning=FALSE, message=FALSE}
 gc %>%
