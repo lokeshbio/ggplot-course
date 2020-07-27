@@ -33,15 +33,20 @@ command
 
 <br>
 
-# Introduction
-
-Most of the analyses is carried out in R and it will be useful to learn some basic R.
-
-[<i class="fas fa-link"></i> <span class="large">Introduction to R</span>](lab_r.html)  
-
 This topic covers retrieving data needed for all the exercises in the entire course can be found in the following link. 
 
 [<i class="fas fa-link"></i> <span class="large">Downloading data</span>](lab_download.html)
+
+Some pre-course R warm-up below, if you fancy that:
+
+[<i class="fas fa-link"></i> <span class="large">R warmup</span>](https://immuntech.github.io/Bioinformatics_Workshop_ImmTech/Data/2019-10-15/R_exercise_Lokesh.html)
+
+# Introduction
+
+Most of the analyses is carried out in R and it will be useful to learn some basics in R that are very much necessary for this course. Even if you have learnt these things already, it is good to freshen up your memory. 
+
+[<i class="fas fa-link"></i> <span class="large">Introduction to R</span>](lab_r.html)  
+
 
 # Main lab
 
