@@ -142,7 +142,7 @@ ggplot(ldr,aes(x=a,y=b))+
 
 Let's take a look at saving plots. 
 
-*Note:* This part is just to give you a quick look into how you can save images from Rstudio quickly. The different format of images will be explained in a lecture tomorrow.
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; This part is just to give you a quick look into how you can save images from Rstudio quickly. The different format of images will be explained in a lecture tomorrow.
 
 ### Base graphics
 
@@ -168,6 +168,7 @@ print(p)
 dev.off()
 ```
 
+<i class="fas fa-lightbulb"></i> Tip &nbsp;
 **ggplot2** also has another easier helper function to export images.
 
 ```{r,eval=FALSE}
@@ -199,7 +200,7 @@ When we initiate the ggplot object using the data, it just creates a blank plot!
 ggplot(iris) 
 ```
 
-Now we can specify what we want on the x and y axes using aethetic mapping. And we specify the geometric using `geoms`. Note that the variable names do not have double quotes `""` like in base plots.
+Now we can specify what we want on the x and y axes using aethetic mapping. And we specify the geometric using `geoms`. <i class="fas fa-exclamation-circle"></i> Note &nbsp; that the variable names do not have double quotes `""` like in base plots.
 
 ```{r}
 ggplot(data=iris)+
@@ -208,7 +209,8 @@ ggplot(data=iris)+
 
 ### Multiple geoms
 
-Further geoms can be added. For example let’s add a regression line. When multiple geoms with the same aesthetics are used, they can be specified as a common mapping. Note that the order in which geoms are plotted depends on the order in which the geoms are supplied in the code. In the code below, the points are plotted first and then the regression line.
+Further geoms can be added. For example let’s add a regression line. When multiple geoms with the same aesthetics are used, they can be specified as a common mapping. 
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; that the order in which geoms are plotted depends on the order in which the geoms are supplied in the code. In the code below, the points are plotted first and then the regression line.
 
 ```{r}
 ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
@@ -247,7 +249,9 @@ ggplot(data = gc_long) +
   geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count)))
 ```
 
-**Note:** You can notice that the ggplot sorts the `factors` or `vaiables` alpha-numerically, like in the case above with `Sample_Name`. There is a trick that you can use to give the order of variables manually. The example is shown below:
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; You can notice that the ggplot sorts the `factors` or `vaiables` alpha-numerically, like in the case above with `Sample_Name`. 
+
+<i class="fas fa-lightbulb"></i> Tip &nbsp; There is a trick that you can use to give the order of variables manually. The example is shown below:
 
 ```{r}
 gc_long$Sample_Name <- factor(gc_long$Sample_Name, levels = c("t0_A","t0_B","t0_C","t2_A","t2_B","t2_C","t6_A","t6_B","t6_C","t24_A","t24_B","t24_C"))
@@ -286,7 +290,7 @@ ggplot(data = gc_long) +
   geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count), color = Time))
 ```
 
-We can also use the `fill` aesthetic to give it a better look.
+<i class="fas fa-lightbulb"></i> Tip &nbsp; We can also use the `fill` aesthetic to give it a better look.
 
 ```{r}
 ggplot(data = gc_long) +
@@ -304,7 +308,7 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   scale_color_manual(values=c("red","blue","green"))
 ```
 
-To specify manual colors, you could specify by their `names` or their `hexadecimal codes`. For example, you can choose the colors based on `names` from an online source like in this [cheatsheet](http://bc.bojanorama.pl/wp-content/uploads/2013/04/rcolorsheet.pdf) or you can use the `hexadecimal code` and choose it from a source like [here](https://htmlcolorcodes.com/). I personally prefer the `hexa` based options for manual colors.
+<i class="fas fa-lightbulb"></i> Tip &nbsp; To specify manual colors, you could specify by their `names` or their `hexadecimal codes`. For example, you can choose the colors based on `names` from an online source like in this [cheatsheet](http://bc.bojanorama.pl/wp-content/uploads/2013/04/rcolorsheet.pdf) or you can use the `hexadecimal code` and choose it from a source like [here](https://htmlcolorcodes.com/). I personally prefer the `hexa` based options for manual colors.
 
 ### Continous colors
 
@@ -316,7 +320,7 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   geom_smooth(method="lm")
 ```
 
-Here, you can also choose different `palettes` for choosing the right contious pallete. There are some common packages of paletes that are used very often. [RColorBrewer](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) and [wesanderson](https://github.com/karthik/wesanderson), if you are fan of his choice of colors ;)
+<i class="fas fa-lightbulb"></i> Tip &nbsp; Here, you can also choose different `palettes` for choosing the right contious pallete. There are some common packages of paletes that are used very often. [RColorBrewer](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) and [wesanderson](https://github.com/karthik/wesanderson), if you are fan of his choice of colors ;)
 
 ```{r}
 #install.packages("wesanderson")
@@ -327,7 +331,7 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   scale_color_gradientn(colours = wes_palette("Moonrise3"))
 ```
 
-You can also use simple R base color palettes like `rainbow()` or `terrain.colors()`. Use `?` and look at these functions to see, how to use them.
+<i class="fas fa-lightbulb"></i> Tip &nbsp; You can also use simple R base color palettes like `rainbow()` or `terrain.colors()`. Use `?` and look at these functions to see, how to use them.
 
 ## Aesthetics
 
