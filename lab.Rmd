@@ -50,7 +50,7 @@ Most of the analyses is carried out in R and it will be useful to learn some bas
 
 # Main lab
 
-Below is the link for the basic plotting excercise. there will be some basic plotting exercises first using R base graphics and comparing them to the grid graphics using `ggplot2`.
+Below is the link for the basic plotting excercise. there will be some basic plotting exercises first using R base graphics and comparing them to the grid graphics using `ggplot2`. Followed by practicing the first basics in ggplot: geoms, colors and aesthetics.
 
 [<i class="fas fa-link"></i> <span class="large">Basic plotting</span>](lab_base_grid.html)
 

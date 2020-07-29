@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 24-Jul-2020" />
+<meta name="author" content="Lokesh Mano • 29-Jul-2020" />
 
 
-<title>Base and Grid graphics</title>
+<title>ggplot basics 1</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -471,9 +471,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Base and Grid graphics</h1>
+<h1 class="title toc-ignore">ggplot basics 1</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 24-Jul-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 29-Jul-2020</h4>
 
 </div>
 
@@ -482,8 +482,8 @@ div.tocify {
 <!-- custom fonts -->
 <p><link href="https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro:300,400,600|Ubuntu+Mono&amp;subset=latin-ext" rel="stylesheet"></p>
 <p><br></p>
-<div id="graphics" class="section level1">
-<h1><span class="header-section-number">1</span> Graphics</h1>
+<div id="base-vs-grid-graphics" class="section level1">
+<h1><span class="header-section-number">1</span> Base vs grid graphics</h1>
 <div id="base" class="section level2">
 <h2><span class="header-section-number">1.1</span> Base</h2>
 <p>R is an excellent tool for creating graphs and plots. The graphic capabilities and functions provided by the base R installation is called the base R graphics. Numerous packages exist to extend the functionality of base graphics.</p>
@@ -576,8 +576,8 @@ R
 </div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">ggplot</span>(dfr,<span class="kw">aes</span>(<span class="dt">x=</span>a,<span class="dt">y=</span>b,<span class="dt">colour=</span>cat))<span class="op">+</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">ggplot</span>(dfr)<span class="op">+</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>a,<span class="dt">y=</span>b,<span class="dt">colour=</span>cat))<span class="op">+</span></a>
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Variable a&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Variable b&quot;</span>)</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
@@ -598,12 +598,12 @@ R
 </details>
 </div>
 </div>
-<div id="images" class="section level2">
-<h2><span class="header-section-number">1.3</span> Images</h2>
+<div id="saving-mages" class="section level2">
+<h2><span class="header-section-number">1.3</span> Saving mages</h2>
 <p>Let’s take a look at saving plots.</p>
-</div>
-<div id="base-graphics" class="section level2">
-<h2><span class="header-section-number">1.4</span> Base graphics</h2>
+<p><em>Note:</em> This part is just to give you a quick look into how you can save images from Rstudio quickly. The different format of images will be explained in a lecture tomorrow.</p>
+<div id="base-graphics" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Base graphics</h3>
 <p>The general idea for saving plots is open a graphics device, create the plot and then close the device. We will use <strong>png</strong> here. Check out <code>?png</code> for the arguments and other devices.</p>
 <div class="block-title-parent">
 <div class="block-title small">
@@ -616,8 +616,8 @@ R
 <a class="sourceLine" id="cb10-5" data-line-number="5"><span class="kw">dev.off</span>()</a></code></pre></div>
 </div>
 </div>
-<div id="ggplot2" class="section level2">
-<h2><span class="header-section-number">1.5</span> ggplot2</h2>
+<div id="ggplot2" class="section level3">
+<h3><span class="header-section-number">1.3.2</span> ggplot2</h3>
 <p>The same idea can be applied to ggplot2, but in a slightly different way. First save the file to a variable, and then export the plot.</p>
 <div class="block-title-parent">
 <div class="block-title small">
@@ -638,13 +638,261 @@ R
 </div>
 </div>
 </div>
-<div id="session-info" class="section level1">
-<h1><span class="header-section-number">2</span> Session info</h1>
+</div>
+<div id="ggplot-basics" class="section level1">
+<h1><span class="header-section-number">2</span> Ggplot basics</h1>
+<p>Make sure the library is loaded in your environment.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
+</div>
+<div id="geoms" class="section level2">
+<h2><span class="header-section-number">2.1</span> Geoms</h2>
+<p>In the previous section we saw very quickly how to use <code>ggplot</code>. Let’s take a look at it again a bit more carefully. For this let’s first look into a simple data that is available in R. We use the <code>iris</code> data for this to start with.</p>
+<p>This dataset has four continuous variables and one categorical variable. It is important to remember about the data type when plotting graphs</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;iris&quot;</span>)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">head</span>(iris)</a></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<p>When we initiate the ggplot object using the data, it just creates a blank plot!</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">ggplot</span>(iris) </a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-18-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>Now we can specify what we want on the x and y axes using aethetic mapping. And we specify the geometric using <code>geoms</code>. Note that the variable names do not have double quotes <code>&quot;&quot;</code> like in base plots.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris)<span class="op">+</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-19-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<div id="multiple-geoms" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Multiple geoms</h3>
+<p>Further geoms can be added. For example let’s add a regression line. When multiple geoms with the same aesthetics are used, they can be specified as a common mapping. Note that the order in which geoms are plotted depends on the order in which the geoms are supplied in the code. In the code below, the points are plotted first and then the regression line.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-20-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>There are many other <code>geoms</code> and you can find most of them here in this <a href="https://rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">cheatsheet</a></p>
+</div>
+<div id="gene-counts-data" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Gene counts data</h3>
+<p>Let’s also try to use <code>ggplot</code> for a “more common” gene counts dataset. Let’s use the <code>merged_data_long</code> or the <code>gc_long</code> object we created in the earlier session.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+</div>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> gc_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> <span class="kw">log10</span>(count)))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-22-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p><strong>Note:</strong> You can notice that the ggplot sorts the <code>factors</code> or <code>vaiables</code> alpha-numerically, like in the case above with <code>Sample_Name</code>. There is a trick that you can use to give the order of variables manually. The example is shown below:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">gc_long<span class="op">$</span>Sample_Name &lt;-<span class="st"> </span><span class="kw">factor</span>(gc_long<span class="op">$</span>Sample_Name, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;t0_A&quot;</span>,<span class="st">&quot;t0_B&quot;</span>,<span class="st">&quot;t0_C&quot;</span>,<span class="st">&quot;t2_A&quot;</span>,<span class="st">&quot;t2_B&quot;</span>,<span class="st">&quot;t2_C&quot;</span>,<span class="st">&quot;t6_A&quot;</span>,<span class="st">&quot;t6_B&quot;</span>,<span class="st">&quot;t6_C&quot;</span>,<span class="st">&quot;t24_A&quot;</span>,<span class="st">&quot;t24_B&quot;</span>,<span class="st">&quot;t24_C&quot;</span>))</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> gc_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> <span class="kw">log10</span>(count)))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-23-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+</div>
+<div id="colors" class="section level2">
+<h2><span class="header-section-number">2.2</span> Colors</h2>
+<div id="iris-data" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Iris data</h3>
+<p>First, if we look at the <code>iris</code> data, we can use the categorical column <code>Species</code> to color the points. The color aesthetic is used by geom_point and geom_smooth. Three different regression lines are now drawn. Notice that a legend is automatically created</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width,<span class="dt">color=</span>Species))<span class="op">+</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-24-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>If we wanted to keep a common regression line while keeping the colors for the points, we could specify color aesthetic only for <code>geom_point</code>.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species))<span class="op">+</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-25-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="gc-data" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> GC data</h3>
+<p>Similarly, we can do the same with the gene counts data.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> gc_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> <span class="kw">log10</span>(count), <span class="dt">color =</span> Time))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-26-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>We can also use the <code>fill</code> aesthetic to give it a better look.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> gc_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> <span class="kw">log10</span>(count), <span class="dt">fill =</span> Time))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-27-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="discrete-colors" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Discrete colors</h3>
+<p>We can change the default colors by specifying new values inside a scale.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species,<span class="dt">size=</span>Sepal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-28-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>To specify manual colors, you could specify by their <code>names</code> or their <code>hexadecimal codes</code>. For example, you can choose the colors based on <code>names</code> from an online source like in this <a href="http://bc.bojanorama.pl/wp-content/uploads/2013/04/rcolorsheet.pdf">cheatsheet</a> or you can use the <code>hexadecimal code</code> and choose it from a source like <a href="https://htmlcolorcodes.com/">here</a>. I personally prefer the <code>hexa</code> based options for manual colors.</p>
+</div>
+<div id="continous-colors" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Continous colors</h3>
+<p>We can also map the colors to a continuous variable. This creates a color bar legend item.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Sepal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-29-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>Here, you can also choose different <code>palettes</code> for choosing the right contious pallete. There are some common packages of paletes that are used very often. <a href="https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html">RColorBrewer</a> and <a href="https://github.com/karthik/wesanderson">wesanderson</a>, if you are fan of his choice of colors ;)</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co">#install.packages(&quot;wesanderson&quot;)</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">library</span>(wesanderson)</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Sepal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_gradientn</span>(<span class="dt">colours =</span> <span class="kw">wes_palette</span>(<span class="st">&quot;Moonrise3&quot;</span>))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-30-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>You can also use simple R base color palettes like <code>rainbow()</code> or <code>terrain.colors()</code>. Use <code>?</code> and look at these functions to see, how to use them.</p>
+</div>
+</div>
+<div id="aesthetics" class="section level2">
+<h2><span class="header-section-number">2.3</span> Aesthetics</h2>
+<div id="aesthetic-parameter" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Aesthetic parameter</h3>
+<p>We can change the size of all points by a fixed amount by specifying size outside the aesthetic parameter.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species),<span class="dt">size=</span><span class="dv">3</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-31-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="aesthetic-mapping" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Aesthetic mapping</h3>
+<p>We can map another variable as size of the points. This is done by specifying size inside the aesthetic mapping. Now the size of the points denote <code>Sepal.Width</code>. A new legend group is created to show this new aesthetic.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species,<span class="dt">size=</span>Sepal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-32-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+</div>
+</div>
+<div id="session-info" class="section level1">
+<h1><span class="header-section-number">3</span> Session info</h1>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04 LTS
@@ -665,19 +913,26 @@ R
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_3.3.0   dplyr_0.8.5     captioner_2.2.3 bookdown_0.17  
-## [5] knitr_1.28     
+##  [1] wesanderson_0.3.6 forcats_0.4.0     stringr_1.4.0     purrr_0.3.4      
+##  [5] readr_1.3.1       tidyr_1.0.2       tibble_3.0.1      tidyverse_1.3.0  
+##  [9] reshape2_1.4.4    ggplot2_3.3.0     dplyr_0.8.5       captioner_2.2.3  
+## [13] bookdown_0.17     knitr_1.28       
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.4.6     magrittr_1.5     munsell_0.5.0    tidyselect_1.1.0
-##  [5] colorspace_1.4-1 R6_2.4.1         rlang_0.4.6      stringr_1.4.0   
-##  [9] tools_3.6.3      grid_3.6.3       gtable_0.3.0     xfun_0.13       
-## [13] withr_2.2.0      htmltools_0.4.0  ellipsis_0.3.0   yaml_2.2.1      
-## [17] digest_0.6.25    assertthat_0.2.1 tibble_3.0.1     lifecycle_0.2.0 
-## [21] crayon_1.3.4     farver_2.0.3     purrr_0.3.4      vctrs_0.3.0     
-## [25] glue_1.4.0       evaluate_0.14    rmarkdown_2.1    labeling_0.3    
-## [29] stringi_1.4.6    compiler_3.6.3   pillar_1.4.4     scales_1.1.1    
-## [33] pkgconfig_2.0.3</code></pre>
+##  [1] tidyselect_1.1.0 xfun_0.13        splines_3.6.3    haven_2.2.0     
+##  [5] lattice_0.20-40  colorspace_1.4-1 vctrs_0.3.0      generics_0.0.2  
+##  [9] htmltools_0.4.0  yaml_2.2.1       mgcv_1.8-31      rlang_0.4.6     
+## [13] pillar_1.4.4     glue_1.4.0       withr_2.2.0      DBI_1.1.0       
+## [17] dbplyr_1.4.2     readxl_1.3.1     modelr_0.1.8     lifecycle_0.2.0 
+## [21] plyr_1.8.6       cellranger_1.1.0 munsell_0.5.0    gtable_0.3.0    
+## [25] rvest_0.3.5      evaluate_0.14    labeling_0.3     fansi_0.4.1     
+## [29] broom_0.5.4      Rcpp_1.0.4.6     scales_1.1.1     backports_1.1.7 
+## [33] jsonlite_1.6.1   fs_1.3.1         farver_2.0.3     hms_0.5.3       
+## [37] digest_0.6.25    stringi_1.4.6    grid_3.6.3       cli_2.0.2       
+## [41] tools_3.6.3      magrittr_1.5     crayon_1.3.4     pkgconfig_2.0.3 
+## [45] ellipsis_0.3.0   Matrix_1.2-18    xml2_1.2.2       reprex_0.3.0    
+## [49] lubridate_1.7.4  rstudioapi_0.11  assertthat_0.2.1 rmarkdown_2.1   
+## [53] httr_1.4.1       R6_2.4.1         nlme_3.1-144     compiler_3.6.3</code></pre>
 </div>
 <p><strong>End of document</strong></p>
 </div>

@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 24-Jul-2020" />
+<meta name="author" content="Lokesh Mano • 28-Jul-2020" />
 
 
 <title>Intro to R</title>
@@ -474,7 +474,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Intro to R</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 24-Jul-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 28-Jul-2020</h4>
 
 </div>
 
@@ -485,7 +485,7 @@ div.tocify {
 <p><br></p>
 <p>R is a programming language for statistical computing, and data wrangling. It is open-source, widely used in data science, has a wide range of functions and algorithms for graphing and data analyses.</p>
 <p>We will use R in this course for generating plots from different biological data that are of higher quality and standard for publications. To do this, you will brush-up your memory on some important aspects of R that are important for this course below:</p>
-<p><strong>Before starting with the lab sessions of the entire course, you must have downloaded all the necessary files from <a href="lab_download.html">here</a> and made sure that the directory tree looks similar to the one displayed in that page</strong></p>
+<p><strong>Before starting with the lab sessions of the entire course, you must have downloaded all the necessary files from <a href="lab_download.html">here</a> and make sure that the directory tree looks similar to the one displayed in that page</strong></p>
 <p>In that case, you can proceed with the exercise now and remember to have fun :)</p>
 <div id="inputoutput" class="section level1">
 <h1><span class="header-section-number">1</span> Input/Output</h1>
@@ -1799,13 +1799,15 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">gc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;Gene&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>(Sample_ID, count, <span class="op">-</span>Gene) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw">full_join</span>(md, <span class="dt">by =</span> <span class="st">&quot;Sample_ID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(Sample_ID, <span class="kw">everything</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(Gene,count), <span class="kw">c</span>(Gene,count)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">gc_long &lt;-<span class="st"> </span>gc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;Gene&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(Sample_ID, count, <span class="op">-</span>Gene) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">  </span><span class="kw">full_join</span>(md, <span class="dt">by =</span> <span class="st">&quot;Sample_ID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(Sample_ID, <span class="kw">everything</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(Gene,count), <span class="kw">c</span>(Gene,count)) </a>
+<a class="sourceLine" id="cb18-8" data-line-number="8">gc_long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>)</a></code></pre></div>
 <details>
 <p><summary>output</summary></p>
 <pre><code>##    Sample_ID Sample_Name Time Replicate Cell            Gene count

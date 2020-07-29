@@ -3,14 +3,14 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 ;;30;R Introduction lecture;Lokesh;;;
 ;;20;Coffee Break;;;;
 ;;70;R Introduction Lab;Lokesh;;lab_r.html;
-;;30;Basic ggplot lecture;;;
+;;30;ggplot basics 1 (overview);;;
 ;;60;Lunch;;;;
-;;50;Basic plotting (geoms, aesthetics and stats);Lokesh;;lab_base_grid.html;
-;;20;colors shape axes and facet (lecture);Lokesh;;;
-;;50;colors shape axes and facet (lab);Lokesh;;;
+;;50;ggplot basics 1 (geoms, color and aesthetics) (lab);Lokesh;;lab_base_grid.html;
+;;20;ggplot basics 2 (stats, shape, axes and facet) (overview);Lokesh;;;
+;;50;ggplot basics 2 (stats, shape, axes and facet) (lab);Lokesh;;;
 ;;20;Coffee Break;;;;
-;;20;co-ordinates legend and theme (lecture);Lokesh;;;
-;;80;co-ordinates legend and theme (lab);Lokesh;;;
+;;20;ggplot basics 3 (co-ordinates,legend and theme) (overview);Lokesh;;;
+;;80;ggplot basics 3 (co-ordinates,legend and theme) (lab);Lokesh;;;
 14/05/2020;"Cerebrum; D215";30;Vector graphics (lecture);Markus;;;https://tinyurl.com/yyaf3zbb
 ;;30;Plotting PCA, heatmap and others (lecture);Markus;;;
 ;;20;Coffee Break;;;;

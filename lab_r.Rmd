@@ -306,12 +306,14 @@ head(merged_data_long)
 If you are more familiar with using `tidyverse` or `tidyr` packages, you can combine tables by `join()` and then use `gather()` to make long formatted data in the same command. This is a powerful and more cleaner way of dealing with data in R.
 
 ```{r, warning=FALSE, message=FALSE}
-gc %>%
+library(tidyverse)
+gc_long <- gc %>%
   rownames_to_column(var = "Gene") %>%
   gather(Sample_ID, count, -Gene) %>% 
   full_join(md, by = "Sample_ID") %>% 
   select(Sample_ID, everything()) %>% 
-  select(-c(Gene,count), c(Gene,count)) %>%
+  select(-c(Gene,count), c(Gene,count)) 
+gc_long %>%
   head(10)
 ```
 
