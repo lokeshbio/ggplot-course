@@ -59,3 +59,5 @@ gc_long <- gc %>%
   select(-c(Gene,count), c(Gene,count)) 
 ```
 
+
+
