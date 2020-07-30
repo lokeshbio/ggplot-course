@@ -7,7 +7,7 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 ;;60;Lunch;;;;
 ;;50;ggplot basics 1 (geoms, color and aesthetics) (lab);Lokesh;;lab_base_grid.html;
 ;;20;ggplot basics 2 (stats, shape, axes and facet) (overview);Lokesh;;;
-;;50;ggplot basics 2 (stats, shape, axes and facet) (lab);Lokesh;;;
+;;50;ggplot basics 2 (stats, shape, axes and facet) (lab);Lokesh;;lab_gg_2.html;
 ;;20;Coffee Break;;;;
 ;;20;ggplot basics 3 (co-ordinates,legend and theme) (overview);Lokesh;;;
 ;;80;ggplot basics 3 (co-ordinates,legend and theme) (lab);Lokesh;;;

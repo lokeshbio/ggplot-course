@@ -226,7 +226,7 @@ Let's also try to use `ggplot` for a "more common" gene counts dataset. Let's us
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(reshape2)
-gc <- read.table("data/counts_filtered.txt", header = T, row.names = 1, sep = "\t")
+gc <- read.table("data/counts_raw.txt", header = T, row.names = 1, sep = "\t")
 md <- read.table("data/metadata_raw.csv", header = T, sep = ";")
 rownames(md) <- md$Sample_ID
 
@@ -246,7 +246,7 @@ gc_long <- gc %>%
 
 ```{r}
 ggplot(data = gc_long) +
-  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count)))
+  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count +1)))
 ```
 
 <i class="fas fa-exclamation-circle"></i> Note &nbsp; You can notice that the ggplot sorts the `factors` or `vaiables` alpha-numerically, like in the case above with `Sample_Name`. 
@@ -256,7 +256,7 @@ ggplot(data = gc_long) +
 ```{r}
 gc_long$Sample_Name <- factor(gc_long$Sample_Name, levels = c("t0_A","t0_B","t0_C","t2_A","t2_B","t2_C","t6_A","t6_B","t6_C","t24_A","t24_B","t24_C"))
 ggplot(data = gc_long) +
-  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count)))
+  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count + 1)))
 ```
 
 ## Colors
@@ -287,14 +287,14 @@ Similarly, we can do the same with the gene counts data.
 
 ```{r}
 ggplot(data = gc_long) +
-  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count), color = Time))
+  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count + 1), color = Time))
 ```
 
 <i class="fas fa-lightbulb"></i> Tip &nbsp; We can also use the `fill` aesthetic to give it a better look.
 
 ```{r}
 ggplot(data = gc_long) +
-  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count), fill = Time))
+  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count + 1), fill = Time))
 ```
 
 ### Discrete colors
@@ -323,7 +323,6 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
 <i class="fas fa-lightbulb"></i> Tip &nbsp; Here, you can also choose different `palettes` for choosing the right contious pallete. There are some common packages of paletes that are used very often. [RColorBrewer](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) and [wesanderson](https://github.com/karthik/wesanderson), if you are fan of his choice of colors ;)
 
 ```{r}
-#install.packages("wesanderson")
 library(wesanderson)
 ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   geom_point(aes(color=Sepal.Width))+
@@ -354,6 +353,27 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   geom_point(aes(color=Species,size=Sepal.Width))+
   geom_smooth(method="lm")
 ```
+
+# Exercise
+
+<i class="fas fa-clipboard-list"></i> Task &nbsp; Make `boxplots` similar to the one we did here in this exercise for the other three counts (`counts_filtered.txt`, `counts_vst.txt` and `cpm.csv`). 
+
+<i class="fas fa-lightbulb"></i> Tip &nbsp; You can save the plots themselves as R objects. You will get the plot by just calling those objects. You can then add layers to those objects. An example is shown below:
+
+```{r}
+plot_obj_1 <- ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Sepal.Width))+
+  geom_smooth(method="lm") 
+plot_obj_1
+```
+
+```{r}
+plot_obj_2 <- plot_obj_1 +
+  scale_color_gradientn(colours = wes_palette("Moonrise3"))
+plot_obj_2
+```
+
+This way, you can create different plot objects for the different counts, we will use them in the later exercises.
 
 # Session info
 
