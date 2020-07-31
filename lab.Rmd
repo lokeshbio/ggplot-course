@@ -64,6 +64,12 @@ Below is the link for the basic plotting excercise. there will be some basic plo
 
 [<i class="fas fa-link"></i> <span class="large">Geoms, colors and aesthetics</span>](lab_base_grid.html)
 
+## ggplot basics 2
+
+Below is the link for the second excercise where you will look inot facets, barplots and errorbars.
+
+[<i class="fas fa-link"></i> <span class="large">Facets, barplots and errorbars</span>](lab_gg_2.html)
+
 *Each of the labs will be updated here eventually*
 
 **End of document**
