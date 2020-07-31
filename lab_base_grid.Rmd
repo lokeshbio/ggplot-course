@@ -356,7 +356,7 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
 
 # Exercise
 
-<i class="fas fa-clipboard-list"></i> Task &nbsp; Make `boxplots` similar to the one we did here in this exercise for the other three counts (`counts_filtered.txt`, `counts_vst.txt` and `cpm.csv`). 
+<i class="fas fa-clipboard-list"></i> Task &nbsp; Make `boxplots` similar to the one we did here in this exercise for the other three counts (`counts_filtered.txt`, `counts_vst.txt` and `counts_deseq2.txt`). 
 
 <i class="fas fa-lightbulb"></i> Tip &nbsp; You can save the plots themselves as R objects. You will get the plot by just calling those objects. You can then add layers to those objects. An example is shown below:
 

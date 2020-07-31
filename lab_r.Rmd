@@ -319,7 +319,7 @@ gc_long %>%
 
 # Exercise
 
-<i class="fas fa-clipboard-list"></i> Task &nbsp; Here in this exercise we have used the `counts_raw.txt` file, you can try to make similar R objects for the other three (`count_filtered.txt`, `counts_vst.txt` and `cpm.csv`) counts in `long format`.
+<i class="fas fa-clipboard-list"></i> Task &nbsp; Here in this exercise we have used the `counts_raw.txt` file, you can try to make similar R objects for the other three (`count_filtered.txt`, `counts_vst.txt` and `counts_deseq2.txt`) counts in `long format`.
 
 <i class="fas fa-lightbulb"></i> Tip &nbsp; Remember to take a look at how these files are formatted, before you import!
 

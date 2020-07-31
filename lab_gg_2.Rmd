@@ -46,6 +46,7 @@ knitr::knit_hooks$set(
 library(dplyr)
 library(ggplot2)
 library(reshape2)
+data("iris")
 gc <- read.table("data/counts_raw.txt", header = T, row.names = 1, sep = "\t")
 md <- read.table("data/metadata_raw.csv", header = T, sep = ";")
 rownames(md) <- md$Sample_ID
@@ -57,7 +58,186 @@ gc_long <- gc %>%
   full_join(md, by = "Sample_ID") %>% 
   select(Sample_ID, everything()) %>% 
   select(-c(Gene,count), c(Gene,count)) 
+gc_long$Sample_Name <- factor(gc_long$Sample_Name, levels = c("t0_A","t0_B","t0_C","t2_A","t2_B","t2_C","t6_A","t6_B","t6_C","t24_A","t24_B","t24_C"))
+gc_long$Time <- factor(gc_long$Time, levels = c("t0","t2","t6","t24"))
+gc_long$Replicate <- factor(gc_long$Replicate, levels = c("A","B","C"))
+```
+
+# Facetting
+
+## With wrap 
+
+We can create subplots using the facetting functionality.
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Sepal.Width))+
+  geom_smooth(method="lm") + 
+  facet_wrap(~Species)
+```
+
+If we try the same with the gene counts data facetted by time.
+
+```{r}
+ggplot(data = gc_long) +
+  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count + 1), color = Time)) +
+  facet_wrap(~Time)
 ```
 
 
+## With grid
+
+Here in the above plot, you see some empty samples in each facet. In this case, you could use `facet_grid` together with `space` and `scales` options to make it look neat and intuitive. You can use `?facet_grid` and `?facet_wrap` to figure out the exact difference between the two.
+
+
+```{r}
+ggplot(data = gc_long) +
+  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count + 1), color = Time)) +
+  facet_grid(~Time , scales = "free", space = "free")
+```
+
+You can also make grid with different variables one might have using `vars()` function together with `rows` and `cols` options! 
+
+```{r}
+ggplot(data = gc_long) +
+  geom_boxplot(mapping = aes(x = Sample_Name, y = log10(count + 1), color = Time)) +
+  facet_grid(rows = vars(Time), cols = vars(Replicate), scales = "free", space = "free")
+```
+
+
+# Bar charts
+
+Let's now make some bar charts with the data we have. We can start with the simple `iris` data first.
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Species,y=Petal.Width))+
+  geom_bar(stat="identity")
+```
+
+Similarly, we can use the `gene counts` data to make a barplot as well. But first, let's make the data into the right format so as to make the bar plots. This is where knowledge on `tidyverse` would be super useful. 
+
+
+```{r}
+se <- function(x) sqrt(var(x)/length(x))
+gc_long %>% 
+  group_by(Time) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  head()
+```
+
+There are a couple of things to note here. In the above example, we use the pipe `%>%` symbol that redirects the output of one command as the input to another. Then we group the data by the variable `Time`, followed by summarising the `count`  with `mean()` and `sd()` functions to get the mean and standard devialtion of their respective counts. The `head()` function just prints the first few lines.
+
+Now that we have summarised the data to be bale to plot the bar graph that we want, we can just input the data to ggplot as well using the `%>%` sign. 
+
+```{r}
+gc_long %>% 
+  group_by(Time) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  ggplot(aes(x=Time, y=mean)) + 
+  geom_bar( stat = "identity")
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; Notice that the `%>%` sign is used in the `tidyverse` based commands and `+` is used for all the `ggplot` based commands.
+
+## Flip co-ordinates
+
+One can also easily just flip the `x` and `y` axis.
+
+```{r}
+gc_long %>% 
+  group_by(Time) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  ggplot(aes(x=Time, y=mean)) + 
+  geom_bar( stat = "identity") +
+  coord_flip()
+```
+
+# Error bars
+
+Now that we have the bar plots, we can also add error bars to them using the `sd` values we calculated in the previous step.
+
+```{r}
+gc_long %>% 
+  group_by(Time) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  ggplot(aes(x=Time, y=mean, fill = Time)) + 
+  geom_bar(position = "dodge", stat = "identity") +
+  geom_errorbar(aes(ymax=mean+se,ymin=mean-se),width=0.2)
+```
+
+
+# Stacked bars
+
+Let's now try to make stacked bars. For this let's try to make the data more usable for stacked bars. For this let's use the `greoup_by` function to make the groups based on both `Time` and `Replicate`.
+
+```{r}
+se <- function(x) sqrt(var(x)/length(x))
+gc_long %>% 
+  group_by(Time, Replicate) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  head()
+```
+
+Let's build the stacked bars!
+
+```{r}
+gc_long %>% 
+  group_by(Time, Replicate) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  ggplot(aes(x=Time, y=mean, fill = Replicate)) + 
+  geom_bar(stat = "identity")
+```
+
+One can also have `dodge` bars.
+
+```{r}
+gc_long %>% 
+  group_by(Time, Replicate) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  ggplot(aes(x=Time, y=mean, fill = Replicate)) + 
+  geom_bar(position = "dodge", stat = "identity")
+```
+
+We can try now to plot error bars on them. This gets a bit complicated as the error
+
+```{r}
+gc_long %>% 
+  group_by(Time, Replicate) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  ggplot(aes(x= Time, y= mean, fill = Replicate)) + 
+  geom_bar(position = "dodge", stat = "identity") +
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se), position = "dodge")
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; It is important that you keep tract of what kind of aesthetics you give when you initialize `ggplot()` and what you add in the `geoms()` later. 
+
+You can also make these error bars look nicer by playing aroud with some of the parameters available, like example below:
+
+```{r}
+gc_long %>% 
+  group_by(Time, Replicate) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  ggplot(aes(x= Time, y= mean, fill = Replicate)) + 
+  geom_bar(position = position_dodge2(), stat = "identity") +
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se), position = position_dodge2(.9, padding = .6))
+```
+
+# Exercise
+
+```{r, echo=FALSE}
+gc_raw <- read.table(file = "data/counts_raw.txt", sep = "\t", header = T)
+gc_filt <- read.table(file = "data/counts_filtered.txt", sep = "\t", header = T)
+gc_vst <- read.table(file = "data/counts_vst.txt", sep = "\t", header = T)
+gc_deseq <- read.table(file = "data/counts_deseq2.txt", sep = "\t", header = T)
+
+```
+
+
+# Session info
+
+```{r, fold.output=FALSE, fold.plot=FALSE}
+sessionInfo()
+```
+
+__End of document__
 

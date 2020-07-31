@@ -56,7 +56,7 @@ In most of the exercises, we will use RNA-seq data (Illumina short reads) from t
 
 The A431 cells were treated with gefinitib, which is an EGFR inhibitor and is used (under the trade name Iressa) as a drug to treat cancers with mutated and overactive EGFR. In the experiment, RNA was extracted at four time points: before the gefinitib treatment (t=0), and two, six and twenty-four hours after treatment (t=2, t=6, t=24, respectively), and sequenced using an Illumina HiSeq instrument in triplicates (thus there are 3x4=12 samples).
 
-This data is part of the transcriptomics course that is also given by NBIS. We will use some of the `counts table` that was generated in the course after different transformations like manual filtering for low counts, VST and CPM. You dont have to know what these exactly mean to do these exercises :) These are basically the same data at different stages of the transcriptomics analysis.    
+This data is part of the transcriptomics course that is also given by NBIS. We will use some of the `counts table` that was generated in the course after different transformations like manual filtering for low counts, VST and DESeq2. You dont have to know what these exactly mean to do these exercises :) These are basically the same data at different stages of the transcriptomics analysis.    
 
 ## ggplot basics 1
 
