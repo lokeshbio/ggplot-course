@@ -9,8 +9,8 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 ;;20;ggplot basics 2 (facets, barplots and errorbars) (overview);Lokesh;;;
 ;;50;ggplot basics 2 (facets, barplots and errorbars) (lab);Lokesh;;lab_gg_2.html;
 ;;20;Coffee Break;;;;
-;;20;ggplot basics 3 (co-ordinates,legend and theme) (overview);Lokesh;;;
-;;80;ggplot basics 3 (co-ordinates,legend and theme) (lab);Lokesh;;;
+;;20;ggplot basics 3 (axes, labels, legends and themes) (overview);Lokesh;;;
+;;80;ggplot basics 3 (axes, labels, legends and themes) (lab);Lokesh;;lab_gg_3.html;
 14/05/2020;"Cerebrum; D215";30;Vector graphics (lecture);Markus;;;https://tinyurl.com/yyaf3zbb
 ;;30;Plotting PCA, heatmap and others (lecture);Markus;;;
 ;;20;Coffee Break;;;;
