@@ -61,4 +61,130 @@ gc_long <- gc %>%
 gc_long$Sample_Name <- factor(gc_long$Sample_Name, levels = c("t0_A","t0_B","t0_C","t2_A","t2_B","t2_C","t6_A","t6_B","t6_C","t24_A","t24_B","t24_C"))
 gc_long$Time <- factor(gc_long$Time, levels = c("t0","t2","t6","t24"))
 gc_long$Replicate <- factor(gc_long$Replicate, levels = c("A","B","C"))
+
+se <- function(x) sqrt(var(x)/length(x))
 ```
+
+Now that we have covered the important aspects of `ggplot`, meaning getting the actual plot you wanted, let us now look into secondary elements of the plot.
+
+# Modifying Axes
+
+## Breaks
+
+If we look at the `iris` data plot that we made before: 
+
+```{r, fold.plot=FALSE}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Sepal.Width))+
+  geom_smooth(method="lm")
+```
+
+The continuous x axis breaks are with 2,4,6 and so on. If we would like to have 1,2,3… We change this using `scale_x_continuous()` and `breaks`.
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(size=Sepal.Width, color=Species))+
+  geom_smooth(method="lm") +
+  scale_x_continuous(breaks = 1:7)
+```
+
+You can do the same with `y-axis`. 
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(size=Sepal.Width, color=Species))+
+  geom_smooth(method="lm") +
+  scale_x_continuous(breaks = 1:7) +
+  scale_y_continuous(breaks = seq(0,3,0.5))
+```
+
+## Limits
+
+By using `limits`, we can also decide on the parts to plot to be shown:
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(size=Sepal.Width, color=Species)) +
+  geom_smooth(method="lm") +
+  scale_x_continuous(limits=c(3, 7))
+```
+
+We can do the same with discrete x values like in the case of our `gene counts` dataset.
+
+```{r}
+gc_long %>% 
+  group_by(Time, Replicate) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  ggplot(aes(x=Time, y=mean, fill = Replicate)) + 
+  geom_bar(stat = "identity") + 
+  scale_x_discrete(limits=c("t0","t24"))
+```
+
+One can also use `xlim()` and `ylim()` functions that function the same as `limits` with `scale_x_continous()` or `scale_x_discrete()` 
+
+## Names 
+
+You can also customize the axis labels using the `name` option within `scale_x_continous` and `scale_y_continous`.
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(size=Sepal.Width, color=Species))+
+  geom_smooth(method="lm") +
+  scale_x_continuous(name = "Length", breaks = 1:7) +
+  scale_y_continuous(name = "Width", breaks = seq(0,3,0.5))
+```
+
+with `labels` in combination with the `scales` package, one can change or make the unit of the axis look more comprehensible, when needed.
+
+```{r, warning=FALSE, message=FALSE}
+library(scales)
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(size=Sepal.Width, color=Species))+
+  geom_smooth(method="lm") +
+  scale_y_continuous(name = "Width", breaks = seq(0,3,0.5), labels = percent)
+```
+
+# Controlling legends
+
+There are many ways to control the legends, below are some of the examples:
+First by using `guiles()` function.
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Species,size=Sepal.Width))+
+  guides(size="none")
+```
+
+We can also turn off legends by geom.
+
+```{r, warning=FALSE, message=FALSE}
+
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Species,size=Sepal.Width),show.legend=FALSE)
+```
+
+*** Changing legend titles here ***
+
+Legends can be moved around using theme.
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Species,size=Sepal.Width))+
+  theme(legend.position="top",
+        legend.justification="right")
+```
+
+Legend rows can be controlled in a finer manner.
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Species,size=Sepal.Width))+
+  guides(size=guide_legend(nrow=2,byrow=TRUE),
+         color=guide_legend(nrow=3,byrow=T))+
+  theme(legend.position="top",
+        legend.justification="right")
+```
+
+
+
+
