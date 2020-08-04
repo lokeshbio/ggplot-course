@@ -134,17 +134,17 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   scale_y_continuous(name = "Width", breaks = seq(0,3,0.5))
 ```
 
-with `labels` in combination with the `scales` package, one can change or make the unit of the axis look more comprehensible, when needed.
+with `labels` in combination with the `scales` package, one can change or make the unit of the axis look more comprehensible, when needed. Like using `percentage` option or `scientific` option.
 
 ```{r, warning=FALSE, message=FALSE}
 library(scales)
 ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   geom_point(aes(size=Sepal.Width, color=Species))+
   geom_smooth(method="lm") +
-  scale_y_continuous(name = "Width", breaks = seq(0,3,0.5), labels = percent)
+  scale_y_continuous(name = "Width", breaks = seq(0,3,0.5), labels = scientific)
 ```
 
-# Controlling legends
+# Legends
 
 There are many ways to control the legends, below are some of the examples:
 First by using `guiles()` function.
@@ -163,13 +163,33 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   geom_point(aes(color=Species,size=Sepal.Width),show.legend=FALSE)
 ```
 
-*** Changing legend titles here ***
+## Editing legends
+
+The legends can be edited by `scale_<aesthetic>_<discrete or continous>` function that we have been using. Take the below figure for example, we have the `Sepal.Width` and the `Species` with the `size` and `color` aestheitcs respectively.
+
+```{r, fold.plot=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(size=Sepal.Width, color=Species))+
+  geom_smooth(method="lm")
+```
+
+Let's try to edit the legends here like mentioned before:
+
+```{r, fold.plot=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(size=Sepal.Width, color=Species))+
+  geom_smooth(method="lm") +
+  scale_size_continuous(name = "Width of Sepal") +
+  scale_color_discrete(name = "Organism", labels = c("Iris setosa", "Iris versicolor", "Iris virginica"))
+```
+
+## Moving legends
 
 Legends can be moved around using theme.
 
 ```{r, warning=FALSE, message=FALSE}
 ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
-  geom_point(aes(color=Species,size=Sepal.Width))+
+  geom_point(aes(color=Species,size=Sepal.Width)) +
   theme(legend.position="top",
         legend.justification="right")
 ```
@@ -185,6 +205,98 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
         legend.justification="right")
 ```
 
+# Themes
 
+Now that we started into `theme()`, it is possible to much more editing of the plot with this function. Let us look into some of the parameters that would be very helpful to work with. 
+
+## Axis style
+
+You can change the style of the axis texts in the following way:
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width)) +
+  geom_point(aes(color=Species,size=Sepal.Width)) +
+  scale_x_continuous(name = "Length", breaks = 1:7) +
+  scale_y_continuous(name = "Width", breaks = seq(0,3,0.5)) +
+  theme(axis.text.x = element_text(face="bold", color="#993333", size=14, angle=45), 
+        axis.text.y = element_text(face="bold", color="#993333", size=14, angle=45))
+```
+
+It is also possible hide the `ticks`.
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width)) +
+  geom_point(aes(color=Species,size=Sepal.Width)) +
+  scale_x_continuous(name = "Length", breaks = 1:7) +
+  scale_y_continuous(name = "Width", breaks = seq(0,3,0.5)) +
+  theme(axis.text.x = element_text(face="bold", color="#993333", size=14, angle=45), 
+        axis.text.y = element_text(face="bold", color="#993333", size=14, angle=45), 
+        axis.ticks = element_blank())
+```
+
+There are many things one can use to style the axis and/or axis labels. Just use `?theme()` to look for all the different one can use to stylize the plots.
+
+## Different themes
+
+Let's consider the plot below and save it as an object `P` for the sake of simplicity.
+
+```{r, plot.fold = FALSE, warning=FALSE, message=FALSE}
+P <- gc_long %>% 
+  group_by(Time, Replicate) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  ggplot(aes(x= Time, y= mean, fill = Replicate)) + 
+  geom_bar(position = position_dodge2(), stat = "identity") +
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se), position = position_dodge2(.9, padding = .6)) +
+  theme(axis.ticks = element_blank())
+P
+```
+
+### Lighter themes
+
+`theme_light()`, `theme_minimal()`, `theme_classic()` and `theme_bw()` are a couple of themes that are used very often in publications.
+
+```{r}
+P + theme_bw(base_size = 16)
+```
+
+```{r}
+P + theme_minimal(base_size = 16)
+```
+
+### ggthemes package
+
+Let's look into some of the fancier themes that comes in this package
+
+```{r, plot.fold = FALSE, warning=FALSE, message=FALSE}
+Q <- ggplot(data = gc_long, mapping = aes(x = Sample_Name, y = log10(count + 1), fill = Time)) 
+Q + geom_boxplot() 
+```
+
+Using the `theme_tufte()`
+
+```{r}
+library(ggthemes)
+Q + geom_boxplot() + theme_tufte()
+```
+
+
+```{r}
+Q + theme_economist()
+```
+
+```{r}
+Q + theme_stata()
+```
+
+
+
+
+# Session info
+
+```{r, fold.output=FALSE, fold.plot=FALSE}
+sessionInfo()
+```
+
+__End of document__
 
 
