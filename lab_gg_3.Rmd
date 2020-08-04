@@ -288,7 +288,30 @@ Q + theme_economist()
 Q + theme_stata()
 ```
 
+# Exercise
 
+Try to replicate the plot below if you have enough time.
+
+```{r, plot.fold=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+gc_long %>% 
+  group_by(Time, Replicate) %>% 
+  summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
+  ggplot(aes(x=Time, y=mean, color = Replicate)) +
+  facet_wrap(~Replicate) +
+  geom_line(aes(group=1), stat= "identity", size = 2) +
+  scale_x_discrete(limits= c("t0", "t2", "t24")) +
+  scale_y_continuous(limits = c(0.4,0.8), breaks = seq(0.4,0.8,0.05)) +
+  guides(color="none") +
+  ylab(label = "mean(log10(count + 1))") +
+  theme_light() +
+  theme(axis.text = element_text(face="bold", size=12),
+        axis.title = element_text(face="bold", color = "#C84DF9", size=14),
+        axis.ticks = element_blank())
+```
+
+<i class="fas fa-lightbulb"></i> Tip &nbsp; `geom_line()` is a bit tricky when you use it together with `groups`. It tries to draw lines within the group. In this case, if you would like to draw lines between the groups (like in the above plot, between `t0` through `t2` to `t24`), you initate the ggplot with aesthetics for the line and add `geom_line(aes(group=1))` this way. 
+
+<i class="fas fa-lightbulb"></i> Tip &nbsp; This figure has `theme_light()`
 
 
 # Session info
