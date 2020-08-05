@@ -28,6 +28,96 @@
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -396,6 +486,158 @@ div.tocify {
 <div class="block-title small">
 Output
 </div>
+</div>
+<div id="pca" class="section level1">
+<h1><span class="header-section-number">1</span> PCA</h1>
+<p>Let us first make a PCA object. For this, we will use the <code>VST</code> data, because it makes sense to use the normalised data for building the PCA. To run PCA, we use the R function <code>prcomp()</code>. It takes in a matrix where samples are rows and variables are columns. Therefore, we transpose our count matrix using the function <code>t()</code>. If we do not transpose, then PCA is run on the genes rather than the samples.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">gc_vst &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/counts_vst.txt&quot;</span>, <span class="dt">header =</span> T, <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">vst_pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(<span class="kw">t</span>(gc_vst))</a></code></pre></div>
+</div>
+<div id="variance-of-components" class="section level2">
+<h2><span class="header-section-number">1.1</span> Variance of components</h2>
+<p>The next line of code plots the variance explained by the top PCs.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">comp_var &lt;-<span class="st"> </span><span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="kw">sum</span>(x<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(scales)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">vst_pca<span class="op">$</span>sdev <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  </span><span class="kw">comp_var</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Comp =</span> <span class="kw">colnames</span>(vst_pca<span class="op">$</span>x)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Comp, <span class="dt">y =</span> value)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Principal Components&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Variance Explained&quot;</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="fl">0.8</span>,<span class="fl">0.1</span>),<span class="dt">labels =</span> percent) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="st">  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">14</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-5-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="scatter-plot" class="section level2">
+<h2><span class="header-section-number">1.2</span> Scatter plot</h2>
+<p>So, looks like the first two components explain almost 85% of the data. Now, let us look into building the plot out of these componenets. From the above object, to get the scatter plot for the samples, we need to look inot <code>vst_pca$x</code>. Then, we combine this data (as shown below) with the metadata to use different aesthetics and colors on the plot.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">vst_pca<span class="op">$</span>x</a></code></pre></div>
+<details>
+<p><summary>output</summary></p>
+<pre><code>##                  PC1        PC2        PC3         PC4       PC5         PC6
+## Sample_1  -34.641623 -13.435531   6.486032  -0.2742477 -6.406502   5.6703279
+## Sample_2  -35.431333 -13.277983   5.171377  -0.3540945 -3.953216   6.9974341
+## Sample_3  -35.938795 -14.544994   2.885351 -11.3414829  5.950082 -10.8497916
+## Sample_4  -20.672358   3.962013  -1.414301  10.4819194 -0.195882  -2.8003847
+## Sample_5  -21.155503   1.390981  -6.644132   7.4002617  6.505502   0.9771040
+## Sample_6  -22.662075   1.115504  -9.801356   6.3107519  7.431833   0.6592987
+## Sample_7    1.862762  24.449057  12.865650  -4.4029501  5.822040   4.1873901
+## Sample_8   -5.909698  13.992629 -14.775686 -10.9789567 -8.967097   2.2612207
+## Sample_9   -3.233544  17.321871   5.196746   2.5142966 -6.983077  -7.2580550
+## Sample_10  60.630406  -5.930071   6.993097   5.7393184 -4.254238  -2.6905179
+## Sample_11  56.669696 -10.638879  -5.860598   0.4646609 -5.216763  -1.3748865
+## Sample_12  60.482067  -4.404596  -1.102179  -5.5594769 10.267317   4.2208603
+##                  PC7        PC8        PC9       PC10       PC11          PC12
+## Sample_1  -7.6896364  7.5508580 -1.1936551 -0.2382806 -0.7901002  6.374529e-14
+## Sample_2   5.8962070 -9.0662471 -1.0449651  0.2284545  1.3982703  4.489535e-14
+## Sample_3   1.4353811  0.7461021  1.4769949  0.2114041 -0.5247079  6.296152e-14
+## Sample_4   1.2992058  2.3863551  6.1089574 -0.1510797  9.1851796  6.559618e-14
+## Sample_5  -2.7487548 -2.7353990  4.5686381 -6.6024251 -6.9911571  2.914207e-14
+## Sample_6   2.1391551  2.3567136 -7.7925047  6.9400619 -1.3499685  5.051235e-14
+## Sample_7   5.2166866  4.0805978  0.2292610 -1.4574679 -1.2200771  3.675884e-14
+## Sample_8  -0.1684735 -0.1448735  3.9822133  2.5610601 -0.5182664  3.653141e-14
+## Sample_9  -5.4663572 -5.2056738 -6.4295279 -1.6062665  0.5133496  7.142697e-14
+## Sample_10  0.8277618 -0.5767198  4.9156730  6.8596253 -4.8748004  5.502887e-14
+## Sample_11  5.8886122  3.9566331 -4.4374522 -6.9835771  0.4457707  2.885463e-14
+## Sample_12 -6.6297877 -3.3483466 -0.3836326  0.2384911  4.7265074 -3.373501e-14</code></pre>
+</details>
+</div>
+<p>And, if you check the <code>class()</code> of this object, you will realize that this is a <code>matrix</code>. To be able to comfortably use <code>tidyverse</code> on this object, we must first convert this to a <code>data.frame</code>.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">vst_pca_all &lt;-<span class="st"> </span>vst_pca<span class="op">$</span>x <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;Sample_ID&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">full_join</span>(md, <span class="dt">by =</span> <span class="st">&quot;Sample_ID&quot;</span>)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co"># Just to keep the order the right way.</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">vst_pca_all<span class="op">$</span>Sample_Name &lt;-<span class="st"> </span><span class="kw">factor</span>(vst_pca_all<span class="op">$</span>Sample_Name, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;t0_A&quot;</span>,<span class="st">&quot;t0_B&quot;</span>,<span class="st">&quot;t0_C&quot;</span>,<span class="st">&quot;t2_A&quot;</span>,<span class="st">&quot;t2_B&quot;</span>,<span class="st">&quot;t2_C&quot;</span>,<span class="st">&quot;t6_A&quot;</span>,<span class="st">&quot;t6_B&quot;</span>,<span class="st">&quot;t6_C&quot;</span>,<span class="st">&quot;t24_A&quot;</span>,<span class="st">&quot;t24_B&quot;</span>,<span class="st">&quot;t24_C&quot;</span>))</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">vst_pca_all<span class="op">$</span>Time &lt;-<span class="st"> </span><span class="kw">factor</span>(vst_pca_all<span class="op">$</span>Time, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;t0&quot;</span>,<span class="st">&quot;t2&quot;</span>,<span class="st">&quot;t6&quot;</span>,<span class="st">&quot;t24&quot;</span>))</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">vst_pca_all<span class="op">$</span>Replicate &lt;-<span class="st"> </span><span class="kw">factor</span>(vst_pca_all<span class="op">$</span>Replicate, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>))</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="kw">ggplot</span>(vst_pca_all, <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">color =</span> Time)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="kw">aes</span>(<span class="dt">shape =</span> Replicate)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">linetype=</span><span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">linetype=</span><span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(), </a>
+<a class="sourceLine" id="cb5-17" data-line-number="17">        <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>()) </a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-7-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+</div>
+<div id="session-info" class="section level1">
+<h1><span class="header-section-number">2</span> Session info</h1>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<pre><code>## R version 3.6.3 (2020-02-29)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.1 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] scales_1.1.1    forcats_0.4.0   stringr_1.4.0   purrr_0.3.4    
+##  [5] readr_1.3.1     tidyr_1.0.2     tibble_3.0.1    tidyverse_1.3.0
+##  [9] reshape2_1.4.4  ggplot2_3.3.0   dplyr_0.8.5     captioner_2.2.3
+## [13] bookdown_0.17   knitr_1.28     
+## 
+## loaded via a namespace (and not attached):
+##  [1] tidyselect_1.1.0 xfun_0.13        haven_2.2.0      lattice_0.20-40 
+##  [5] colorspace_1.4-1 vctrs_0.3.0      generics_0.0.2   htmltools_0.4.0 
+##  [9] yaml_2.2.1       rlang_0.4.6      pillar_1.4.4     glue_1.4.0      
+## [13] withr_2.2.0      DBI_1.1.0        dbplyr_1.4.2     modelr_0.1.8    
+## [17] readxl_1.3.1     lifecycle_0.2.0  plyr_1.8.6       munsell_0.5.0   
+## [21] gtable_0.3.0     cellranger_1.1.0 rvest_0.3.5      evaluate_0.14   
+## [25] labeling_0.3     fansi_0.4.1      broom_0.5.4      Rcpp_1.0.4.6    
+## [29] backports_1.1.7  jsonlite_1.6.1   farver_2.0.3     fs_1.3.1        
+## [33] hms_0.5.3        digest_0.6.25    stringi_1.4.6    grid_3.6.3      
+## [37] cli_2.0.2        tools_3.6.3      magrittr_1.5     crayon_1.3.4    
+## [41] pkgconfig_2.0.3  ellipsis_0.3.0   xml2_1.2.2       reprex_0.3.0    
+## [45] lubridate_1.7.4  assertthat_0.2.1 rmarkdown_2.1    httr_1.4.1      
+## [49] rstudioapi_0.11  R6_2.4.1         nlme_3.1-144     compiler_3.6.3</code></pre>
+</div>
+<p><strong>End of document</strong></p>
 </div>
 
 
