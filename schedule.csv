@@ -14,7 +14,7 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 14/05/2020;"Cerebrum; D215";30;Vector graphics (lecture);Markus;;;https://tinyurl.com/yyaf3zbb
 ;;30;Plotting PCA, heatmap and others (lecture);Markus;;;
 ;;20;Coffee Break;;;;
-;;50;making PCA, heatmap and others (lab);Markus;;;
+;;50;making PCA, heatmap and others (lab);Markus;;lab_pca_hmap.html;
 ;;50;combining plots (lab);Lokesh;;;
 ;;60;Lunch;;;;
 ;;60;making PCA, heatmap and others (more lab);Markus;;;
