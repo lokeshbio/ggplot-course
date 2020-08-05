@@ -820,8 +820,23 @@ R
 </div>
 </div>
 </div>
+<div id="exercise" class="section level1">
+<h1><span class="header-section-number">4</span> Exercise</h1>
+<p>Try to replicate the plot below if you have enough time.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_gg_3_files/figure-html/unnamed-chunk-26-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p><i class="fas fa-lightbulb"></i> Tip   <code>geom_line()</code> is a bit tricky when you use it together with <code>groups</code>. It tries to draw lines within the group. In this case, if you would like to draw lines between the groups (like in the above plot, between <code>t0</code> through <code>t2</code> to <code>t24</code>), you initate the ggplot with aesthetics for the line and add <code>geom_line(aes(group=1))</code> this way.</p>
+<p><i class="fas fa-lightbulb"></i> Tip   This figure has <code>theme_light()</code></p>
+</div>
 <div id="session-info" class="section level1">
-<h1><span class="header-section-number">4</span> Session info</h1>
+<h1><span class="header-section-number">5</span> Session info</h1>
 <div class="block-title-parent">
 <div class="block-title small">
 R

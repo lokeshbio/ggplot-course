@@ -104,6 +104,43 @@ ggplot(data = gc_long) +
   facet_grid(rows = vars(Time), cols = vars(Replicate), scales = "free", space = "free")
 ```
 
+# Labeling and annotations
+
+## Labels
+
+Here, we will quickly mention, how one can add labels to the plots. Items on the plot can be labelled using the `geom_text` or `geom_label` geoms.
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Species))+
+  geom_text(aes(label=Species,hjust=0),nudge_x=0.5,size=3)
+```
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Species))+
+  geom_label(aes(label=Species,hjust=0),nudge_x=0.5,size=3)
+```
+
+The R package ggrepel allows for non-overlapping labels.
+
+```{r}
+library(ggrepel)
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Species))+
+  geom_text_repel(aes(label=Species),size=3)
+```
+
+## Annotations
+
+Custom annotations of any geom can be added arbitrarly anywhere on the plot.
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
+  geom_point(aes(color=Species))+
+  annotate("text",x=2.5,y=2.1,label="There is a random line here")+
+  annotate("segment",x=2,xend=4,y=1.5,yend=2)
+```
 
 # Bar charts
 
