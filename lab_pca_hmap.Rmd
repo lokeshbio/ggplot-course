@@ -17,6 +17,7 @@ output:
           encoding: 'UTF-8'
           css: "assets/lab.css"
 ---
+
 ```{r, include=FALSE}
 hooks = knitr::knit_hooks$get()
 hook_foldable = function(type) {
@@ -55,7 +56,7 @@ library(tidyverse)
 
 # PCA
 
-Let us first make a PCA object. For this, we will use the `VST` data, because it makes sense to use the normalised data for building the PCA. To run PCA, we use the R function `prcomp()`. It takes in a matrix where samples are rows and variables are columns. Therefore, we transpose our count matrix using the function `t()`. If we do not transpose, then PCA is run on the genes rather than the samples. 
+Let us first make a PCA object. For this, we will use the `VST` data, because it makes sense to use the normalized data for building the PCA. To run PCA, we use the R function `prcomp()`. It takes in a matrix where samples are rows and variables are columns. Therefore, we transpose our count matrix using the function `t()`. If we do not transpose, then PCA is run on the genes rather than the samples. 
 
 ```{r, warning=FALSE, message=FALSE}
 gc_vst <- read.table("data/counts_vst.txt", header = T, row.names = 1, sep = "\t")
@@ -64,7 +65,7 @@ vst_pca <- prcomp(t(gc_vst))
 
 ## Variance of components
 
-The next line of code plots the variance explained by the top PCs.
+The next line of code plots the variance explained by the top PCs. Th
 
 ```{r, warning=FALSE, message=FALSE}
 comp_var <- function(x) x^2/sum(x^2)
@@ -76,16 +77,18 @@ vst_pca$sdev %>%
   mutate(Comp = colnames(vst_pca$x)) %>% 
   slice(1:9) %>% 
   ggplot(aes(x=Comp, y = value)) + 
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", fill = "#4DC5F9") +
+  geom_hline(yintercept = 0.03, linetype=2) +
   xlab("Principal Components") +
-  scale_y_continuous(name = "Variance Explained", breaks = seq(0,0.8,0.1),labels = percent) +
+  scale_y_continuous(name = "Variance Explained", breaks = seq(0,0.8,0.1), labels = percent_format(accuracy = 5L)) +
+  
   theme_classic(base_size = 14)
 
 ```
 
 ## Scatter plot
 
-So, looks like the first two components explain almost 85% of the data. Now, let us look into building the plot out of these componenets. From the above object, to get the scatter plot for the samples, we need to look inot `vst_pca$x`. Then, we combine this data (as shown below) with the metadata to use different aesthetics and colors on the plot.
+So, looks like the first two components explain almost 85% of the data. Now, let us look into building the plot out of these components. From the above object, to get the scatter plot for the samples, we need to look into `vst_pca$x`. Then, we combine this data (as shown below) with the metadata to use different aesthetics and colors on the plot.
 
 ```{r, warning=FALSE, message=FALSE}
 vst_pca$x
@@ -112,6 +115,19 @@ ggplot(vst_pca_all, aes(x=PC1, y=PC2, color = Time)) +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank()) 
 ```
+
+# Heatmap
+
+For heatmap, let us look into `pheatmap` library which is not part of `ggplot`, but it is a well known package for building heatmaps. It contains a lot of internal aesthetics that you can add that are very informative and intuitive. Let us first start with making a correlation matrix and plot it.
+
+```{r, warning=FALSE, message=FALSE}
+vst_cor <- as.matrix(cor(gc_vst, method="spearman"))
+library(pheatmap)
+
+pheatmap(vst_cor,border_color=NA,annotation_col=md[,"Time",drop=F],
+         annotation_row=md[,"Time",drop=F],annotation_legend=T)
+```
+
 
 
 
