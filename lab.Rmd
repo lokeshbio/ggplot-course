@@ -76,5 +76,10 @@ Below is the link for the third exercise where you will look into facets, barplo
 
 [<i class="fas fa-link"></i> <span class="large">Axes, labels, legends and themes</span>](lab_gg_3.html)
 
+## PCA and Heatmaps
+
+Here, we look into building PCA plots with `ggplot`. We will also look into making heatmaps with both `pheatmap` and `ggplot`.
+
+[<i class="fas fa-link"></i> <span class="large">PCA and Heatmap</span>](lab_pca_hmap.html)
 
 **End of document**
