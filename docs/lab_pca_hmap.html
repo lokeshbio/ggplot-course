@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 06-Aug-2020" />
+<meta name="author" content="Lokesh Mano • 07-Aug-2020" />
 
 
 <title>PCA and Heatmap</title>
@@ -473,7 +473,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">PCA and Heatmap</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 06-Aug-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 07-Aug-2020</h4>
 
 </div>
 
@@ -594,6 +594,8 @@ R
 </div>
 <div id="heatmap" class="section level1">
 <h1><span class="header-section-number">2</span> Heatmap</h1>
+<div id="pheatmap" class="section level2">
+<h2><span class="header-section-number">2.1</span> pheatmap</h2>
 <p>For heatmap, let us look into <code>pheatmap</code> library which is not part of <code>ggplot</code>, but it is a well known package for building heatmaps. It contains a lot of internal aesthetics that you can add that are very informative and intuitive. Let us first start with making a correlation matrix and plot it.</p>
 <div class="block-title-parent">
 <div class="block-title small">
@@ -609,6 +611,65 @@ R
 <p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-8-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
+<p>Now, this is based on a correlation matrix where you have a very simple square matrix with samples and their correlations to each to each other. Now let us look into how we can make a heatmap from an expression dataset.</p>
+<p>For this we will use the dataset: <code>Time_t2_vs_t0.txt</code> here that basically has the list of genes that are differentially expressed in <code>t2</code> vs <code>t0</code> and we would like to visualize this in an heatmap. To be more precise, these are the top and bottom 200 (2 X 100) genes with <code>adjusted p-value &lt; 0.01</code>. We use just these 200, for the sake of visualization. Let us take the <code>t24 vs t0</code> here as these are most different based on our PCA.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">diff_t2_vs_t0 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/Time_t24_vs_t0.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">hmap_t2_t0 &lt;-<span class="st"> </span><span class="kw">subset</span>(gc_vst, <span class="kw">rownames</span>(gc_vst) <span class="op">%in%</span><span class="st"> </span>diff_t2_vs_t0<span class="op">$</span>gene)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">pheatmap</span>(hmap_t2_t0, <span class="dt">border_color=</span><span class="ot">NA</span>, <span class="dt">annotation_col=</span>md[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F], <span class="dt">annotation_row=</span><span class="ot">NULL</span>, <span class="dt">annotation_legend=</span>T)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-9-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>Further, we can also customize using the <code>pheatmap</code> and also use the continous color options we talked about in the earlier sections.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">library</span>(wesanderson)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">md<span class="op">$</span>Time &lt;-<span class="st"> </span><span class="kw">factor</span>(md<span class="op">$</span>Time, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;t0&quot;</span>,<span class="st">&quot;t2&quot;</span>,<span class="st">&quot;t6&quot;</span>,<span class="st">&quot;t24&quot;</span>))</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">pheatmap</span>(hmap_t2_t0, <span class="dt">color =</span> <span class="kw">wes_palette</span>(<span class="st">&quot;Moonrise3&quot;</span>, <span class="dv">100</span>, <span class="dt">type =</span> <span class="st">&quot;continuous&quot;</span>), <span class="dt">border_color=</span><span class="ot">NA</span>, <span class="dt">annotation_col=</span>md[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F], <span class="dt">annotation_row=</span><span class="ot">NULL</span>, <span class="dt">annotation_legend=</span>T, <span class="dt">show_rownames =</span> <span class="ot">FALSE</span>, <span class="dt">fontsize =</span> <span class="dv">14</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-10-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="ggplot" class="section level2">
+<h2><span class="header-section-number">2.2</span> ggplot</h2>
+<p>We can use <code>geom_tile()</code> from <code>ggplot</code> to make heatmaps. The <code>ggplot</code> based heatmaps are, as we have seen for other cases, much more easier to customize.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">hmap_t2_t0_long &lt;-<span class="st"> </span>hmap_t2_t0 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;Gene&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>(Sample_ID, VST, <span class="op">-</span>Gene) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw">full_join</span>(md, <span class="dt">by =</span> <span class="st">&quot;Sample_ID&quot;</span>)  </a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">hmap_t2_t0_long<span class="op">$</span>Sample_Name &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Sample_Name, <span class="dt">levels =</span> </a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">                                        <span class="kw">c</span>(<span class="st">&quot;t0_A&quot;</span>,<span class="st">&quot;t0_B&quot;</span>,<span class="st">&quot;t0_C&quot;</span>,<span class="st">&quot;t2_A&quot;</span>,<span class="st">&quot;t2_B&quot;</span>,<span class="st">&quot;t2_C&quot;</span>,<span class="st">&quot;t6_A&quot;</span>,<span class="st">&quot;t6_B&quot;</span>,<span class="st">&quot;t6_C&quot;</span>,<span class="st">&quot;t24_A&quot;</span>,<span class="st">&quot;t24_B&quot;</span>,<span class="st">&quot;t24_C&quot;</span>))</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">hmap_t2_t0_long<span class="op">$</span>Time &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Time, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;t0&quot;</span>,<span class="st">&quot;t2&quot;</span>,<span class="st">&quot;t6&quot;</span>,<span class="st">&quot;t24&quot;</span>))</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">hmap_t2_t0_long<span class="op">$</span>Replicate &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Replicate, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>))</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">hmap_t2_t0_long<span class="op">$</span>Gene &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Gene, <span class="dt">levels =</span> <span class="kw">row.names</span>(hmap_t2_t0))</a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="kw">ggplot</span>(hmap_t2_t0_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> Gene, <span class="dt">fill =</span> VST)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colours =</span> <span class="kw">rainbow</span>(<span class="dv">5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="st">&quot;t0_A&quot;</span>,<span class="st">&quot;t0_B&quot;</span>,<span class="st">&quot;t0_C&quot;</span>,<span class="st">&quot;t24_A&quot;</span>,<span class="st">&quot;t24_B&quot;</span>,<span class="st">&quot;t24_C&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>()) </a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-11-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
 </div>
 <div id="session-info" class="section level1">
 <h1><span class="header-section-number">3</span> Session info</h1>
@@ -616,7 +677,7 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS
@@ -637,10 +698,10 @@ R
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] pheatmap_1.0.12 scales_1.1.1    forcats_0.4.0   stringr_1.4.0  
-##  [5] purrr_0.3.4     readr_1.3.1     tidyr_1.0.2     tibble_3.0.1   
-##  [9] tidyverse_1.3.0 reshape2_1.4.4  ggplot2_3.3.0   dplyr_0.8.5    
-## [13] captioner_2.2.3 bookdown_0.17   knitr_1.28     
+##  [1] wesanderson_0.3.6 pheatmap_1.0.12   scales_1.1.1      forcats_0.4.0    
+##  [5] stringr_1.4.0     purrr_0.3.4       readr_1.3.1       tidyr_1.0.2      
+##  [9] tibble_3.0.1      tidyverse_1.3.0   reshape2_1.4.4    ggplot2_3.3.0    
+## [13] dplyr_0.8.5       captioner_2.2.3   bookdown_0.17     knitr_1.28       
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] tidyselect_1.1.0   xfun_0.13          haven_2.2.0        lattice_0.20-40   
