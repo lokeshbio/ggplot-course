@@ -76,6 +76,12 @@ Below is the link for the third exercise where you will look into facets, barplo
 
 [<i class="fas fa-link"></i> <span class="large">Axes, labels, legends and themes</span>](lab_gg_3.html)
 
+## Combining and annotating
+
+In this part of the lab, we will look into: how one can combine different plots that we have made and at the same time annotate these plots.
+
+[<i class="fas fa-link"></i> <span class="large">Combining and annotating</span>](lab_gg_4.html)
+
 ## PCA and Heatmaps
 
 Here, we look into building PCA plots with `ggplot`. We will also look into making heatmaps with both `pheatmap` and `ggplot`.
