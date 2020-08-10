@@ -63,11 +63,11 @@ gc_long$Time <- factor(gc_long$Time, levels = c("t0","t2","t6","t24"))
 gc_long$Replicate <- factor(gc_long$Replicate, levels = c("A","B","C"))
 ```
 
-# Facetting
+# Faceting
 
 ## With wrap 
 
-We can create subplots using the facetting functionality.
+We can create subplots using the faceting functionality.
 
 ```{r}
 ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
@@ -76,7 +76,7 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   facet_wrap(~Species)
 ```
 
-If we try the same with the gene counts data facetted by time.
+If we try the same with the gene counts data faceted by time.
 
 ```{r}
 ggplot(data = gc_long) +
@@ -133,7 +133,7 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
 
 ## Annotations
 
-Custom annotations of any geom can be added arbitrarly anywhere on the plot.
+Custom annotations of any geom can be added arbitrarily anywhere on the plot.
 
 ```{r}
 ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
@@ -162,9 +162,9 @@ gc_long %>%
   head()
 ```
 
-<i class="fas fa-exclamation-circle"></i> Note &nbsp; There are a couple of things to note here. In the above example, we use the pipe `%>%` symbol that redirects the output of one command as the input to another. Then we group the data by the variable `Time`, followed by summarising the `count`  with `mean()` and `sd()` functions to get the mean and standard devialtion of their respective counts. The `head()` function just prints the first few lines.
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; There are a couple of things to note here. In the above example, we use the pipe `%>%` symbol that redirects the output of one command as the input to another. Then we group the data by the variable `Time`, followed by summarizing the `count`  with `mean()` and `sd()` functions to get the mean and standard deviation of their respective counts. The `head()` function just prints the first few lines.
 
-Now that we have summarised the data to be bale to plot the bar graph that we want, we can just input the data to ggplot as well using the `%>%` sign. 
+Now that we have summarized the data to be bale to plot the bar graph that we want, we can just input the data to ggplot as well using the `%>%` sign. 
 
 ```{r}
 gc_long %>% 
@@ -248,7 +248,7 @@ gc_long %>%
 
 <i class="fas fa-exclamation-circle"></i> Note &nbsp; It is important that you keep tract of what kind of aesthetics you give when you initialize `ggplot()` and what you add in the `geoms()` later. 
 
-You can also make these error bars look nicer by playing aroud with some of the parameters available, like example below:
+You can also make these error bars look nicer by playing around with some of the parameters available, like example below:
 
 ```{r}
 gc_long %>% 

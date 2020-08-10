@@ -487,11 +487,11 @@ div.tocify {
 Output
 </div>
 </div>
-<div id="facetting" class="section level1">
-<h1><span class="header-section-number">1</span> Facetting</h1>
+<div id="faceting" class="section level1">
+<h1><span class="header-section-number">1</span> Faceting</h1>
 <div id="with-wrap" class="section level2">
 <h2><span class="header-section-number">1.1</span> With wrap</h2>
-<p>We can create subplots using the facetting functionality.</p>
+<p>We can create subplots using the faceting functionality.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -505,7 +505,7 @@ R
 <p><img src="lab_gg_2_files/figure-html/unnamed-chunk-4-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
-<p>If we try the same with the gene counts data facetted by time.</p>
+<p>If we try the same with the gene counts data faceted by time.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -595,7 +595,7 @@ R
 </div>
 <div id="annotations" class="section level2">
 <h2><span class="header-section-number">2.2</span> Annotations</h2>
-<p>Custom annotations of any geom can be added arbitrarly anywhere on the plot.</p>
+<p>Custom annotations of any geom can be added arbitrarily anywhere on the plot.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -646,8 +646,8 @@ R
 ## 4 t24   0.675 0.00262</code></pre>
 </details>
 </div>
-<p><i class="fas fa-exclamation-circle"></i> Note   There are a couple of things to note here. In the above example, we use the pipe <code>%&gt;%</code> symbol that redirects the output of one command as the input to another. Then we group the data by the variable <code>Time</code>, followed by summarising the <code>count</code> with <code>mean()</code> and <code>sd()</code> functions to get the mean and standard devialtion of their respective counts. The <code>head()</code> function just prints the first few lines.</p>
-<p>Now that we have summarised the data to be bale to plot the bar graph that we want, we can just input the data to ggplot as well using the <code>%&gt;%</code> sign.</p>
+<p><i class="fas fa-exclamation-circle"></i> Note   There are a couple of things to note here. In the above example, we use the pipe <code>%&gt;%</code> symbol that redirects the output of one command as the input to another. Then we group the data by the variable <code>Time</code>, followed by summarizing the <code>count</code> with <code>mean()</code> and <code>sd()</code> functions to get the mean and standard deviation of their respective counts. The <code>head()</code> function just prints the first few lines.</p>
+<p>Now that we have summarized the data to be bale to plot the bar graph that we want, we can just input the data to ggplot as well using the <code>%&gt;%</code> sign.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -775,7 +775,7 @@ R
 </details>
 </div>
 <p><i class="fas fa-exclamation-circle"></i> Note   It is important that you keep tract of what kind of aesthetics you give when you initialize <code>ggplot()</code> and what you add in the <code>geoms()</code> later.</p>
-<p>You can also make these error bars look nicer by playing aroud with some of the parameters available, like example below:</p>
+<p>You can also make these error bars look nicer by playing around with some of the parameters available, like example below:</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R

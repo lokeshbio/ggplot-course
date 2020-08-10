@@ -354,6 +354,35 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   geom_smooth(method="lm")
 ```
 
+# Histogram
+
+Here, as a quick example, we will try to make use of the different combinations of `geoms`, `aes` and `color` in simple plots.
+
+Let's take a quick look at some of widely used functions like histograms and density plots in `ggplot`. Intuitively, these can be drawn with `geom_histogram()` and `geom_density()`. Using `bins` and `binwidth` in `geom_histogram()`, one can customize the histogram.
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Sepal.Length))+
+  geom_histogram()
+```
+
+## Density
+
+Let's look at the sample plot in density.
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Sepal.Length))+
+  geom_density()
+```
+
+The above plot is not very informative, let's see how the different species contribute:
+
+```{r}
+ggplot(data=iris,mapping=aes(x=Sepal.Length))+
+  geom_density(aes(fill = Species), alpha = 0.8)
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; The `alpha` option inside `geom_density` controls the transparency of the plot.
+
 # Exercise
 
 <i class="fas fa-clipboard-list"></i> Task &nbsp; Make `boxplots` similar to the one we did here in this exercise for the other three counts (`counts_filtered.txt`, `counts_vst.txt` and `counts_deseq2.txt`). 

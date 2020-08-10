@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 31-Jul-2020" />
+<meta name="author" content="Lokesh Mano • 10-Aug-2020" />
 
 
 <title>ggplot basics 1</title>
@@ -473,7 +473,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">ggplot basics 1</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 31-Jul-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 10-Aug-2020</h4>
 
 </div>
 
@@ -888,44 +888,88 @@ R
 </div>
 </div>
 </div>
+<div id="histogram" class="section level1">
+<h1><span class="header-section-number">3</span> Histogram</h1>
+<p>Here, as a quick example, we will try to make use of the different combinations of <code>geoms</code>, <code>aes</code> and <code>color</code> in simple plots.</p>
+<p>Let’s take a quick look at some of widely used functions like histograms and density plots in <code>ggplot</code>. Intuitively, these can be drawn with <code>geom_histogram()</code> and <code>geom_density()</code>. Using <code>bins</code> and <code>binwidth</code> in <code>geom_histogram()</code>, one can customize the histogram.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length))<span class="op">+</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>()</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-33-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<div id="density" class="section level2">
+<h2><span class="header-section-number">3.1</span> Density</h2>
+<p>Let’s look at the sample plot in density.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length))<span class="op">+</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-34-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>The above plot is not very informative, let’s see how the different species contribute:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length))<span class="op">+</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Species), <span class="dt">alpha =</span> <span class="fl">0.8</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-35-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p><i class="fas fa-exclamation-circle"></i> Note   The <code>alpha</code> option inside <code>geom_density</code> controls the transparency of the plot.</p>
+</div>
+</div>
 <div id="exercise" class="section level1">
-<h1><span class="header-section-number">3</span> Exercise</h1>
+<h1><span class="header-section-number">4</span> Exercise</h1>
 <p><i class="fas fa-clipboard-list"></i> Task   Make <code>boxplots</code> similar to the one we did here in this exercise for the other three counts (<code>counts_filtered.txt</code>, <code>counts_vst.txt</code> and <code>counts_deseq2.txt</code>).</p>
 <p><i class="fas fa-lightbulb"></i> Tip   You can save the plots themselves as R objects. You will get the plot by just calling those objects. You can then add layers to those objects. An example is shown below:</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">plot_obj_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))<span class="op">+</span></a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Sepal.Width))<span class="op">+</span></a>
-<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>) </a>
-<a class="sourceLine" id="cb30-4" data-line-number="4">plot_obj_<span class="dv">1</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">plot_obj_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Sepal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>) </a>
+<a class="sourceLine" id="cb33-4" data-line-number="4">plot_obj_<span class="dv">1</span></a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
-<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-33-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-36-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">plot_obj_<span class="dv">2</span> &lt;-<span class="st"> </span>plot_obj_<span class="dv">1</span> <span class="op">+</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="st">  </span><span class="kw">scale_color_gradientn</span>(<span class="dt">colours =</span> <span class="kw">wes_palette</span>(<span class="st">&quot;Moonrise3&quot;</span>))</a>
-<a class="sourceLine" id="cb31-3" data-line-number="3">plot_obj_<span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">plot_obj_<span class="dv">2</span> &lt;-<span class="st"> </span>plot_obj_<span class="dv">1</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="st">  </span><span class="kw">scale_color_gradientn</span>(<span class="dt">colours =</span> <span class="kw">wes_palette</span>(<span class="st">&quot;Moonrise3&quot;</span>))</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">plot_obj_<span class="dv">2</span></a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
-<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-34-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="lab_base_grid_files/figure-html/unnamed-chunk-37-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
 <p>This way, you can create different plot objects for the different counts, we will use them in the later exercises.</p>
 </div>
 <div id="session-info" class="section level1">
-<h1><span class="header-section-number">4</span> Session info</h1>
+<h1><span class="header-section-number">5</span> Session info</h1>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS
@@ -946,26 +990,27 @@ R
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] wesanderson_0.3.6 forcats_0.4.0     stringr_1.4.0     purrr_0.3.4      
-##  [5] readr_1.3.1       tidyr_1.0.2       tibble_3.0.1      tidyverse_1.3.0  
-##  [9] reshape2_1.4.4    ggplot2_3.3.0     dplyr_0.8.5       captioner_2.2.3  
-## [13] bookdown_0.17     knitr_1.28       
+##  [1] wesanderson_0.3.6 forcats_0.5.0     stringr_1.4.0     purrr_0.3.4      
+##  [5] readr_1.3.1       tidyr_1.1.1       tibble_3.0.3      tidyverse_1.3.0  
+##  [9] reshape2_1.4.4    ggplot2_3.3.2     dplyr_1.0.1       captioner_2.2.3  
+## [13] bookdown_0.20     knitr_1.29       
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.1.0 xfun_0.13        splines_3.6.3    haven_2.2.0     
-##  [5] lattice_0.20-40  colorspace_1.4-1 vctrs_0.3.0      generics_0.0.2  
-##  [9] htmltools_0.4.0  yaml_2.2.1       mgcv_1.8-31      rlang_0.4.6     
-## [13] pillar_1.4.4     glue_1.4.0       withr_2.2.0      DBI_1.1.0       
-## [17] dbplyr_1.4.2     readxl_1.3.1     modelr_0.1.8     lifecycle_0.2.0 
-## [21] plyr_1.8.6       cellranger_1.1.0 munsell_0.5.0    gtable_0.3.0    
-## [25] rvest_0.3.5      evaluate_0.14    labeling_0.3     fansi_0.4.1     
-## [29] broom_0.5.4      Rcpp_1.0.4.6     scales_1.1.1     backports_1.1.7 
-## [33] jsonlite_1.6.1   fs_1.3.1         farver_2.0.3     hms_0.5.3       
-## [37] digest_0.6.25    stringi_1.4.6    grid_3.6.3       cli_2.0.2       
-## [41] tools_3.6.3      magrittr_1.5     crayon_1.3.4     pkgconfig_2.0.3 
-## [45] ellipsis_0.3.0   Matrix_1.2-18    xml2_1.2.2       reprex_0.3.0    
-## [49] lubridate_1.7.4  rstudioapi_0.11  assertthat_0.2.1 rmarkdown_2.1   
-## [53] httr_1.4.1       R6_2.4.1         nlme_3.1-144     compiler_3.6.3</code></pre>
+##  [1] tidyselect_1.1.0 xfun_0.16        splines_3.6.3    haven_2.3.1     
+##  [5] lattice_0.20-40  colorspace_1.4-1 vctrs_0.3.2      generics_0.0.2  
+##  [9] htmltools_0.5.0  yaml_2.2.1       mgcv_1.8-31      blob_1.2.1      
+## [13] rlang_0.4.7      pillar_1.4.6     glue_1.4.1       withr_2.2.0     
+## [17] DBI_1.1.0        dbplyr_1.4.4     modelr_0.1.8     readxl_1.3.1    
+## [21] lifecycle_0.2.0  plyr_1.8.6       munsell_0.5.0    gtable_0.3.0    
+## [25] cellranger_1.1.0 rvest_0.3.6      evaluate_0.14    labeling_0.3    
+## [29] fansi_0.4.1      broom_0.7.0      Rcpp_1.0.5       scales_1.1.1    
+## [33] backports_1.1.8  jsonlite_1.7.0   fs_1.5.0         farver_2.0.3    
+## [37] hms_0.5.3        digest_0.6.25    stringi_1.4.6    grid_3.6.3      
+## [41] cli_2.0.2        tools_3.6.3      magrittr_1.5     crayon_1.3.4    
+## [45] pkgconfig_2.0.3  ellipsis_0.3.1   Matrix_1.2-18    xml2_1.3.2      
+## [49] reprex_0.3.0     lubridate_1.7.9  rstudioapi_0.11  assertthat_0.2.1
+## [53] rmarkdown_2.3    httr_1.4.2       R6_2.4.1         nlme_3.1-144    
+## [57] compiler_3.6.3</code></pre>
 </div>
 <p><strong>End of document</strong></p>
 </div>
@@ -1041,7 +1086,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
