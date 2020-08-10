@@ -48,13 +48,11 @@ If `ggplot_geneco_course` is my current working directory, the directory tree sh
 
 * ggplot_geneco_course
   + data
-    + count_raw.txt
+    + counts_raw.txt
     + counts_filtered.txt
     + counts_vst.txt
-    + cpm.csv
+    + counts_deseq2.txt
     + human_biomaRt_annotation.csv
-    + human_genes.txt
-    + human_transcripts.txt
     + metadata_raw.csv
 
 You can find the information related to the important files below:
@@ -63,12 +61,12 @@ You can find the information related to the important files below:
 
 * Table with gene counts after filtering: [Filtered Counts](data/counts_filtered.txt)
 * Table with gene counts normalized with VST: [VST counts](data/counts_vst.txt)
-* Table with gene counts normalized with CPM: [CPM counts](data/cpm.csv)
+* Table with gene counts normalized with DESeq2: [DESeq2 counts](data/counts_deseq2.txt)
 
 ## Metadata
 
 * Metadata of the samples: [Sample Metadata](data/metadata_raw.csv)
-* Metadata of the genes with their functions: [Gene Annotation](data/human_genes.txt)
+* Metadata of the genes with their functions: [Gene Annotation](data/human_biomaRt_annotation.csv)
 
 # Optional exercises
 

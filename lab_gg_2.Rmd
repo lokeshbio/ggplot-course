@@ -162,7 +162,7 @@ gc_long %>%
   head()
 ```
 
-There are a couple of things to note here. In the above example, we use the pipe `%>%` symbol that redirects the output of one command as the input to another. Then we group the data by the variable `Time`, followed by summarising the `count`  with `mean()` and `sd()` functions to get the mean and standard devialtion of their respective counts. The `head()` function just prints the first few lines.
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; There are a couple of things to note here. In the above example, we use the pipe `%>%` symbol that redirects the output of one command as the input to another. Then we group the data by the variable `Time`, followed by summarising the `count`  with `mean()` and `sd()` functions to get the mean and standard devialtion of their respective counts. The `head()` function just prints the first few lines.
 
 Now that we have summarised the data to be bale to plot the bar graph that we want, we can just input the data to ggplot as well using the `%>%` sign. 
 

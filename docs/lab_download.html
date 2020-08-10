@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 17-Mar-2020" />
+<meta name="author" content="Lokesh Mano • 10-Aug-2020" />
 
 
 <title>Downloads</title>
@@ -383,7 +383,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Downloads</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 17-Mar-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 10-Aug-2020</h4>
 
 </div>
 
@@ -404,35 +404,35 @@ Make a directory called <code>data</code> and <code>unzip</code> in that directo
 <ul>
 <li>data
 <ul>
-<li>count_raw.txt</li>
+<li>counts_raw.txt</li>
 <li>counts_filtered.txt</li>
 <li>counts_vst.txt</li>
-<li>cpm.csv</li>
+<li>counts_deseq2.txt</li>
 <li>human_biomaRt_annotation.csv</li>
-<li>human_genes.txt</li>
-<li>human_transcripts.txt</li>
 <li>metadata_raw.csv</li>
 </ul></li>
 </ul></li>
 </ul>
-<div id="counts-tables" class="section level2">
-<h2><span class="header-section-number">1.1</span> Counts tables</h2>
+<p>You can find the information related to the important files below:</p>
+<div id="counts-table" class="section level2">
+<h2><span class="header-section-number">1.1</span> Counts table</h2>
 <ul>
 <li>Table with gene counts after filtering: <a href="data/counts_filtered.txt">Filtered Counts</a></li>
 <li>Table with gene counts normalized with VST: <a href="data/counts_vst.txt">VST counts</a></li>
-<li>Table with gene counts normalized with CPM: <a href="data/cpm.csv">CPM counts</a></li>
+<li>Table with gene counts normalized with DESeq2: <a href="data/counts_deseq2.txt">DESeq2 counts</a></li>
 </ul>
 </div>
 <div id="metadata" class="section level2">
 <h2><span class="header-section-number">1.2</span> Metadata</h2>
 <ul>
 <li>Metadata of the samples: <a href="data/metadata_raw.csv">Sample Metadata</a></li>
-<li>Metadata of the genes with their functions: <a href="data/human_genes.txt">Gene Annotation</a></li>
+<li>Metadata of the genes with their functions: <a href="data/human_biomaRt_annotation.csv">Gene Annotation</a></li>
 </ul>
 </div>
 </div>
 <div id="optional-exercises" class="section level1">
 <h1><span class="header-section-number">2</span> Optional exercises</h1>
+<p><em>Data for the optional exercises will follow</em></p>
 </div>
 
 
@@ -506,7 +506,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
