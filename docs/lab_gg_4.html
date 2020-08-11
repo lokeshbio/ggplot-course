@@ -482,19 +482,132 @@ div.tocify {
 <!-- custom fonts -->
 <p><link href="https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro:300,400,600|Ubuntu+Mono&amp;subset=latin-ext" rel="stylesheet"></p>
 <p><br></p>
+<p>In this chapter, we will mainly focus on making a “publication-type” figure, with sub-plots and such using different tools in R. There are many different ways/packages to do this, but we will mainly focus on 2 packages: <code>cowplot</code> and <code>ggpubr</code>.</p>
+<p>Now let us consider some of the plots we have made so far in the previous exercises. From the picture below, <strong>A</strong> and <strong>B</strong> are the figures that was made from the <code>gene counts</code> dataset and the figures <strong>C</strong> and <strong>D</strong> are using the <code>Sepal.Length</code> and <code>Sepal.Width</code> from the <code>iris</code> data. Now let us look into how we can combine each of the figures like it is shown here.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 Output
 </div>
+<img src="lab_gg_4_files/figure-html/unnamed-chunk-3-1.svg" width="672" style="display: block; margin: auto auto auto 0;" />
 </div>
-<p>In this chapter, we will mainly focus on making a “publication-type” figure, with sub-plots and such using different tools in R. There are many different ways/packages to do this, but we will mainly focus on 3 packages: <code>cowplot</code>, <code>ggpubr</code> and <code>ggarrange</code>.</p>
-<div id="session-info" class="section level1">
-<h1><span class="header-section-number">1</span> Session info</h1>
+<p>Now, let us go step by step. First let us make these plots into R objects. This will make things a lot easier.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">p1 &lt;-<span class="st"> </span>gc_long <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(Time, Replicate) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>)),<span class="dt">se=</span><span class="kw">se</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span> Time, <span class="dt">y=</span> mean, <span class="dt">fill =</span> Replicate)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="kw">position_dodge2</span>(), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>mean<span class="op">-</span>se, <span class="dt">ymax=</span>mean<span class="op">+</span>se), <span class="dt">position =</span> <span class="kw">position_dodge2</span>(.<span class="dv">9</span>, <span class="dt">padding =</span> <span class="fl">.6</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;mean(log10(count+1))&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gc_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> <span class="kw">log10</span>(count <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">fill =</span> Replicate)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span>Time , <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">space =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">10</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.ticks.x =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>())</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length))<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Species), <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="st">  </span><span class="kw">theme_light</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="st">  </span><span class="kw">theme_light</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</a></code></pre></div>
+</div>
+<p>The objects <code>p1</code>, <code>p2</code>, <code>p3</code> and <code>p4</code> as intuitively represent the plots <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong> repectively.</p>
+<div id="cowplot" class="section level1">
+<h1><span class="header-section-number">1</span> Cowplot</h1>
+<div id="plot_grid" class="section level2">
+<h2><span class="header-section-number">1.1</span> plot_grid()</h2>
+<p>One can use the simple <code>plot_grid()</code> function from the <code>cowplot</code>.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(cowplot)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">plot_grid</span>(p1, p2)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_gg_4_files/figure-html/unnamed-chunk-5-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>You can also do some simple customizations using <code>nrow</code> or <code>ncol</code> to specify the number of rows and columns and provide <code>labels</code> to those plots as well.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">plot_grid</span>(p1, p2, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_gg_4_files/figure-html/unnamed-chunk-6-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="ggdraw-and-draw_plot" class="section level2">
+<h2><span class="header-section-number">1.2</span> ggdraw() and draw_plot()</h2>
+<p>In <code>cowplot</code>, you can also customize the dimentions of the plots in a much more controlled fashion. For this one starts with <code>ggdraw()</code> which initiates the drawing “canvas” followed by <code>draw_plot()</code> that you use to draw the different plots on to the canvas.</p>
+<p>Here is how the dimentions of the empty canvas looks like:
+<img src="assets/canva.png" /></p>
+<p>From here, you can draw your plots in the way you want using these dimensions. AN example is shown below, where we plot <strong>C</strong> and <strong>D</strong> similar to the plot above:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">ggdraw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">draw_plot</span>(p3, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">draw_plot</span>(p4, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="fl">.5</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) </a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_gg_4_files/figure-html/unnamed-chunk-7-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>You can also add “labels” to these figures using <code>draw_plot_label()</code> with the same dimensions.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">ggdraw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">draw_plot</span>(p3, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">draw_plot</span>(p4, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">draw_plot_label</span>(<span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">size =</span> <span class="dv">15</span>, <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_gg_4_files/figure-html/unnamed-chunk-8-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>It is easier to draw three (or any odd number) plots in a neat way using this function compared to <code>plot_grid()</code></p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ggdraw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">draw_plot</span>(p3, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">height =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw">draw_plot</span>(p4, <span class="dt">x =</span> <span class="fl">0.5</span>, <span class="dt">y =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">height =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw">draw_plot</span>(p2, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw">draw_plot_label</span>(<span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="dt">size =</span> <span class="dv">15</span>, <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="dv">0</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>,<span class="fl">0.5</span>))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_gg_4_files/figure-html/unnamed-chunk-9-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+</div>
+<div id="ggpubr" class="section level1">
+<h1><span class="header-section-number">2</span> ggpubr</h1>
+</div>
+<div id="session-info" class="section level1">
+<h1><span class="header-section-number">3</span> Session info</h1>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS
@@ -515,10 +628,10 @@ R
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] forcats_0.5.0   stringr_1.4.0   purrr_0.3.4     readr_1.3.1    
-##  [5] tidyr_1.1.1     tibble_3.0.3    tidyverse_1.3.0 reshape2_1.4.4 
-##  [9] ggplot2_3.3.2   dplyr_1.0.1     captioner_2.2.3 bookdown_0.20  
-## [13] knitr_1.29     
+##  [1] cowplot_1.0.0   forcats_0.5.0   stringr_1.4.0   purrr_0.3.4    
+##  [5] readr_1.3.1     tidyr_1.1.1     tibble_3.0.3    tidyverse_1.3.0
+##  [9] reshape2_1.4.4  ggplot2_3.3.2   dplyr_1.0.1     captioner_2.2.3
+## [13] bookdown_0.20   knitr_1.29     
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] tidyselect_1.1.0 xfun_0.16        haven_2.3.1      colorspace_1.4-1
@@ -527,13 +640,13 @@ R
 ## [13] withr_2.2.0      DBI_1.1.0        dbplyr_1.4.4     modelr_0.1.8    
 ## [17] readxl_1.3.1     lifecycle_0.2.0  plyr_1.8.6       munsell_0.5.0   
 ## [21] gtable_0.3.0     cellranger_1.1.0 rvest_0.3.6      evaluate_0.14   
-## [25] fansi_0.4.1      broom_0.7.0      Rcpp_1.0.5       backports_1.1.8 
-## [29] scales_1.1.1     jsonlite_1.7.0   fs_1.5.0         hms_0.5.3       
-## [33] digest_0.6.25    stringi_1.4.6    grid_3.6.3       cli_2.0.2       
-## [37] tools_3.6.3      magrittr_1.5     crayon_1.3.4     pkgconfig_2.0.3 
-## [41] ellipsis_0.3.1   xml2_1.3.2       reprex_0.3.0     lubridate_1.7.9 
-## [45] assertthat_0.2.1 rmarkdown_2.3    httr_1.4.2       rstudioapi_0.11 
-## [49] R6_2.4.1         compiler_3.6.3</code></pre>
+## [25] labeling_0.3     fansi_0.4.1      broom_0.7.0      Rcpp_1.0.5      
+## [29] backports_1.1.8  scales_1.1.1     jsonlite_1.7.0   farver_2.0.3    
+## [33] fs_1.5.0         hms_0.5.3        digest_0.6.25    stringi_1.4.6   
+## [37] grid_3.6.3       cli_2.0.2        tools_3.6.3      magrittr_1.5    
+## [41] crayon_1.3.4     pkgconfig_2.0.3  ellipsis_0.3.1   xml2_1.3.2      
+## [45] reprex_0.3.0     lubridate_1.7.9  assertthat_0.2.1 rmarkdown_2.3   
+## [49] httr_1.4.2       rstudioapi_0.11  R6_2.4.1         compiler_3.6.3</code></pre>
 </div>
 <p><strong>End of document</strong></p>
 </div>
