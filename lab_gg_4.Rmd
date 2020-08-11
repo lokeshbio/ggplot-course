@@ -63,6 +63,7 @@ gc_long$Time <- factor(gc_long$Time, levels = c("t0","t2","t6","t24"))
 gc_long$Replicate <- factor(gc_long$Replicate, levels = c("A","B","C"))
 ```
 
+In this chapter, we will mainly focus on making a "publication-type" figure, with sub-plots and such using different tools in R. There are many different ways/packages to do this, but we will mainly focus on 3 packages: `cowplot`, `ggpubr` and `ggarrange`.
 
 # Session info
 
