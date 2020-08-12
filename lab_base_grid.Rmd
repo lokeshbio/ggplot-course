@@ -138,7 +138,7 @@ ggplot(ldr,aes(x=a,y=b))+
 ```
 
 
-## Saving mages
+## Saving images
 
 Let's take a look at saving plots. 
 

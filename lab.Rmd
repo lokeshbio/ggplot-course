@@ -78,14 +78,21 @@ Below is the link for the third exercise where you will look into facets, barplo
 
 ## Combining and annotating
 
-In this part of the lab, we will look into: how one can combine different plots that we have made and at the same time annotate these plots.
+In this part of the lab, we will look into: how one can combine different plots that we have made using different tools. Also to look into some of the advantages of `cowplot` and `ggpubr`.
 
 [<i class="fas fa-link"></i> <span class="large">Combining and annotating</span>](lab_gg_4.html)
 
 ## PCA and Heatmaps
 
-Here, we look into building PCA plots with `ggplot`. We will also look into making heatmaps with both `pheatmap` and `ggplot`.
+Here, we look into building PCA plots with `ggplot`. We will also look into making heatmaps with both `pheatmap` and `geom_tile` in `ggplot`.
 
 [<i class="fas fa-link"></i> <span class="large">PCA and Heatmap</span>](lab_pca_hmap.html)
+
+# Solutions to exercises:
+
+Here I have compiled all the solutions for the different exercises in each of the sections:
+
+[<i class="fas fa-link"></i> <span class="large">Solutions</span>](solutions.html)
+
 
 **End of document**

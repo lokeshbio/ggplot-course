@@ -290,7 +290,7 @@ Q + theme_stata()
 
 # Exercise
 
-Try to replicate the plot below if you have enough time.
+<i class="fas fa-clipboard-list"></i> Task &nbsp; Try to replicate the plot below if you have enough time.
 
 ```{r, plot.fold=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
 gc_long %>% 
@@ -309,9 +309,9 @@ gc_long %>%
         axis.ticks = element_blank())
 ```
 
-<i class="fas fa-lightbulb"></i> Tip &nbsp; `geom_line()` is a bit tricky when you use it together with `groups`. It tries to draw lines within the group. In this case, if you would like to draw lines between the groups (like in the above plot, between `t0` through `t2` to `t24`), you initate the ggplot with aesthetics for the line and add `geom_line(aes(group=1))` this way. 
+<i class="fas fa-lightbulb"></i> Tip: 1 &nbsp; `geom_line()` is a bit tricky when you use it together with `groups`. It tries to draw lines within the group. In this case, if you would like to draw lines between the groups (like in the above plot, between `t0` through `t2` to `t24`), you initate the ggplot with aesthetics for the line and add `geom_line(aes(group=1))` this way. 
 
-<i class="fas fa-lightbulb"></i> Tip &nbsp; This figure has `theme_light()`
+<i class="fas fa-lightbulb"></i> Tip: 2 &nbsp; This figure has `theme_light()`
 
 
 # Session info

@@ -12,7 +12,7 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 ;;20;ggplot basics 3 (axes, labels, legends and themes) (overview);Lokesh;;;
 ;;80;ggplot basics 3 (axes, labels, legends and themes) (lab);Lokesh;;lab_gg_3.html;
 14/05/2020;"Cerebrum; D215";30;Vector graphics (lecture);Markus;;;https://tinyurl.com/yyaf3zbb
-;;30;combining and annotating plots (lab);Lokesh;;lab_gg_4.html;
+;;30;Combining plots (lab);Lokesh;;lab_gg_4.html;
 ;;20;Coffee Break;;;;
 ;;50;making PCA, heatmap and others (overview);Markus;;;
 ;;50;Plotting PCA, heatmap and others (lab);Markus;;lab_pca_hmap.html;
