@@ -76,11 +76,11 @@ Below is the link for the third exercise where you will look into facets, barplo
 
 [<i class="fas fa-link"></i> <span class="large">Axes, labels, legends and themes</span>](lab_gg_3.html)
 
-## Combining and annotating
+## Combining plots
 
 In this part of the lab, we will look into: how one can combine different plots that we have made using different tools. Also to look into some of the advantages of `cowplot` and `ggpubr`.
 
-[<i class="fas fa-link"></i> <span class="large">Combining and annotating</span>](lab_gg_4.html)
+[<i class="fas fa-link"></i> <span class="large">Combining plots</span>](lab_gg_4.html)
 
 ## PCA and Heatmaps
 
