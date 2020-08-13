@@ -94,5 +94,11 @@ Here I have compiled all the solutions for the different exercises in each of th
 
 [<i class="fas fa-link"></i> <span class="large">Solutions</span>](solutions.html)
 
+# Extra Tutorial for ggplot
+
+In the following link, you can find several different ways to use `ggplot` and obtain incredible visualizations of the data. Depending on the kind of data you have and the kind of visualization you would like to see, you can follow it on the table contents in this following page:
+
+[<i class="fas fa-link"></i> <span class="large">Top 50 ggplot2 Visualizations</span>](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
+
 
 **End of document**
