@@ -88,6 +88,16 @@ Here, we look into building PCA plots with `ggplot`. We will also look into maki
 
 [<i class="fas fa-link"></i> <span class="large">PCA and Heatmap</span>](lab_pca_hmap.html)
 
+# Optional exercises
+
+Below are specific exercises for people who are interested in specific topics.
+
+## Phylogenetic exercises
+
+Below is if you want publication-grade phylogenetic trees.
+
+[<i class="fas fa-link"></i> <span class="large">Phylogenetic trees</span>](lab_phylo.html)
+
 # Solutions to exercises:
 
 Here I have compiled all the solutions for the different exercises in each of the sections:
