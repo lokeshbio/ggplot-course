@@ -70,6 +70,8 @@ For this course, I have used one of my very simple tree from a few different org
 * `read.r8s` for parsing output of r8s
 * `read.raxml` for parsing output of RAxML
 
+## Reading treefile
+
 ```{r, warning=FALSE, message=FALSE}
 library(ggtree)
 library(treeio)
@@ -82,9 +84,61 @@ Just like with `ggplot2` we created a basic canvas with `ggplot(...)` and added 
 
 Because you’ll almost always want to add a tree geom and remove the default background and axes, the `ggtree()` function is essentially a shortcut for `ggplot(...) + geom_tree() + theme_tree()`.
 
-```{r}
-ggplot(arch_tree) + geom_tree() + theme_tree()
+```{r, warning=FALSE, message=FALSE}
+ggtree(arch_tree)
+#Same as:
+#ggplot(arch_tree) + geom_tree() + theme_tree()
 ```
+
+One can also customize how the tree looks like, just as in `ggplot`
+
+```{r, warning=FALSE, message=FALSE}
+ggtree(arch_tree, branch.length="none", color="blue", size=2, linetype=3)
+```
+
+You can also use different orientations to show the tree.
+
+```{r, warning=FALSE, message=FALSE}
+ggtree(arch_tree, color="blue", layout = "circular")
+```
+
+## Geoms and annotation
+
+Just like in `ggplot()` you can add layers to the tree as `geoms`.
+
+```{r, warning=FALSE, message=FALSE}
+p <- ggtree(arch_tree)
+p + geom_nodepoint() + geom_tiplab(color = "blue") + theme_tree2()
+```
+
+Before we can go further into annotating the tree, we need to understand how ggtree is handling the tree structure internally. Some of the functions in ggtree for annotating clades need a parameter specifying the internal node number. To get the internal node number, user can use `geom_text` to display it, where the label is an aesthetic mapping to the “node variable” stored inside the tree object (think of this like the continent variable inside the gapminder object). 
+
+```{r, warning=FALSE, message=FALSE}
+p + geom_text(aes(label=node), hjust=-.3)
+```
+
+Another way to get the internal node number is using the function `MRCA()` which stands for Most Recent Common Ancestor. From the tree above, if you would like to get the number of the particular node that is common to all the "Lokiarchaea". You can do so like below:
+
+```{r}
+MRCA(arch_tree, .node1 = "Baja_Loki3", .node2 =  "Loki_CR4")
+```
+
+Now, let us see how we can use this information to make it scientifically intuitive.
+
+```{r}
+p + 
+  geom_cladelabel(node=46, label="Lokiarchaeota", color="green")
+```
+
+ALternatively, we can also highlight an entire clade:
+
+```{r}
+p + 
+  geom_hilight(node=39, fill = "purple") +
+  geom_cladelabel(node=39, label="Thorarchaeota", color="purple")
+```
+
+
 
 
 

@@ -506,6 +506,8 @@ Output
 <li><code>read.r8s</code> for parsing output of r8s</li>
 <li><code>read.raxml</code> for parsing output of RAxML</li>
 </ul>
+<div id="reading-treefile" class="section level2">
+<h2><span class="header-section-number">1.1</span> Reading treefile</h2>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -534,11 +536,98 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">ggplot</span>(arch_tree) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tree</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_tree</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">ggtree</span>(arch_tree)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#Same as:</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#ggplot(arch_tree) + geom_tree() + theme_tree()</span></a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_phylo_files/figure-html/unnamed-chunk-5-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
+</div>
+<p>One can also customize how the tree looks like, just as in <code>ggplot</code></p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">ggtree</span>(arch_tree, <span class="dt">branch.length=</span><span class="st">&quot;none&quot;</span>, <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">linetype=</span><span class="dv">3</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-6-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>You can also use different orientations to show the tree.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">ggtree</span>(arch_tree, <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">layout =</span> <span class="st">&quot;circular&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-7-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="geoms-and-annotation" class="section level2">
+<h2><span class="header-section-number">1.2</span> Geoms and annotation</h2>
+<p>Just like in <code>ggplot()</code> you can add layers to the tree as <code>geoms</code>.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">ggtree</span>(arch_tree)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">p <span class="op">+</span><span class="st"> </span><span class="kw">geom_nodepoint</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_tree2</span>()</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-8-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>Before we can go further into annotating the tree, we need to understand how ggtree is handling the tree structure internally. Some of the functions in ggtree for annotating clades need a parameter specifying the internal node number. To get the internal node number, user can use <code>geom_text</code> to display it, where the label is an aesthetic mapping to the “node variable” stored inside the tree object (think of this like the continent variable inside the gapminder object).</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>node), <span class="dt">hjust=</span><span class="op">-</span>.<span class="dv">3</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-9-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>Another way to get the internal node number is using the function <code>MRCA()</code> which stands for Most Recent Common Ancestor. From the tree above, if you would like to get the number of the particular node that is common to all the “Lokiarchaea”. You can do so like below:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">MRCA</span>(arch_tree, <span class="dt">.node1 =</span> <span class="st">&quot;Baja_Loki3&quot;</span>, <span class="dt">.node2 =</span>  <span class="st">&quot;Loki_CR4&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>output</summary></p>
+<pre><code>## [1] 46</code></pre>
+</details>
+</div>
+<p>Now, let us see how we can use this information to make it scientifically intuitive.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node=</span><span class="dv">46</span>, <span class="dt">label=</span><span class="st">&quot;Lokiarchaeota&quot;</span>, <span class="dt">color=</span><span class="st">&quot;green&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-11-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>ALternatively, we can also highlight an entire clade:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">39</span>, <span class="dt">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node=</span><span class="dv">39</span>, <span class="dt">label=</span><span class="st">&quot;Thorarchaeota&quot;</span>, <span class="dt">color=</span><span class="st">&quot;purple&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-12-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
 </div>
 </div>
 <div id="session-info" class="section level1">
@@ -547,7 +636,7 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS

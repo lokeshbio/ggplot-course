@@ -240,7 +240,7 @@ ggexport(multi.page, filename = "multi.page.ggplot2.pdf")
 
 <i class="fas fa-clipboard-list"></i> Task &nbsp; For the exercise in this session, let us look into way of using the tools available for combining plots to make one plot that could be very comprehensive. Try to code the figure below:
 
-```{r, plot.fold=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+```{r, fold.plot=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
 p4 <- ggplot(data=iris,mapping=aes(x=Sepal.Length, y = Sepal.Width, color = Species)) +
   geom_point(size = 3, alpha = 0.6) +
   theme_classic(base_size = 12) +
