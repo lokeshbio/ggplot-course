@@ -50,6 +50,43 @@ library(reshape2)
 library(tidyverse)
 ```
 
+For this course, I have used one of my very simple tree from a few different organisms within the Archaea superkingdom. More specifically, it is the concatenated ribosomal protein tree within archaea, with representatives from the different Phyla: Asgard archaea (Thorarchaeota,  Odinarchaeota, Lokiarchaeota and Heimdallarchaeota), TACK, Euryarchaeota and DPANN. The maximum likelihood phylogeny was reconstructed in IQ-TREE with the LG+F+I+G4 model. The alignment was trimmed to 6,732 positions with the BMGE (Block Mapping and Gathering with Entropy) tool.
+
+# ggtree
+
+`ggtree` is an R package that extends ggplot2 for visualizating and annotating phylogenetic trees with their covariates and other associated data. `ggtree` in combination with `treeio` supports several file formats, including: 
+
+* `read.tree` for reading Newick files.
+* `read.phylip` for reading Phylip files.
+* `read.jplace` for reading Jplace files.
+* `read.nhx` for reading NHX files.
+* `read.beast` for parsing output of BEAST
+* `read.codeml` for parsing output of CODEML (rst and mlc files)
+* `read.codeml_mlc` for parsing mlc file (output of CODEML)
+* `read.hyphy` for parsing output of HYPHY
+* `read.jplace` for parsing jplace file including output from EPA and pplacer
+* `read.nhx` for parsing NHX file including output from PHYLODOG and RevBayes
+* `read.paml_rst` for parsing rst file (output of BASEML and CODEML)
+* `read.r8s` for parsing output of r8s
+* `read.raxml` for parsing output of RAxML
+
+```{r, warning=FALSE, message=FALSE}
+library(ggtree)
+library(treeio)
+
+arch_tree <- read.newick("data/arch_newick.txt")
+arch_tree
+```
+
+Just like with `ggplot2` we created a basic canvas with `ggplot(...)` and added layers with `+geom_???()`, we can do the same here. The `ggtree` package gives us a `geom_tree()` function. Because `ggtree` is built on top of `ggplot2`, you get `ggplot2`’s default gray theme with white lines. You can override this with a theme from the `ggtree` package.
+
+Because you’ll almost always want to add a tree geom and remove the default background and axes, the `ggtree()` function is essentially a shortcut for `ggplot(...) + geom_tree() + theme_tree()`.
+
+```{r}
+ggplot(arch_tree) + geom_tree() + theme_tree()
+```
+
+
 
 # Session info
 
