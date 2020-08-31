@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 27-Aug-2020" />
+<meta name="author" content="Lokesh Mano • 31-Aug-2020" />
 
 
 <title>Phylogenetics</title>
@@ -473,7 +473,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Phylogenetics</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 27-Aug-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 31-Aug-2020</h4>
 
 </div>
 
@@ -506,8 +506,9 @@ Output
 <li><code>read.r8s</code> for parsing output of r8s</li>
 <li><code>read.raxml</code> for parsing output of RAxML</li>
 </ul>
-<div id="reading-treefile" class="section level2">
-<h2><span class="header-section-number">1.1</span> Reading treefile</h2>
+</div>
+<div id="reading-treefile" class="section level1">
+<h1><span class="header-section-number">2</span> Reading treefile</h1>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -567,8 +568,8 @@ R
 </details>
 </div>
 </div>
-<div id="geoms-and-annotation" class="section level2">
-<h2><span class="header-section-number">1.2</span> Geoms and annotation</h2>
+<div id="geoms-and-annotation" class="section level1">
+<h1><span class="header-section-number">3</span> Geoms and annotation</h1>
 <p>Just like in <code>ggplot()</code> you can add layers to the tree as <code>geoms</code>.</p>
 <div class="block-title-parent">
 <div class="block-title small">
@@ -603,6 +604,8 @@ R
 <pre><code>## [1] 46</code></pre>
 </details>
 </div>
+<div id="clade-labeling" class="section level2">
+<h2><span class="header-section-number">3.1</span> Clade labeling</h2>
 <p>Now, let us see how we can use this information to make it scientifically intuitive.</p>
 <div class="block-title-parent">
 <div class="block-title small">
@@ -622,21 +625,112 @@ R
 </div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">39</span>, <span class="dt">fill =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node=</span><span class="dv">39</span>, <span class="dt">label=</span><span class="st">&quot;Thorarchaeota&quot;</span>, <span class="dt">color=</span><span class="st">&quot;purple&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node=</span><span class="dv">39</span>, <span class="dt">label=</span><span class="st">&quot;Thorarchaeota&quot;</span>, <span class="dt">color=</span><span class="st">&quot;purple&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">46</span>, <span class="dt">fill =</span> <span class="st">&quot;green&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node=</span><span class="dv">46</span>, <span class="dt">label=</span><span class="st">&quot;Lokiarchaeota&quot;</span>, <span class="dt">color=</span><span class="st">&quot;green&quot;</span>)</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_phylo_files/figure-html/unnamed-chunk-12-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
 </div>
-</div>
-<div id="session-info" class="section level1">
-<h1><span class="header-section-number">2</span> Session info</h1>
+<div id="taxa-connections" class="section level2">
+<h2><span class="header-section-number">3.2</span> Taxa connections</h2>
+<p>You can make connections to represent processes like gene transfer events on the tree.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">30</span>, <span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node=</span><span class="dv">30</span>, <span class="dt">label=</span><span class="st">&quot;Euryarchaeota&quot;</span>, <span class="dt">color=</span><span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">46</span>, <span class="dt">fill =</span> <span class="st">&quot;green&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node=</span><span class="dv">46</span>, <span class="dt">label=</span><span class="st">&quot;Lokiarchaeota&quot;</span>, <span class="dt">color=</span><span class="st">&quot;green&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_taxalink</span>(<span class="st">&quot;Eury_Methanothermococcus_okinawensis&quot;</span>, <span class="st">&quot;Loki_GC14&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-13-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="group-clades-and-otus" class="section level2">
+<h2><span class="header-section-number">3.3</span> Group clades and OTUs</h2>
+<p>You can group the different tips using the <code>groupOTU</code> function or you can group the tips based on a node using <code>groupClade</code> function. These groups you can then further use it for other geoms and so on.</p>
+<p>Let us say, we want to show the Asgrad archaea separately from the other archaea in this tree. One way to this would be:</p>
+<div id="groupotu" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> groupOTU</h3>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">arch_tree &lt;-<span class="st"> </span><span class="kw">groupOTU</span>(arch_tree, <span class="kw">c</span>(<span class="st">&quot;DPANN_Pace_RBG_13_36_9&quot;</span>, <span class="st">&quot;DPANN_Woese_UBA94&quot;</span>,<span class="st">&quot;EURY_Thermoplasma_volcanium_GSS1&quot;</span>, <span class="st">&quot;Eury_Halobaculum_gomorrense&quot;</span>, <span class="st">&quot;Eury_Methanothermococcus_okinawensis&quot;</span>, <span class="st">&quot;TACK_Bathy_SMTZ80&quot;</span>, <span class="st">&quot;TACK_Nitrososphaera_viennensis&quot;</span>, <span class="st">&quot;TACK_Sulfolobus_islandicus_LS215&quot;</span>))</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw">ggtree</span>(arch_tree, <span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>()</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-14-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>We can also get more detailed:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"> cls &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">Heimdallarchaeota =</span> <span class="kw">c</span>(<span class="st">&quot;Heim_AB125&quot;</span>, <span class="st">&quot;Heim_LC2&quot;</span>, <span class="st">&quot;Heim_LC3&quot;</span>), </a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">             <span class="dt">Thorarchaeota =</span> <span class="kw">c</span>(<span class="st">&quot;Baja_Thor&quot;</span>, <span class="st">&quot;Thor_AB25&quot;</span>, <span class="st">&quot;Thor_MP11T&quot;</span>, <span class="st">&quot;Thor_SMTZ45&quot;</span>, <span class="st">&quot;Thor_SMTZ_145&quot;</span>, <span class="st">&quot;Thor_MP8T&quot;</span>, <span class="st">&quot;Thor_MP9T&quot;</span>, <span class="st">&quot;Thor_SMTZ_183&quot;</span>), </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">             <span class="dt">Lokiarchaeota =</span> <span class="kw">c</span>(<span class="st">&quot;Loki_CR4&quot;</span>, <span class="st">&quot;Loki_GC14&quot;</span>, <span class="st">&quot;Baja_Loki2&quot;</span>, <span class="st">&quot;Baja_Loki1&quot;</span>, <span class="st">&quot;Baja_Loki3&quot;</span>),</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">             <span class="dt">Odinarchaeota =</span> <span class="st">&quot;Odin_LCB4&quot;</span>)</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6">arch_tree &lt;-<span class="st"> </span><span class="kw">groupOTU</span>(arch_tree, cls)</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="kw">ggtree</span>(arch_tree) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="kw">rainbow</span>(<span class="dv">4</span>)), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;OutGroup&quot;</span>, <span class="kw">names</span>(cls)))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-15-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>One thing to notice hear that you can group tips from different clades together as well.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">baja &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">Baja =</span> <span class="kw">c</span>(<span class="st">&quot;Baja_Thor&quot;</span>, <span class="st">&quot;Baja_Loki2&quot;</span>, <span class="st">&quot;Baja_Loki1&quot;</span>, <span class="st">&quot;Baja_Loki3&quot;</span>))</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">arch_tree &lt;-<span class="st"> </span><span class="kw">groupOTU</span>(arch_tree, baja)</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="kw">ggtree</span>(arch_tree) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Public genomes&quot;</span>, <span class="st">&quot;Baja genomes&quot;</span>))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-16-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="groupclade" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> groupClade</h3>
+<p>Now, if we are only interested in showing the differences based on the clades, we can use <code>groupClade</code>.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">arch_tree &lt;-<span class="st"> </span><span class="kw">groupClade</span>(arch_tree, <span class="kw">c</span>(<span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">35</span>, <span class="dv">27</span>))</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw">ggtree</span>(arch_tree) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="kw">rainbow</span>(<span class="dv">4</span>), <span class="st">&quot;black&quot;</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Odin&quot;</span>, <span class="st">&quot;Thor&quot;</span>, <span class="st">&quot;Loki&quot;</span>, <span class="st">&quot;Heimdall&quot;</span>, <span class="st">&quot;OutGroup&quot;</span>))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-17-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+</div>
+</div>
+<div id="session-info" class="section level1">
+<h1><span class="header-section-number">4</span> Session info</h1>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS

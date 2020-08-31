@@ -1,6 +1,6 @@
 date;room;dur;topic;person;link_presentation;link_lab;link_room
-04/11/2020;"Cerebrum; D215";30;Welcome;Dag Ahrén;;;https://tinyurl.com/yyaf3zbb
-;;30;R Introduction lecture;Lokesh;;;
+04/11/2020;"Cerebrum; D215";15;Welcome;Dag Ahrén;;;https://goo.gl/maps/rQ4ohNgJDMJKYkU96
+;;45;R Introduction lecture;Lokesh;;;
 ;;20;Coffee Break;;;;
 ;;70;R Introduction Lab;Lokesh;;lab_r.html;
 ;;30;ggplot basics 1 (overview);Louella;;
@@ -11,8 +11,8 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 ;;20;Coffee Break;;;;
 ;;20;ggplot basics 3 (axes, labels, legends and themes) (overview);Louella;;;
 ;;80;ggplot basics 3 (axes, labels, legends and themes) (lab);Louella;;lab_gg_3.html;
-05/11/2020;"Cerebrum; D215";30;Vector graphics (lecture);Markus;;;https://tinyurl.com/yyaf3zbb
-;;30;Combining plots (lab);Lokesh;;lab_gg_4.html;
+05/11/2020;"Cerebrum; D215";30;Vector graphics (lecture);Markus;;;https://goo.gl/maps/rQ4ohNgJDMJKYkU96
+;;30;Combining plots (lab);Markus;;lab_gg_4.html;
 ;;20;Coffee Break;;;;
 ;;50;making PCA, heatmap and others (overview);Markus;;;
 ;;50;Plotting PCA, heatmap and others (lab);Markus;;lab_pca_hmap.html;

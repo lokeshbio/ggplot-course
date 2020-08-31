@@ -70,7 +70,7 @@ For this course, I have used one of my very simple tree from a few different org
 * `read.r8s` for parsing output of r8s
 * `read.raxml` for parsing output of RAxML
 
-## Reading treefile
+# Reading treefile
 
 ```{r, warning=FALSE, message=FALSE}
 library(ggtree)
@@ -102,7 +102,7 @@ You can also use different orientations to show the tree.
 ggtree(arch_tree, color="blue", layout = "circular")
 ```
 
-## Geoms and annotation
+# Geoms and annotation
 
 Just like in `ggplot()` you can add layers to the tree as `geoms`.
 
@@ -123,6 +123,8 @@ Another way to get the internal node number is using the function `MRCA()` which
 MRCA(arch_tree, .node1 = "Baja_Loki3", .node2 =  "Loki_CR4")
 ```
 
+## Clade labeling
+
 Now, let us see how we can use this information to make it scientifically intuitive.
 
 ```{r}
@@ -135,12 +137,72 @@ ALternatively, we can also highlight an entire clade:
 ```{r}
 p + 
   geom_hilight(node=39, fill = "purple") +
-  geom_cladelabel(node=39, label="Thorarchaeota", color="purple")
+  geom_cladelabel(node=39, label="Thorarchaeota", color="purple") +
+  geom_hilight(node=46, fill = "green") +
+  geom_cladelabel(node=46, label="Lokiarchaeota", color="green")
 ```
 
+## Taxa connections
 
+You can make connections to represent processes like gene transfer events on the tree.
 
+```{r}
+p + 
+  geom_hilight(node=30, fill = "orange") +
+  geom_cladelabel(node=30, label="Euryarchaeota", color="orange") +
+  geom_hilight(node=46, fill = "green") +
+  geom_cladelabel(node=46, label="Lokiarchaeota", color="green") +
+  geom_taxalink("Eury_Methanothermococcus_okinawensis", "Loki_GC14", color = "red")
+```
 
+## Group clades and OTUs
+
+You can group the different tips using the `groupOTU` function or you can group the tips based on a node using `groupClade` function. These groups you can then further use it for other geoms and so on.
+
+Let us say, we want to show the Asgrad archaea separately from the other archaea in this tree. One way to this would be:
+
+### groupOTU
+
+```{r, message=FALSE, warning=FALSE}
+arch_tree <- groupOTU(arch_tree, c("DPANN_Pace_RBG_13_36_9", "DPANN_Woese_UBA94","EURY_Thermoplasma_volcanium_GSS1", "Eury_Halobaculum_gomorrense", "Eury_Methanothermococcus_okinawensis", "TACK_Bathy_SMTZ80", "TACK_Nitrososphaera_viennensis", "TACK_Sulfolobus_islandicus_LS215"))
+
+ggtree(arch_tree, aes(color=group)) + geom_tiplab()
+
+```
+
+We can also get more detailed:
+
+```{r, message=FALSE, warning=FALSE}
+ cls <- list(Heimdallarchaeota = c("Heim_AB125", "Heim_LC2", "Heim_LC3"), 
+             Thorarchaeota = c("Baja_Thor", "Thor_AB25", "Thor_MP11T", "Thor_SMTZ45", "Thor_SMTZ_145", "Thor_MP8T", "Thor_MP9T", "Thor_SMTZ_183"), 
+             Lokiarchaeota = c("Loki_CR4", "Loki_GC14", "Baja_Loki2", "Baja_Loki1", "Baja_Loki3"),
+             Odinarchaeota = "Odin_LCB4")
+
+arch_tree <- groupOTU(arch_tree, cls)
+ggtree(arch_tree) + geom_tiplab(aes(color=group)) + 
+  scale_color_manual(values=c("black", rainbow(4)), labels = c("OutGroup", names(cls)))
+```
+
+One thing to notice hear that you can group tips from different clades together as well.
+
+```{r, message=FALSE, warning=FALSE}
+baja <- list(Baja = c("Baja_Thor", "Baja_Loki2", "Baja_Loki1", "Baja_Loki3"))
+
+arch_tree <- groupOTU(arch_tree, baja)
+ggtree(arch_tree) + geom_tiplab(aes(color=group)) + 
+  scale_color_manual(values=c("black", "blue"), labels = c("Public genomes", "Baja genomes"))
+```
+
+### groupClade
+
+Now, if we are only interested in showing the differences based on the clades, we can use `groupClade`.
+
+```{r, message=FALSE, warning=FALSE}
+arch_tree <- groupClade(arch_tree, c(39, 46, 35, 27))
+
+ggtree(arch_tree) + geom_tiplab(aes(color=group)) + 
+  scale_color_manual(values=c(rainbow(4), "black"), labels = c("Odin", "Thor", "Loki", "Heimdall", "OutGroup"))
+```
 
 # Session info
 
