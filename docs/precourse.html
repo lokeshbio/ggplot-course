@@ -412,14 +412,15 @@ $(document).ready(function () {
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;ggtree&quot;</span>,<span class="st">&quot;tidyverse&quot;</span>,<span class="st">&quot;ggmap&quot;</span>,<span class="st">&quot;pheatmap&quot;</span>,<span class="st">&quot;devtools&quot;</span>,<span class="st">&quot;cowplot&quot;</span>,</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;tidyverse&quot;</span>,<span class="st">&quot;ggmap&quot;</span>,<span class="st">&quot;pheatmap&quot;</span>,<span class="st">&quot;devtools&quot;</span>,<span class="st">&quot;cowplot&quot;</span>,</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">                   <span class="st">&quot;reshape2&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;wesanderson&quot;</span>, <span class="st">&quot;scales&quot;</span>, <span class="st">&quot;ggthemes&quot;</span>, <span class="st">&quot;ggrepel&quot;</span>, </a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">                   <span class="st">&quot;ggpubr&quot;</span>, <span class="st">&quot;gridExtra&quot;</span>), <span class="dt">dep=</span><span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="kw">c</span>(<span class="st">&quot;ggtree&quot;</span>, <span class="st">&quot;treeio&quot;</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb1-8" data-line-number="8">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="kw">c</span>(<span class="st">&quot;ggtree&quot;</span>, <span class="st">&quot;treeio&quot;</span>))</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#lapply(x, require, character.only = TRUE)</span></a></code></pre></div>
 </div>
 </div>
 <p>The following are the steps that are recommended for the course participants.</p>
