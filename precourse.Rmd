@@ -36,7 +36,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install(c("ggtree", "treeio"))
-#lapply(x, require, character.only = TRUE)
+
 ```
 
 
