@@ -39,6 +39,7 @@ BiocManager::install(c("ggtree", "treeio"))
 
 ```
 
+<i class="fas fa-exclamation-circle"></i> To make sure that the installations went well, try to make a quick plot. Try to make a quick correlation plot between `BMI` and average `no.of steps` taken by some volunteers per day. The data and the code for plotting is available [here](../data/Installation_check/packages_check.zip). Just `knit` the `Rmarkdown` file and you should see correlation the plot, if all the packages are installed properly. 
 
 </div>
 
