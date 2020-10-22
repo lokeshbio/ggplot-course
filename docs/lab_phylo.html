@@ -663,9 +663,11 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">arch_tree &lt;-<span class="st"> </span><span class="kw">groupOTU</span>(arch_tree, <span class="kw">c</span>(<span class="st">&quot;DPANN_Pace_RBG_13_36_9&quot;</span>, <span class="st">&quot;DPANN_Woese_UBA94&quot;</span>,<span class="st">&quot;EURY_Thermoplasma_volcanium_GSS1&quot;</span>, <span class="st">&quot;Eury_Halobaculum_gomorrense&quot;</span>, <span class="st">&quot;Eury_Methanothermococcus_okinawensis&quot;</span>, <span class="st">&quot;TACK_Bathy_SMTZ80&quot;</span>, <span class="st">&quot;TACK_Nitrososphaera_viennensis&quot;</span>, <span class="st">&quot;TACK_Sulfolobus_islandicus_LS215&quot;</span>))</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw">ggtree</span>(arch_tree, <span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">arch_tree &lt;-<span class="st"> </span><span class="kw">groupOTU</span>(arch_tree, <span class="kw">c</span>(<span class="st">&quot;DPANN_Pace_RBG_13_36_9&quot;</span>, <span class="st">&quot;DPANN_Woese_UBA94&quot;</span>,</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">                                   <span class="st">&quot;EURY_Thermoplasma_volcanium_GSS1&quot;</span>, <span class="st">&quot;Eury_Halobaculum_gomorrense&quot;</span>, <span class="st">&quot;Eury_Methanothermococcus_okinawensis&quot;</span>, </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">                                   <span class="st">&quot;TACK_Bathy_SMTZ80&quot;</span>, <span class="st">&quot;TACK_Nitrososphaera_viennensis&quot;</span>, <span class="st">&quot;TACK_Sulfolobus_islandicus_LS215&quot;</span>))</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="kw">ggtree</span>(arch_tree, <span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>()</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_phylo_files/figure-html/unnamed-chunk-14-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -694,11 +696,13 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">baja &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">Baja =</span> <span class="kw">c</span>(<span class="st">&quot;Baja_Thor&quot;</span>, <span class="st">&quot;Baja_Loki2&quot;</span>, <span class="st">&quot;Baja_Loki1&quot;</span>, <span class="st">&quot;Baja_Loki3&quot;</span>))</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">arch_tree &lt;-<span class="st"> </span><span class="kw">groupOTU</span>(arch_tree, baja)</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="kw">ggtree</span>(arch_tree) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Public genomes&quot;</span>, <span class="st">&quot;Baja genomes&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">baja &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">Baja =</span> <span class="kw">c</span>(<span class="st">&quot;Baja_Thor&quot;</span>, <span class="st">&quot;Baja_Loki2&quot;</span>, </a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">                      <span class="st">&quot;Baja_Loki1&quot;</span>, <span class="st">&quot;Baja_Loki3&quot;</span>))</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">arch_tree &lt;-<span class="st"> </span><span class="kw">groupOTU</span>(arch_tree, baja)</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="kw">ggtree</span>(arch_tree) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), </a>
+<a class="sourceLine" id="cb15-7" data-line-number="7">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Public genomes&quot;</span>, <span class="st">&quot;Baja genomes&quot;</span>))</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_phylo_files/figure-html/unnamed-chunk-16-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -715,7 +719,8 @@ R
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">arch_tree &lt;-<span class="st"> </span><span class="kw">groupClade</span>(arch_tree, <span class="kw">c</span>(<span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">35</span>, <span class="dv">27</span>))</a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw">ggtree</span>(arch_tree) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="kw">rainbow</span>(<span class="dv">4</span>), <span class="st">&quot;black&quot;</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Odin&quot;</span>, <span class="st">&quot;Thor&quot;</span>, <span class="st">&quot;Loki&quot;</span>, <span class="st">&quot;Heimdall&quot;</span>, <span class="st">&quot;OutGroup&quot;</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="kw">rainbow</span>(<span class="dv">4</span>), <span class="st">&quot;black&quot;</span>), </a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Odin&quot;</span>, <span class="st">&quot;Thor&quot;</span>, <span class="st">&quot;Loki&quot;</span>, <span class="st">&quot;Heimdall&quot;</span>, <span class="st">&quot;OutGroup&quot;</span>))</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_phylo_files/figure-html/unnamed-chunk-17-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -750,6 +755,107 @@ R
 <p><img src="lab_phylo_files/figure-html/unnamed-chunk-18-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
+<p>Similarly we can plot a heatmap:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">env_hmap &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/tree_hmap.tsv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, </a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">                <span class="dt">stringsAsFactor=</span>F, <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">header =</span> T)</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">p &lt;-<span class="st"> </span><span class="kw">ggtree</span>(arch_tree) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="kw">rainbow</span>(<span class="dv">4</span>), <span class="st">&quot;black&quot;</span>), </a>
+<a class="sourceLine" id="cb18-7" data-line-number="7">    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Odin&quot;</span>, <span class="st">&quot;Thor&quot;</span>, <span class="st">&quot;Loki&quot;</span>, <span class="st">&quot;Heimdall&quot;</span>, <span class="st">&quot;OutGroup&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="kw">gheatmap</span>(p, env_hmap, <span class="dt">offset =</span> <span class="dv">4</span>, <span class="dt">width=</span><span class="fl">1.5</span>, </a>
+<a class="sourceLine" id="cb18-11" data-line-number="11">    <span class="dt">colnames_angle =</span> <span class="dv">90</span>, <span class="dt">colnames_offset_y =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb18-12" data-line-number="12">    <span class="dt">legend_title =</span> <span class="st">&quot;Environment sampled&quot;</span>) </a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-19-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="images" class="section level2">
+<h2><span class="header-section-number">4.2</span> Images</h2>
+<p>One can use <a href="http://phylopic.org/">phylopic</a> database, which is part of the <code>ggtree</code> package to use many silhouette images of organisms. Here, we can see how one could add some of those images to a tree.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co">#if (!requireNamespace(&quot;ggimage&quot;, quietly = TRUE))</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">    <span class="co">#install.packages(&quot;ggimage&quot;, dependencies = TRUE )</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="kw">library</span>(ggimage)</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">p &lt;-<span class="st"> </span><span class="kw">ggtree</span>(arch_tree) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="kw">rainbow</span>(<span class="dv">4</span>), <span class="st">&quot;black&quot;</span>), </a>
+<a class="sourceLine" id="cb19-7" data-line-number="7">    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Odin&quot;</span>, <span class="st">&quot;Thor&quot;</span>, <span class="st">&quot;Loki&quot;</span>, <span class="st">&quot;Heimdall&quot;</span>, <span class="st">&quot;OutGroup&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb19-10" data-line-number="10">p <span class="op">+</span><span class="st"> </span><span class="kw">geom_phylopic</span>(<span class="dt">size =</span> <span class="ot">Inf</span>, <span class="dt">image =</span> <span class="st">&quot;e4dde003-8a3b-4c9e-b4ed-1f6e4d894163&quot;</span>, </a>
+<a class="sourceLine" id="cb19-11" data-line-number="11">                  <span class="dt">color=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">.3</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-20-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>One can add specific images to the specific nodes as well. For this, we would include the <code>phylopic</code> information as a dataframe and which specific node number, should these images be matched. Then we could add this information to the <code>ggtree</code> object using <code>%&lt;+%</code> function.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">phylopic_info &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">node =</span> <span class="kw">c</span>(<span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">35</span>, <span class="dv">27</span>, <span class="dv">20</span>),</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">                            <span class="dt">phylopic =</span> <span class="kw">c</span>(<span class="st">&quot;6b79f4f2-3c34-4130-9e60-4ba2fe68ff48&quot;</span>,</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">                                        <span class="st">&quot;f04e96a5-8c19-4caf-af64-ee51e69431fd&quot;</span>,</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">                                        <span class="st">&quot;e4dde003-8a3b-4c9e-b4ed-1f6e4d894163&quot;</span>,</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">                                        <span class="st">&quot;3cabf30c-eed6-4dc4-824e-f7eac992f554&quot;</span>,</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">                                        <span class="st">&quot;5254d3c6-6865-46c4-beaa-4a9306a50bc8&quot;</span>))</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">p &lt;-<span class="st"> </span><span class="kw">ggtree</span>(arch_tree) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="kw">rainbow</span>(<span class="dv">4</span>), <span class="st">&quot;black&quot;</span>), </a>
+<a class="sourceLine" id="cb20-11" data-line-number="11">    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Odin&quot;</span>, <span class="st">&quot;Thor&quot;</span>, <span class="st">&quot;Loki&quot;</span>, <span class="st">&quot;Heimdall&quot;</span>, <span class="st">&quot;OutGroup&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-12" data-line-number="12"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb20-14" data-line-number="14">p <span class="op">%&lt;+%</span><span class="st"> </span>phylopic_info <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-15" data-line-number="15"><span class="st">  </span><span class="kw">geom_nodelab</span>(<span class="kw">aes</span>(<span class="dt">image=</span>phylopic), </a>
+<a class="sourceLine" id="cb20-16" data-line-number="16">               <span class="dt">geom=</span><span class="st">&quot;phylopic&quot;</span>, <span class="dt">alpha=</span>.<span class="dv">8</span>, <span class="dt">color=</span><span class="st">&#39;steelblue&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-17" data-line-number="17"><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">image=</span>phylopic), </a>
+<a class="sourceLine" id="cb20-18" data-line-number="18">              <span class="dt">geom=</span><span class="st">&quot;phylopic&quot;</span>, <span class="dt">alpha=</span>.<span class="dv">8</span>, <span class="dt">color=</span><span class="st">&#39;steelblue&#39;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-21-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p><i class="fas fa-exclamation-circle"></i> Note   Notice that for <code>Odin</code>, we had to use <code>geom_tiplab()</code> as it is a tip and not a node!</p>
+<p>There are more fun images in <code>phylopic</code> that one can use:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">phylopic_info &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">node =</span> <span class="kw">c</span>(<span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">35</span>, <span class="dv">27</span>, <span class="dv">38</span>),</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">                  <span class="dt">phylopic =</span> <span class="kw">c</span>(<span class="st">&quot;bac25f49-97a4-4aec-beb6-f542158ebd23&quot;</span>,</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3">                               <span class="st">&quot;f598fb39-facf-43ea-a576-1861304b2fe4&quot;</span>,</a>
+<a class="sourceLine" id="cb21-4" data-line-number="4">                               <span class="st">&quot;aceb287d-84cf-46f1-868c-4797c4ac54a8&quot;</span>,</a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">                               <span class="st">&quot;0174801d-15a6-4668-bfe0-4c421fbe51e8&quot;</span>,</a>
+<a class="sourceLine" id="cb21-6" data-line-number="6">                               <span class="st">&quot;72f2f854-f3cd-4666-887c-35d5c256ab0f&quot;</span>))</a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb21-8" data-line-number="8">p &lt;-<span class="st"> </span><span class="kw">ggtree</span>(arch_tree) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">color=</span>group)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-10" data-line-number="10"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="kw">rainbow</span>(<span class="dv">4</span>), <span class="st">&quot;black&quot;</span>), </a>
+<a class="sourceLine" id="cb21-11" data-line-number="11">    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Odin&quot;</span>, <span class="st">&quot;Thor&quot;</span>, <span class="st">&quot;Loki&quot;</span>, <span class="st">&quot;Heimdall&quot;</span>, <span class="st">&quot;OutGroup&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-12" data-line-number="12"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a>
+<a class="sourceLine" id="cb21-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb21-14" data-line-number="14">p <span class="op">%&lt;+%</span><span class="st"> </span>phylopic_info <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-15" data-line-number="15"><span class="st">  </span><span class="kw">geom_nodelab</span>(<span class="kw">aes</span>(<span class="dt">image=</span>phylopic), <span class="dt">geom=</span><span class="st">&quot;phylopic&quot;</span>, </a>
+<a class="sourceLine" id="cb21-16" data-line-number="16">               <span class="dt">alpha=</span>.<span class="dv">8</span>, <span class="dt">color=</span><span class="st">&#39;steelblue&#39;</span>) </a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_phylo_files/figure-html/unnamed-chunk-22-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
 </div>
 </div>
 <div id="session-info" class="section level1">
@@ -758,7 +864,7 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS
@@ -779,10 +885,10 @@ R
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] treeio_1.10.0   ggtree_2.0.4    forcats_0.5.0   stringr_1.4.0  
-##  [5] purrr_0.3.4     readr_1.3.1     tidyr_1.1.1     tibble_3.0.3   
-##  [9] tidyverse_1.3.0 reshape2_1.4.4  ggplot2_3.3.2   dplyr_1.0.1    
-## [13] captioner_2.2.3 bookdown_0.20   knitr_1.29     
+##  [1] ggimage_0.2.8   treeio_1.10.0   ggtree_2.0.4    forcats_0.5.0  
+##  [5] stringr_1.4.0   purrr_0.3.4     readr_1.3.1     tidyr_1.1.1    
+##  [9] tibble_3.0.3    tidyverse_1.3.0 reshape2_1.4.4  ggplot2_3.3.2  
+## [13] dplyr_1.0.1     captioner_2.2.3 bookdown_0.20   knitr_1.29     
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_1.0.5          lubridate_1.7.9     ape_5.4-1          
@@ -790,21 +896,23 @@ R
 ##  [7] R6_2.4.1            cellranger_1.1.0    plyr_1.8.6         
 ## [10] backports_1.1.8     reprex_0.3.0        evaluate_0.14      
 ## [13] httr_1.4.2          pillar_1.4.6        rlang_0.4.7        
-## [16] lazyeval_0.2.2      readxl_1.3.1        rstudioapi_0.11    
-## [19] blob_1.2.1          rmarkdown_2.3       labeling_0.3       
-## [22] munsell_0.5.0       broom_0.7.0         compiler_3.6.3     
-## [25] modelr_0.1.8        xfun_0.16           pkgconfig_2.0.3    
-## [28] htmltools_0.5.0     tidyselect_1.1.0    fansi_0.4.1        
-## [31] crayon_1.3.4        dbplyr_1.4.4        withr_2.2.0        
-## [34] grid_3.6.3          nlme_3.1-144        jsonlite_1.7.0     
-## [37] gtable_0.3.0        lifecycle_0.2.0     DBI_1.1.0          
-## [40] magrittr_1.5        scales_1.1.1        tidytree_0.3.3     
-## [43] cli_2.0.2           stringi_1.4.6       farver_2.0.3       
-## [46] fs_1.5.0            xml2_1.3.2          ellipsis_0.3.1     
-## [49] rvcheck_0.1.8       generics_0.0.2      vctrs_0.3.2        
-## [52] tools_3.6.3         glue_1.4.1          hms_0.5.3          
-## [55] parallel_3.6.3      yaml_2.2.1          colorspace_1.4-1   
-## [58] BiocManager_1.30.10 rvest_0.3.6         haven_2.3.1</code></pre>
+## [16] curl_4.3            lazyeval_0.2.2      readxl_1.3.1       
+## [19] rstudioapi_0.11     blob_1.2.1          magick_2.5.0       
+## [22] rmarkdown_2.3       labeling_0.3        munsell_0.5.0      
+## [25] broom_0.7.0         compiler_3.6.3      modelr_0.1.8       
+## [28] xfun_0.16           gridGraphics_0.5-0  pkgconfig_2.0.3    
+## [31] htmltools_0.5.0     tidyselect_1.1.0    fansi_0.4.1        
+## [34] crayon_1.3.4        dbplyr_1.4.4        withr_2.2.0        
+## [37] grid_3.6.3          nlme_3.1-144        jsonlite_1.7.0     
+## [40] gtable_0.3.0        lifecycle_0.2.0     DBI_1.1.0          
+## [43] magrittr_1.5        scales_1.1.1        tidytree_0.3.3     
+## [46] cli_2.0.2           stringi_1.4.6       farver_2.0.3       
+## [49] fs_1.5.0            xml2_1.3.2          ellipsis_0.3.1     
+## [52] rvcheck_0.1.8       generics_0.0.2      vctrs_0.3.2        
+## [55] tools_3.6.3         ggplotify_0.0.5     glue_1.4.1         
+## [58] hms_0.5.3           parallel_3.6.3      yaml_2.2.1         
+## [61] colorspace_1.4-1    BiocManager_1.30.10 rvest_0.3.6        
+## [64] haven_2.3.1</code></pre>
 </div>
 <p><strong>End of document</strong></p>
 </div>
