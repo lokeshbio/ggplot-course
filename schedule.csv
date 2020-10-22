@@ -18,7 +18,7 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 ;;50;Plotting PCA, heatmap and others (lab);Markus;;lab_pca_hmap.html;
 ;;60;Lunch;;;;
 ;;60;Optional exercises with phylogenetic tree (lab);Lokesh;;lab_phylo.html;
-;;60;Optional exercises with map-data (lab);Lokesh;;;
+;;60;Optional exercises with map-data (lab);Lokesh;;lab_ggmap.html;
 ;;20;Coffee Break;;;;
 ;;50;Specific questions (Part 1);Everyone;;;
 ;;50;Specific questions (Part 2);Everyone;;;

@@ -257,8 +257,8 @@ One can use [phylopic](http://phylopic.org/) database, which is part of the `ggt
 
 ```{r, message=FALSE, warning=FALSE}
 
-#if (!requireNamespace("ggimage", quietly = TRUE))
-    #install.packages("ggimage", dependencies = TRUE )
+if (!requireNamespace("ggimage", quietly = TRUE))
+    install.packages("ggimage", dependencies = TRUE )
 library(ggimage)
 p <- ggtree(arch_tree) + 
   geom_tiplab(aes(color=group)) +
