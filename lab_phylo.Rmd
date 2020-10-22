@@ -204,6 +204,30 @@ ggtree(arch_tree) + geom_tiplab(aes(color=group)) +
   scale_color_manual(values=c(rainbow(4), "black"), labels = c("Odin", "Thor", "Loki", "Heimdall", "OutGroup"))
 ```
 
+# Adding data to tree
+
+In this part, let us try to see what kind of ways one could add metadata to a tree.
+
+## Tables
+
+```{r, message=FALSE, warning=FALSE}
+
+env_info <- read.table("data/tree_env.tsv", sep="\t", 
+                stringsAsFactor=F, row.names = 1, header = T)
+
+p <- ggtree(arch_tree) + 
+  geom_tiplab(aes(color=group)) +
+  geom_text(aes(label = node)) +
+  scale_color_manual(values=c(rainbow(4), "black"), 
+    labels = c("Odin", "Thor", "Loki", "Heimdall", "OutGroup")) +
+  theme(legend.position = "none")
+
+gheatmap(p, env_info, offset = 4, width=1.5, 
+    colnames_angle = 90, colnames_offset_y = 5,
+    legend_title = "Environment sampled") 
+```
+
+
 # Session info
 
 ```{r, fold.output=FALSE, fold.plot=FALSE}
