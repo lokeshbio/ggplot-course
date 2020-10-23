@@ -43,9 +43,43 @@ knitr::knit_hooks$set(
 ```{r,child="assets/header-lab.Rmd"}
 ```
 
+# ggmap
+
+`ggmap` is an R package that makes it easy to retrieve raster map tiles from popular online mapping services like Google Maps and Stamen Maps and plot them using the `ggplot2` framework:
+
+You can find more information about the R package [here](https://github.com/dkahle/ggmap)
+
+Here we will try to see some of the important functions that this package provides and how we can use it display the findings in a nicer way.
+
+To do this exercise, we will use a separate dataset and it can be downloaded [here](data/ggmap_data/ggmap_data.zip). 
+
+If you would like to keep the data tree same as the exercises here, you can extract the zip file inside the data directory. So, the file tree would like this:
+
+* <span style="color:blue">ggplot_geneco_course</span>
+  + <span style="color:blue">data</span>
+    + archaea_nexus.txt
+    + arch_newick.txt
+    + counts_deseq2.txt
+    + counts_filtered.txt
+    + counts_raw.txt
+    + counts_vst.txt
+    + human_biomaRt_annotation.csv
+    + metadata_raw.csv
+    + Time_t24_vs_t0.txt
+    + Time_t2_vs_t0.txt
+    + Time_t6_vs_t0.txt
+    + tree_env.tsv
+    + tree_hmap.tsv
+    + <span style="color:blue">ggmap_data</span>
+      + bc_sites.rds
+      + bike-ride.csv
+      + sisquoc-points.txt
+
+
 ```{r, warning=FALSE, message=FALSE}
-if (!requireNamespace("ggimage", quietly = TRUE))
-    install.packages("ggimage", dependencies = TRUE )
+if (!requireNamespace("ggmap", quietly = TRUE)){
+  install.packages("ggmap", dependencies = TRUE)
+}
 
 library(dplyr)
 library(ggplot2)

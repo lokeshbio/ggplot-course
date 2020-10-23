@@ -108,7 +108,7 @@ Just like in `ggplot()` you can add layers to the tree as `geoms`.
 
 ```{r, warning=FALSE, message=FALSE}
 p <- ggtree(arch_tree)
-p + geom_nodepoint() + geom_tiplab(color = "blue") + theme_tree2()
+p + geom_tiplab(color = "blue") + theme_tree2()
 ```
 
 Before we can go further into annotating the tree, we need to understand how ggtree is handling the tree structure internally. Some of the functions in ggtree for annotating clades need a parameter specifying the internal node number. To get the internal node number, user can use `geom_text` to display it, where the label is an aesthetic mapping to the “node variable” stored inside the tree object (think of this like the continent variable inside the gapminder object). 
@@ -208,6 +208,56 @@ ggtree(arch_tree) + geom_tiplab(aes(color=group)) +
   scale_color_manual(values=c(rainbow(4), "black"), 
                      labels = c("Odin", "Thor", "Loki", "Heimdall", "OutGroup"))
 ```
+
+## Showing bootstrap values
+
+If you notice the tree object, it actually contains `node.label` that are bootstrap values. 
+
+```{r, message=FALSE, warning=FALSE}
+arch_tree
+```
+
+There are different ways we could show this values on the tree. For example,
+
+```{r, message=FALSE, warning=FALSE}
+ggtree(arch_tree) + geom_nodelab() + geom_tiplab() + theme_tree()
+```
+
+Now, let us say that you only want to show the values that are above 80, then you would have to do some trick here, like:
+
+```{r, message=FALSE, warning=FALSE}
+ggtree(arch_tree) + 
+  geom_nodepoint(aes(subset = as.numeric(label) > 80), size = 3) + 
+  geom_tiplab() + 
+  theme_tree()
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; Notice that the `node.label` are in string, so must remember to use `as.numeric()` option be able to filter them to show them.
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; If the tree does not have bootstrap values with in the treefile, one can add them separately as a `data.frame` using `%<+%` function, as shown in the **Adding data to tree** section below.
+
+## Subsetting trees
+
+It is possible to specific `tips` from the tree using `drop.tip()` fuction. Let us say, we want to remove `Thor_SMTZ45` and `Baja_Loki1`, becuase of the reason that their genomes are not close to complete. We can do that by:
+
+```{r, message=FALSE, warning=FALSE}
+to_drop <- c("Thor_SMTZ45", "Baja_Loki1")
+arch_tree_reduced <- drop.tip(arch_tree, to_drop)
+arch_tree_reduced <- groupClade(arch_tree_reduced, c(37, 43, 33, 25))
+
+ggtree(arch_tree_reduced) + geom_tiplab(aes(color=group)) + 
+  scale_color_manual(values=c(rainbow(4), "black"), 
+                     labels = c("Odin", "Thor", "Loki", "Heimdall", "OutGroup"))
+```
+
+One can also subset a tree, by using the internal node number as shown in the exercises earlier. We can do this by using the `tree_subset()` function:
+
+```{r, message=FALSE, warning=FALSE}
+asg_tree <- tree_subset(arch_tree, node=34, levels_back=0)
+ggtree(asg_tree) + geom_tiplab() 
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; The branch lengths and all the other information from the tree are maintained in the new object, when remove tips or subset a tree.
 
 # Adding data to tree
 

@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 22-Oct-2020" />
+<meta name="author" content="Lokesh Mano • 23-Oct-2020" />
 
 
 <title>Downloads</title>
@@ -383,7 +383,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Downloads</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 22-Oct-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 23-Oct-2020</h4>
 
 </div>
 
@@ -396,15 +396,14 @@ div.tocify {
 <h1><span class="header-section-number">1</span> Main exercises</h1>
 <p>The following data will be used in the used for the exercises in this course. The data comes from a mock RNA sequencing data with 12 samples that are from cell-lines. As in any normal RNAseq analysis the counts of genes were normalized using different methods such as <code>VST</code> and <code>CPM</code> after filtering out the genes that were of very low expression. We would use these data for visulaizations.</p>
 <p><strong>Download all of these files into your current working directory</strong></p>
-<p>You can download all the files together <a href="data/">here</a>.
+<p>You can download all the files together <a href="data/data.zip">here</a>.
 Make a directory called <code>data</code> and <code>unzip</code> in that directory!</p>
-<p>If <code>ggplot_geneco_course</code> is my current working directory, the directory tree should look like this:</p>
+<p>If <code>ggplot_geneco_course</code> is the current working directory, the directory tree should look like this:</p>
 <ul>
-<li>ggplot_geneco_course
+<li><span style="color:blue">ggplot_geneco_course</span>
 <ul>
-<li>data
+<li><span style="color:blue">data</span>
 <ul>
-<li>archaea_nexus.txt</li>
 <li>arch_newick.txt</li>
 <li>counts_deseq2.txt</li>
 <li>counts_filtered.txt</li>
@@ -436,10 +435,38 @@ Make a directory called <code>data</code> and <code>unzip</code> in that directo
 <li>Metadata of the genes with their functions: <a href="data/human_biomaRt_annotation.csv">Gene Annotation</a></li>
 </ul>
 </div>
+<div id="de-genes" class="section level2">
+<h2><span class="header-section-number">1.3</span> DE genes</h2>
+<p>Below are the lists of differentially expressed genes between different time points</p>
+<ul>
+<li><a href="data/Time_t2_vs_t0.txt">Time point 2 vs Time point 0</a></li>
+<li><a href="data/Time_t6_vs_t0.txt">Time point 6 vs Time point 0</a></li>
+<li><a href="data/Time_t24_vs_t0.txt">Time point 24 vs Time point 0</a></li>
+</ul>
+</div>
 </div>
 <div id="optional-exercises" class="section level1">
 <h1><span class="header-section-number">2</span> Optional exercises</h1>
-<p><em>Data for the optional exercises will follow</em></p>
+<div id="phylogenetic-trees" class="section level2">
+<h2><span class="header-section-number">2.1</span> Phylogenetic trees</h2>
+<p>The data required for the phylogenetic trees are already part of the main <code>data.zip</code> file, as shown in the directory tree before. The files needed for this exercise are described below:</p>
+<ul>
+<li>A phylogentic tree based on a group of archaeal genomes in newick format: <a href="data/arch_newick.txt">Archaea tree</a></li>
+<li>Some metadata info regarding the environments that these archaea could be found: <a href="data/tree_env.tsv">Environment info</a></li>
+<li>An expression matrix to show heatmap and phylogenetic tree together: <a href="data/tree_hmap.tsv">for heatmap</a></li>
+</ul>
+</div>
+<div id="map-data-with-ggmap" class="section level2">
+<h2><span class="header-section-number">2.2</span> Map-data with ggmap</h2>
+<p>The data required for this part of the exercise can be downloaded from <a href="data/ggmap_data/ggmap_data.zip">here</a></p>
+<ul>
+<li>A small data frame of points from the <a href="data/ggmap_data/sisquoc-points.txt">Sisquoc River</a></li>
+<li>GPS readings from a <a href="data/ggmap_data/bike-ride.csv">bike ride</a></li>
+<li>A dataset of fish sampling <a href="data/ggmap_data/bc_sites.rds">locations</a></li>
+</ul>
+<p><em>Acknowledgement: The map-data in this course are obtained from Eric. C. Anderson’s <a href="https://github.com/eriqande">GitHub page</a></em></p>
+<p><strong>End of document.</strong></p>
+</div>
 </div>
 
 

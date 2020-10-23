@@ -92,11 +92,17 @@ Here, we look into building PCA plots with `ggplot`. We will also look into maki
 
 Below are specific exercises for people who are interested in specific topics.
 
-## Phylogenetic exercises
+## Phylogenetic trees
+
+Below are some exercises in working with phylogenetic trees in R using mainly a package called `ggtree`.
+
+[<i class="fas fa-link"></i> <span class="large">Phylogenetic trees</span>](lab_phylo.html)
+
+## Map-data using ggmap
 
 Below is if you want publication-grade phylogenetic trees.
 
-[<i class="fas fa-link"></i> <span class="large">Phylogenetic trees</span>](lab_phylo.html)
+[<i class="fas fa-link"></i> <span class="large">Map-data using ggmap</span>](lab_ggmap.html)
 
 # Solutions to exercises:
 
