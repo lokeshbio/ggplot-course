@@ -43,6 +43,105 @@ knitr::knit_hooks$set(
 ```{r,child="assets/header-lab.Rmd"}
 ```
 
+# Making maps with R
+
+Before, we go into `ggmap` package and it's options. Let us take a quick look about some of the other options available for making maps in R.
+
+## maps and mapdata
+
+Here we will see, how some of the traditional R packages `maps` and `mapdata` were used and how we could implement the information from these packages into `ggplot`. Some pointers about these packages are:
+
+* The maps package contains a lot of outlines of continents, countries, states, and counties that have been with R for a long time.
+* The mapdata package contains a few more, higher-resolution outlines.
+* The maps package comes with a plotting function, but, we will opt to use ggplot2 to plot the maps in the maps package.
+* Recall that ggplot2 operates on data frames. Therefore we need some way to translate the maps data into a data frame format the ggplot can use.
+
+Let us start with how to install these packages and look at their simple functions:
+
+```{r, message=FALSE, warning=FALSE}
+if (!requireNamespace("maps", quietly = TRUE)){
+  install.packages("maps", dependencies = TRUE)
+}
+
+if (!requireNamespace("mapdata", quietly = TRUE)){
+  install.packages("mapdata", dependencies = TRUE)
+}
+
+library(maps)
+library(mapdata)
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(tidyverse)
+world <- map_data("world")
+head(world)
+```
+
+The structure of this data-set could be explained as follows:
+
+* `long` is longitude. Things to the west of the prime meridian are negative.
+* `lat` is latitude.
+* `order`: This just shows in which order ggplot should “connect the dots”
+* `region` and `subregion` tell what region or subregion a set of points surrounds.
+* `group`: This is very important! ggplot2’s functions can take a group argument which controls (amongst other things) whether adjacent points should be connected by lines. If they are in the same group, then they get connected, but if they are in different groups then they don’t. 
+  + Essentially, having to points in different groups means that ggplot “lifts the pen” when going between them.
+
+To plot the map, in a pretty way:
+
+```{r, message=FALSE, warning=FALSE}
+gg1 <- ggplot(data = world, aes(x=long, y = lat)) + 
+  geom_polygon(aes(group = group)) + 
+  theme(legend.position = "none")
+gg1
+
+```
+
+<div class="instruction">
+
+* Maps in this format can be plotted with the polygon geom. i.e. using geom_polygon().
+* `geom_polygon()` drawn lines between points and “closes them up” (i.e. draws a line from the last point back to the first point)
+* You have to map the group aesthetic to the group column
+* Of course, x = long and y = lat are the other aesthetics.
+
+You can test it out how the data looks like without using the group aesthetic
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+gg1 <- ggplot(data = world, aes(x=long, y = lat)) + 
+  geom_polygon() + 
+  theme(legend.position = "none")
+gg1
+
+```
+
+</div>
+
+From the dataset we have, we can also draw the border lines representing the different countries based on the variable `region`. 
+
+```{r, message=FALSE, warning=FALSE}
+gg2 <- ggplot(data = world, aes(x=long, y = lat)) + 
+  geom_polygon(aes(group = group, fill = region)) + 
+  theme(legend.position = "none")
+gg2
+```
+
+### Adding points to map
+
+Now, in this huge map, let us try to add some points like our favourite city Lund and few others.
+
+```{r, message=FALSE, warning=FALSE}
+labs <- data.frame(
+  long = c(13.1629767,11.7537556,16.3100205,80.0689272),
+  lat = c(55.7068448,57.7010982,48.220778,13.0478223),
+  names = c("LUND", "GBG", "Vienna", "Chennai"),
+  stringsAsFactors = FALSE
+  )  
+
+gg2 + 
+  geom_point(data = labs, aes(x = long, y = lat), color = "black", size = 2) 
+
+```
+
+
 # ggmap
 
 `ggmap` is an R package that makes it easy to retrieve raster map tiles from popular online mapping services like Google Maps and Stamen Maps and plot them using the `ggplot2` framework:
@@ -81,9 +180,5 @@ if (!requireNamespace("ggmap", quietly = TRUE)){
   install.packages("ggmap", dependencies = TRUE)
 }
 
-library(dplyr)
-library(ggplot2)
-library(reshape2)
-library(tidyverse)
 library(ggmap)
 ```

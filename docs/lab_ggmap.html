@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 23-Oct-2020" />
+<meta name="author" content="Lokesh Mano • 26-Oct-2020" />
 
 
 <title>ggmap section</title>
@@ -473,7 +473,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">ggmap section</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 23-Oct-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 26-Oct-2020</h4>
 
 </div>
 
@@ -482,8 +482,133 @@ div.tocify {
 <!-- custom fonts -->
 <p><link href="https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro:300,400,600|Ubuntu+Mono&amp;subset=latin-ext" rel="stylesheet"></p>
 <p><br></p>
+<div id="making-maps-with-r" class="section level1">
+<h1><span class="header-section-number">1</span> Making maps with R</h1>
+<p>Before, we go into <code>ggmap</code> package and it’s options. Let us take a quick look about some of the other options available for making maps in R.</p>
+<div id="maps-and-mapdata" class="section level2">
+<h2><span class="header-section-number">1.1</span> maps and mapdata</h2>
+<p>Here we will see, how some of the traditional R packages <code>maps</code> and <code>mapdata</code> were used and how we could implement the information from these packages into <code>ggplot</code>. Some pointers about these packages are:</p>
+<ul>
+<li>The maps package contains a lot of outlines of continents, countries, states, and counties that have been with R for a long time.</li>
+<li>The mapdata package contains a few more, higher-resolution outlines.</li>
+<li>The maps package comes with a plotting function, but, we will opt to use ggplot2 to plot the maps in the maps package.</li>
+<li>Recall that ggplot2 operates on data frames. Therefore we need some way to translate the maps data into a data frame format the ggplot can use.</li>
+</ul>
+<p>Let us start with how to install these packages and look at their simple functions:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;maps&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)){</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">install.packages</span>(<span class="st">&quot;maps&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;mapdata&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)){</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="kw">install.packages</span>(<span class="st">&quot;mapdata&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(maps)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw">library</span>(mapdata)</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw">library</span>(reshape2)</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">world &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>)</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="kw">head</span>(world)</a></code></pre></div>
+<details>
+<p><summary>output</summary></p>
+<pre><code>##        long      lat group order region subregion
+## 1 -69.89912 12.45200     1     1  Aruba      &lt;NA&gt;
+## 2 -69.89571 12.42300     1     2  Aruba      &lt;NA&gt;
+## 3 -69.94219 12.43853     1     3  Aruba      &lt;NA&gt;
+## 4 -70.00415 12.50049     1     4  Aruba      &lt;NA&gt;
+## 5 -70.06612 12.54697     1     5  Aruba      &lt;NA&gt;
+## 6 -70.05088 12.59707     1     6  Aruba      &lt;NA&gt;</code></pre>
+</details>
+</div>
+<p>The structure of this data-set could be explained as follows:</p>
+<ul>
+<li><code>long</code> is longitude. Things to the west of the prime meridian are negative.</li>
+<li><code>lat</code> is latitude.</li>
+<li><code>order</code>: This just shows in which order ggplot should “connect the dots”</li>
+<li><code>region</code> and <code>subregion</code> tell what region or subregion a set of points surrounds.</li>
+<li><code>group</code>: This is very important! ggplot2’s functions can take a group argument which controls (amongst other things) whether adjacent points should be connected by lines. If they are in the same group, then they get connected, but if they are in different groups then they don’t.
+<ul>
+<li>Essentially, having to points in different groups means that ggplot “lifts the pen” when going between them.</li>
+</ul></li>
+</ul>
+<p>To plot the map, in a pretty way:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">gg1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">gg1</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_ggmap_files/figure-html/unnamed-chunk-4-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<div class="instruction">
+<ul>
+<li>Maps in this format can be plotted with the polygon geom. i.e. using geom_polygon().</li>
+<li><code>geom_polygon()</code> drawn lines between points and “closes them up” (i.e. draws a line from the last point back to the first point)</li>
+<li>You have to map the group aesthetic to the group column</li>
+<li>Of course, x = long and y = lat are the other aesthetics.</li>
+</ul>
+<p>You can test it out how the data looks like without using the group aesthetic</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">gg1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_polygon</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">gg1</a></code></pre></div>
+</div>
+</div>
+<p>From the dataset we have, we can also draw the border lines representing the different countries based on the variable <code>region</code>.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">gg2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group, <span class="dt">fill =</span> region)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">gg2</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_ggmap_files/figure-html/unnamed-chunk-6-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<div id="adding-points-to-map" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Adding points to map</h3>
+<p>Now, in this huge map, let us try to add some points like our favourite city Lund and few others.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">labs &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">long =</span> <span class="kw">c</span>(<span class="fl">13.1629767</span>,<span class="fl">11.7537556</span>,<span class="fl">16.3100205</span>,<span class="fl">80.0689272</span>),</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">lat =</span> <span class="kw">c</span>(<span class="fl">55.7068448</span>,<span class="fl">57.7010982</span>,<span class="fl">48.220778</span>,<span class="fl">13.0478223</span>),</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="dt">names =</span> <span class="kw">c</span>(<span class="st">&quot;LUND&quot;</span>, <span class="st">&quot;GBG&quot;</span>, <span class="st">&quot;Vienna&quot;</span>, <span class="st">&quot;Chennai&quot;</span>),</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">  )  </a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">gg2 <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> labs, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>) </a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_ggmap_files/figure-html/unnamed-chunk-7-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+</div>
+</div>
 <div id="ggmap" class="section level1">
-<h1><span class="header-section-number">1</span> ggmap</h1>
+<h1><span class="header-section-number">2</span> ggmap</h1>
 <p><code>ggmap</code> is an R package that makes it easy to retrieve raster map tiles from popular online mapping services like Google Maps and Stamen Maps and plot them using the <code>ggplot2</code> framework:</p>
 <p>You can find more information about the R package <a href="https://github.com/dkahle/ggmap">here</a></p>
 <p>Here we will try to see some of the important functions that this package provides and how we can use it display the findings in a nicer way.</p>
@@ -520,15 +645,11 @@ div.tocify {
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;ggmap&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)){</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">install.packages</span>(<span class="st">&quot;ggmap&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(reshape2)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(ggmap)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;ggmap&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)){</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw">install.packages</span>(<span class="st">&quot;ggmap&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">library</span>(ggmap)</a></code></pre></div>
 </div>
 </div>
 
