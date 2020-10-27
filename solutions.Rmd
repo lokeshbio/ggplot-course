@@ -112,7 +112,7 @@ gc_long %>%
         axis.ticks = element_blank())
 ```
 
-# Coombining plots
+# Combining plots
 
 ```{r, eval=FALSE}
 p4 <- ggplot(data=iris,mapping=aes(x=Sepal.Length, y = Sepal.Width, color = Species)) +
