@@ -653,7 +653,7 @@ R
 <p><img src="lab_ggmap_files/figure-html/unnamed-chunk-8-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
-<p>You can see that this subsection of the map is not very good, you can notice it especially in the area of Germany and Poland. This is because the latitude and longtitude does not really work like axes on a plot and the structure of the data-set we have here doesn’t support it that way. Well, at-least I hope you are not a flat-earther and will try to disprove me here ;)</p>
+<p>You can see that this subsection of the map is not very good, you can notice it especially in the area of Germany and Poland. This is because the latitude and longtitude does not really work like axes on a plot and the structure of the data-set we have here doesn’t support it that way.</p>
 <p>We will go through a function in <code>ggmap</code> to get one of the nicer ways to get a subsection in those measures. But, with the data we have here, it is possible get a subset of countries:</p>
 <div class="block-title-parent">
 <div class="block-title small">
@@ -695,11 +695,11 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">world_pop &lt;-<span class="st"> </span><span class="kw">left_join</span>(world, pop_info, <span class="dt">by =</span> <span class="st">&quot;region&quot;</span>)</a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">world_pop &lt;-<span class="st"> </span><span class="kw">left_join</span>(world, pop_info, <span class="dt">by =</span> <span class="st">&quot;region&quot;</span>) </a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3">gg_pop &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> world_pop, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group, <span class="dt">fill =</span>PopTotal))</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">gg_pop <span class="op">+</span><span class="st"> </span><span class="kw">geom_polygon</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colours =</span> <span class="kw">rainbow</span>(<span class="dv">8</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colours =</span> <span class="kw">rev</span>(<span class="kw">rainbow</span>(<span class="dv">8</span>)))</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_ggmap_files/figure-html/unnamed-chunk-11-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -712,7 +712,17 @@ R
 <h1><span class="header-section-number">2</span> ggmap</h1>
 <p><code>ggmap</code> is an R package that makes it easy to retrieve raster map tiles from popular online mapping services like Google Maps and Stamen Maps and plot them using the <code>ggplot2</code> framework:</p>
 <p>You can find more information about the R package <a href="https://github.com/dkahle/ggmap">here</a></p>
+<div id="how-ggmap-works" class="section level2">
+<h2><span class="header-section-number">2.1</span> How ggmap works</h2>
+<ul>
+<li>ggmap simplifies the process of downloading base maps from Google or Open Street Maps or Stamen Maps to use in the background of your plots.</li>
+<li>It also sets the axis scales, etc, in a nice way.</li>
+<li>Once you have gotten your maps, you make a call with <code>ggmap()</code> much as you would with <code>ggplot()</code></li>
+</ul>
 <p>Here we will try to see some of the important functions that this package provides and how we can use it display the findings in a nicer way.</p>
+</div>
+<div id="discrete-data" class="section level2">
+<h2><span class="header-section-number">2.2</span> Discrete data</h2>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -721,7 +731,114 @@ R
 <a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="kw">install.packages</span>(<span class="st">&quot;ggmap&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3">}</a>
 <a class="sourceLine" id="cb12-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="kw">library</span>(ggmap)</a></code></pre></div>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="kw">library</span>(ggmap)</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">sisquoc &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/ggmap_data/sisquoc-points.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="kw">head</span>(sisquoc)</a></code></pre></div>
+<details>
+<p><summary>output</summary></p>
+<pre><code>##     name       lon      lat
+## 1    a17 -119.7603 34.75474
+## 2 a20-24 -119.7563 34.75380
+## 3 a25-28 -119.7537 34.75371
+## 4 a18,19 -119.7573 34.75409
+## 5 a35,36 -119.7467 34.75144
+## 6    a31 -119.7478 34.75234</code></pre>
+</details>
+</div>
+<p><i class="fas fa-exclamation-circle"></i> Note   <code>ggmap</code> tends to use “lon” instead of “long” for longitude.</p>
+<p>Now that we have the zoom region we are after, we can get the map from “google” using the <code>get_map()</code> function. Then plot the points on the river from the data using <code>geom_point()</code></p>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+</div>
+<div class="instruction">
+<p><i class="fas fa-exclamation-circle"></i> Note   To use Google maps, it is necessary to get an API key from google for your account and then register the API key in your R using the function <code>register_google()</code></p>
+</div>
+<p><code>get_map()</code> function requires:</p>
+<ul>
+<li><code>location</code>: for which I prefer to give a centroid location meaning like one location point with latitude and longtitude. So, here one could take the mean of all the latitude and longtitude values.</li>
+<li><code>maptype</code> and <code>source</code>: This is more upt your taste. You can find all the different options by <code>?get_map()</code></li>
+<li><code>zoom</code>: This typically from the center point how much zoom do you need to acquire: In google maps, this is in the range of 3 (to a house) to 20 (the entire world)</li>
+</ul>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">ll_means &lt;-<span class="st"> </span><span class="kw">sapply</span>(sisquoc[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>], mean)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">sq_map2 &lt;-<span class="st"> </span><span class="kw">get_map</span>(<span class="dt">location =</span> ll_means,  <span class="dt">maptype =</span> <span class="st">&quot;satellite&quot;</span>, <span class="dt">source =</span> <span class="st">&quot;google&quot;</span>, <span class="dt">zoom =</span> <span class="dv">15</span>)</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">ggmap</span>(sq_map2) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sisquoc, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> lon, <span class="dt">y =</span> lat), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) </a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_ggmap_files/figure-html/unnamed-chunk-14-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>In here, we just managed to get an average of all the latitudes and the longtiudes in our data points that would give a centroid value and grabbed the map around the centroid.</p>
+<p>Here we can also add some more information around these points</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">ggmap</span>(sq_map2) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sisquoc, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> sisquoc, <span class="kw">aes</span>(<span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;  &quot;</span>, <span class="kw">as.character</span>(name), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)), <span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&quot;yellow&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_ggmap_files/figure-html/unnamed-chunk-15-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>How about if we use the “terrain” type of map:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">sq_map3 &lt;-<span class="st"> </span><span class="kw">get_map</span>(<span class="dt">location =</span> ll_means,  <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>, <span class="dt">source =</span> <span class="st">&quot;google&quot;</span>, <span class="dt">zoom =</span> <span class="dv">15</span>)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw">ggmap</span>(sq_map3) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sisquoc, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> sisquoc, <span class="kw">aes</span>(<span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;  &quot;</span>, <span class="kw">as.character</span>(name), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)), <span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&quot;yellow&quot;</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_ggmap_files/figure-html/unnamed-chunk-16-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="continous-data-1" class="section level2">
+<h2><span class="header-section-number">2.3</span> Continous data</h2>
+<p>Let us take the data points from a bike ride and see how we can plot it better:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">bike &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/ggmap_data/bike-ride.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">head</span>(bike)</a></code></pre></div>
+<details>
+<p><summary>output</summary></p>
+<pre><code>##         lon      lat elevation                 time
+## 1 -122.0646 36.95144      15.8 2011-12-08T19:37:56Z
+## 2 -122.0646 36.95191      15.5 2011-12-08T19:37:59Z
+## 3 -122.0645 36.95201      15.4 2011-12-08T19:38:04Z
+## 4 -122.0645 36.95218      15.5 2011-12-08T19:38:07Z
+## 5 -122.0643 36.95224      15.7 2011-12-08T19:38:10Z
+## 6 -122.0642 36.95233      15.8 2011-12-08T19:38:13Z</code></pre>
+</details>
+</div>
+<p>Now let us try to plot the data:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">bikemap1 &lt;-<span class="st"> </span><span class="kw">get_map</span>(<span class="dt">location =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">122.080954</span>, <span class="fl">36.971709</span>), <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>, <span class="dt">source =</span> <span class="st">&quot;google&quot;</span>, <span class="dt">zoom =</span> <span class="dv">14</span>)</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="kw">ggmap</span>(bikemap1) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> bike, <span class="kw">aes</span>(<span class="dt">color =</span> elevation), <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">lineend =</span> <span class="st">&quot;round&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_color_gradientn</span>(<span class="dt">colours =</span> <span class="kw">rainbow</span>(<span class="dv">7</span>), <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">25</span>, <span class="dv">200</span>, <span class="dt">by =</span> <span class="dv">25</span>))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_ggmap_files/figure-html/unnamed-chunk-18-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p><i class="fas fa-exclamation-circle"></i> Note   getting the right zoom and position for the map is sort of trial and error. You can go to google maps to figure out where the center should be (right click and choose “What’s here?” to get the lat-long of any point. )</p>
 </div>
 </div>
 

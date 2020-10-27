@@ -182,7 +182,7 @@ gg2 +
   ylim(c(50,85))
 ```
 
-You can see that this subsection of the map is not very good, you can notice it especially in the area of Germany and Poland. This is because the latitude and longtitude does not really work like axes on a plot and the structure of the data-set we have here doesn't support it that way. Well, at-least I hope you are not a flat-earther and will try to disprove me here ;)
+You can see that this subsection of the map is not very good, you can notice it especially in the area of Germany and Poland. This is because the latitude and longtitude does not really work like axes on a plot and the structure of the data-set we have here doesn't support it that way.
 
 We will go through a function in `ggmap` to get one of the nicer ways to get a subsection in those measures. But, with the data we have here, it is possible get a subset of countries:
 
@@ -206,11 +206,11 @@ head(pop_info)
 <i class="fas fa-exclamation-circle"></i> Note &nbsp; Here the values are in the unit of thousands.
 
 ```{r, message=FALSE, warning=FALSE}
-world_pop <- left_join(world, pop_info, by = "region")
+world_pop <- left_join(world, pop_info, by = "region") 
 
 gg_pop <- ggplot(data = world_pop, aes(x=long, y = lat, group = group, fill =PopTotal))
 gg_pop + geom_polygon(color = "white") +
-  scale_fill_gradientn(colours = rainbow(8))
+  scale_fill_gradientn(colours = rev(rainbow(8)))
 ```
 
 
@@ -220,7 +220,15 @@ gg_pop + geom_polygon(color = "white") +
 
 You can find more information about the R package [here](https://github.com/dkahle/ggmap)
 
+## How ggmap works
+
+* ggmap simplifies the process of downloading base maps from Google or Open Street Maps or Stamen Maps to use in the background of your plots.
+* It also sets the axis scales, etc, in a nice way.
+* Once you have gotten your maps, you make a call with `ggmap()` much as you would with `ggplot()`
+
 Here we will try to see some of the important functions that this package provides and how we can use it display the findings in a nicer way.
+
+## Discrete data
 
 ```{r, warning=FALSE, message=FALSE}
 if (!requireNamespace("ggmap", quietly = TRUE)){
@@ -228,4 +236,79 @@ if (!requireNamespace("ggmap", quietly = TRUE)){
 }
 
 library(ggmap)
+sisquoc <- read.table("data/ggmap_data/sisquoc-points.txt", sep = "\t", header = TRUE)
+head(sisquoc)
 ```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; `ggmap` tends to use "lon" instead of "long" for longitude.
+
+Now that we have the zoom region we are after, we can get the map from "google" using the `get_map()` function. Then plot the points on the river from the data using `geom_point()`
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+register_google("AIzaSyBR_dx8AmmnJrjVgGOijZ1i-_EBtMg3Oeo")
+```
+
+
+<div class="instruction">
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; To use Google maps, it is necessary to get an API key from google for your account and then register the API key in your R using the function `register_google()`
+
+</div>
+
+`get_map()` function requires:
+
+* `location`: for which I prefer to give a centroid location meaning like one location point with latitude and longtitude. So, here one could take the mean of all the latitude and longtitude values.
+* `maptype` and `source`: This is more upt your taste. You can find all the different options by `?get_map()`
+* `zoom`: This typically from the center point how much zoom do you need to acquire: In google maps, this is in the range of 3 (to a house) to 20 (the entire world)
+
+```{r, warning=FALSE, message=FALSE}
+ll_means <- sapply(sisquoc[2:3], mean)
+sq_map2 <- get_map(location = ll_means,  maptype = "satellite", source = "google", zoom = 15)
+ggmap(sq_map2) + geom_point(data = sisquoc, mapping = aes(x = lon, y = lat), color = "red") 
+```
+
+In here, we just managed to get an average of all the latitudes and the longtiudes in our data points that would give a centroid value and grabbed the map around the centroid.
+
+Here we can also add some more information around these points
+
+```{r, warning=FALSE, message=FALSE}
+ggmap(sq_map2) + 
+  geom_point(data = sisquoc, color = "red", size = 3) +
+  geom_text(data = sisquoc, aes(label = paste("  ", as.character(name), sep="")), angle = 60, hjust = 0, color = "yellow")
+
+```
+
+How about if we use the “terrain” type of map:
+
+```{r, warning=FALSE, message=FALSE}
+sq_map3 <- get_map(location = ll_means,  maptype = "terrain", source = "google", zoom = 15)
+
+ggmap(sq_map3) + 
+  geom_point(data = sisquoc, color = "red", size = 3) +
+  geom_text(data = sisquoc, aes(label = paste("  ", as.character(name), sep="")), angle = 60, hjust = 0, color = "yellow")
+```
+
+## Continous data
+
+Let us take the data points from a bike ride and see how we can plot it better:
+
+```{r, warning=FALSE, message=FALSE}
+bike <- read.csv("data/ggmap_data/bike-ride.csv")
+head(bike)
+```
+
+
+Now let us try to plot the data:
+
+```{r, warning=FALSE, message=FALSE}
+bike_means <- sapply(bike[1:2], mean)
+bikemap1 <- get_map(location = bike_means, maptype = "terrain", source = "google", zoom = 14)
+
+ggmap(bikemap1) + 
+  geom_path(data = bike, aes(color = elevation), size = 3, lineend = "round") + 
+  scale_color_gradientn(colours = rainbow(7), breaks = seq(25, 200, by = 25))
+
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; getting the right zoom and position for the map is sort of trial and error. You can go to google maps to figure out where the center should be (right click and choose “What’s here?” to get the lat-long of any point)
+
