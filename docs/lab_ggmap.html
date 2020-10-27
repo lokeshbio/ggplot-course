@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 26-Oct-2020" />
+<meta name="author" content="Lokesh Mano • 27-Oct-2020" />
 
 
 <title>ggmap section</title>
@@ -473,7 +473,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">ggmap section</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 26-Oct-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 27-Oct-2020</h4>
 
 </div>
 
@@ -484,6 +484,36 @@ div.tocify {
 <p><br></p>
 <div id="making-maps-with-r" class="section level1">
 <h1><span class="header-section-number">1</span> Making maps with R</h1>
+<p>To do this exercise, we will use a separate dataset and it can be downloaded <a href="data/ggmap_data/ggmap_data.zip">here</a>.</p>
+<p>If you would like to keep the data tree same as the exercises here, you can extract the zip file inside the data directory. So, the file tree would like this:</p>
+<ul>
+<li><span style="color:blue">ggplot_geneco_course</span>
+<ul>
+<li><span style="color:blue">data</span>
+<ul>
+<li>archaea_nexus.txt</li>
+<li>arch_newick.txt</li>
+<li>counts_deseq2.txt</li>
+<li>counts_filtered.txt</li>
+<li>counts_raw.txt</li>
+<li>counts_vst.txt</li>
+<li>human_biomaRt_annotation.csv</li>
+<li>metadata_raw.csv</li>
+<li>Time_t24_vs_t0.txt</li>
+<li>Time_t2_vs_t0.txt</li>
+<li>Time_t6_vs_t0.txt</li>
+<li>tree_env.tsv</li>
+<li>tree_hmap.tsv</li>
+<li><span style="color:blue">ggmap_data</span>
+<ul>
+<li>bc_sites.rds</li>
+<li>bike-ride.csv</li>
+<li>sisquoc-points.txt</li>
+<li>world_population.tsv</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 <p>Before, we go into <code>ggmap</code> package and it’s options. Let us take a quick look about some of the other options available for making maps in R.</p>
 <div id="maps-and-mapdata" class="section level2">
 <h2><span class="header-section-number">1.1</span> maps and mapdata</h2>
@@ -551,6 +581,7 @@ R
 <p><img src="lab_ggmap_files/figure-html/unnamed-chunk-4-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
+<p><i class="fas fa-exclamation-circle"></i> Note   New Zealand was not missed in this map ;)</p>
 <div class="instruction">
 <ul>
 <li>Maps in this format can be plotted with the polygon geom. i.e. using geom_polygon().</li>
@@ -604,6 +635,76 @@ R
 <p><img src="lab_ggmap_files/figure-html/unnamed-chunk-7-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
+<p><i class="fas fa-exclamation-circle"></i> Note   You can also import the points from a file and store in a data frame.</p>
+</div>
+<div id="zooming-in" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Zooming in</h3>
+<p>Unlike in normal ggplots, to zoom into a section of the map, if we try to use the <code>xlim()</code> and <code>ylim()</code> functions:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">gg2 <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> labs, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw">xlim</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">40</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw">ylim</span>(<span class="kw">c</span>(<span class="dv">50</span>,<span class="dv">85</span>))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_ggmap_files/figure-html/unnamed-chunk-8-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p>You can see that this subsection of the map is not very good, you can notice it especially in the area of Germany and Poland. This is because the latitude and longtitude does not really work like axes on a plot and the structure of the data-set we have here doesn’t support it that way. Well, at-least I hope you are not a flat-earther and will try to disprove me here ;)</p>
+<p>We will go through a function in <code>ggmap</code> to get one of the nicer ways to get a subsection in those measures. But, with the data we have here, it is possible get a subset of countries:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">scandic &lt;-<span class="st"> </span><span class="kw">subset</span>(world, region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Sweden&quot;</span>, <span class="st">&quot;Denmark&quot;</span>, <span class="st">&quot;Norway&quot;</span>, <span class="st">&quot;Finland&quot;</span>, <span class="st">&quot;Iceland&quot;</span>, <span class="st">&quot;Faroe Islands&quot;</span>))</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">gg_scan &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> scandic, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y=</span>lat)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group, <span class="dt">fill =</span> region)) </a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">gg_scan</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_ggmap_files/figure-html/unnamed-chunk-9-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+</div>
+<div id="continous-data" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> Continous data</h3>
+<p>Let’s see how we can add a continous data like the World population statistics on to the above map. We can do this by importing the file with the population information and join it to the data set, we have with <code>left_join()</code></p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">pop_info &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/ggmap_data/world_population.tsv&quot;</span>, <span class="dt">header =</span> T, <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">head</span>(pop_info)</a></code></pre></div>
+<details>
+<p><summary>output</summary></p>
+<pre><code>##                          region   PopMale PopFemale   PopTotal PopDensity
+## 1                   Afghanistan  19976.26  18952.08   38928.34     59.627
+## 2                        Africa 669878.34 670719.77 1340598.11     45.216
+## 3                 African Group 668995.56 669831.03 1338826.59     45.571
+## 4                 African Union 669307.82 670116.10 1339423.92     45.182
+## 5 African Union: Central Africa  79260.91  79358.73  158619.64     30.066
+## 6 African Union: Eastern Africa 195662.62 196901.05  392563.67     61.404</code></pre>
+</details>
+</div>
+<p><i class="fas fa-exclamation-circle"></i> Note   Here the values are in the unit of thousands.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">world_pop &lt;-<span class="st"> </span><span class="kw">left_join</span>(world, pop_info, <span class="dt">by =</span> <span class="st">&quot;region&quot;</span>)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">gg_pop &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> world_pop, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group, <span class="dt">fill =</span>PopTotal))</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">gg_pop <span class="op">+</span><span class="st"> </span><span class="kw">geom_polygon</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colours =</span> <span class="kw">rainbow</span>(<span class="dv">8</span>))</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_ggmap_files/figure-html/unnamed-chunk-11-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
 </div>
 </div>
 </div>
@@ -612,44 +713,15 @@ R
 <p><code>ggmap</code> is an R package that makes it easy to retrieve raster map tiles from popular online mapping services like Google Maps and Stamen Maps and plot them using the <code>ggplot2</code> framework:</p>
 <p>You can find more information about the R package <a href="https://github.com/dkahle/ggmap">here</a></p>
 <p>Here we will try to see some of the important functions that this package provides and how we can use it display the findings in a nicer way.</p>
-<p>To do this exercise, we will use a separate dataset and it can be downloaded <a href="data/ggmap_data/ggmap_data.zip">here</a>.</p>
-<p>If you would like to keep the data tree same as the exercises here, you can extract the zip file inside the data directory. So, the file tree would like this:</p>
-<ul>
-<li><span style="color:blue">ggplot_geneco_course</span>
-<ul>
-<li><span style="color:blue">data</span>
-<ul>
-<li>archaea_nexus.txt</li>
-<li>arch_newick.txt</li>
-<li>counts_deseq2.txt</li>
-<li>counts_filtered.txt</li>
-<li>counts_raw.txt</li>
-<li>counts_vst.txt</li>
-<li>human_biomaRt_annotation.csv</li>
-<li>metadata_raw.csv</li>
-<li>Time_t24_vs_t0.txt</li>
-<li>Time_t2_vs_t0.txt</li>
-<li>Time_t6_vs_t0.txt</li>
-<li>tree_env.tsv</li>
-<li>tree_hmap.tsv</li>
-<li><span style="color:blue">ggmap_data</span>
-<ul>
-<li>bc_sites.rds</li>
-<li>bike-ride.csv</li>
-<li>sisquoc-points.txt</li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;ggmap&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)){</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw">install.packages</span>(<span class="st">&quot;ggmap&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">library</span>(ggmap)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;ggmap&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)){</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="kw">install.packages</span>(<span class="st">&quot;ggmap&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="kw">library</span>(ggmap)</a></code></pre></div>
 </div>
 </div>
 

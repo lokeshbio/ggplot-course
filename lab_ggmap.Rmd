@@ -45,6 +45,32 @@ knitr::knit_hooks$set(
 
 # Making maps with R
 
+To do this exercise, we will use a separate dataset and it can be downloaded [here](data/ggmap_data/ggmap_data.zip). 
+
+If you would like to keep the data tree same as the exercises here, you can extract the zip file inside the data directory. So, the file tree would like this:
+
+* <span style="color:blue">ggplot_geneco_course</span>
+  + <span style="color:blue">data</span>
+    + archaea_nexus.txt
+    + arch_newick.txt
+    + counts_deseq2.txt
+    + counts_filtered.txt
+    + counts_raw.txt
+    + counts_vst.txt
+    + human_biomaRt_annotation.csv
+    + metadata_raw.csv
+    + Time_t24_vs_t0.txt
+    + Time_t2_vs_t0.txt
+    + Time_t6_vs_t0.txt
+    + tree_env.tsv
+    + tree_hmap.tsv
+    + <span style="color:blue">ggmap_data</span>
+      + bc_sites.rds
+      + bike-ride.csv
+      + sisquoc-points.txt
+      + world_population.tsv
+
+
 Before, we go into `ggmap` package and it's options. Let us take a quick look about some of the other options available for making maps in R.
 
 ## maps and mapdata
@@ -96,6 +122,8 @@ gg1
 
 ```
 
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; New Zealand was not missed in this map ;)
+
 <div class="instruction">
 
 * Maps in this format can be plotted with the polygon geom. i.e. using geom_polygon().
@@ -141,6 +169,50 @@ gg2 +
 
 ```
 
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; You can also import the points from a file and store in a data frame.
+
+### Zooming in
+
+Unlike in normal ggplots, to zoom into a section of the map, if we try to use the `xlim()` and `ylim()` functions:
+
+```{r, message=FALSE, warning=FALSE}
+gg2 + 
+  geom_point(data = labs, aes(x = long, y = lat), color = "black", size = 2) +
+  xlim(c(-30,40)) +
+  ylim(c(50,85))
+```
+
+You can see that this subsection of the map is not very good, you can notice it especially in the area of Germany and Poland. This is because the latitude and longtitude does not really work like axes on a plot and the structure of the data-set we have here doesn't support it that way. Well, at-least I hope you are not a flat-earther and will try to disprove me here ;)
+
+We will go through a function in `ggmap` to get one of the nicer ways to get a subsection in those measures. But, with the data we have here, it is possible get a subset of countries:
+
+```{r, message=FALSE, warning=FALSE}
+scandic <- subset(world, region %in% c("Sweden", "Denmark", "Norway", "Finland", "Iceland", "Faroe Islands"))
+
+gg_scan <- ggplot(data = scandic, aes(x=long, y=lat)) + 
+  geom_polygon(aes(group = group, fill = region)) 
+gg_scan
+```
+
+### Continous data
+
+Let's see how we can add a continous data like the World population statistics on to the above map. We can do this by importing the file with the population information and join it to the data set, we have with `left_join()`
+
+```{r, message=FALSE, warning=FALSE}
+pop_info <- read.table("data/ggmap_data/world_population.tsv", header = T, row.names = 1, sep = "\t")
+head(pop_info)
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; Here the values are in the unit of thousands.
+
+```{r, message=FALSE, warning=FALSE}
+world_pop <- left_join(world, pop_info, by = "region")
+
+gg_pop <- ggplot(data = world_pop, aes(x=long, y = lat, group = group, fill =PopTotal))
+gg_pop + geom_polygon(color = "white") +
+  scale_fill_gradientn(colours = rainbow(8))
+```
+
 
 # ggmap
 
@@ -149,31 +221,6 @@ gg2 +
 You can find more information about the R package [here](https://github.com/dkahle/ggmap)
 
 Here we will try to see some of the important functions that this package provides and how we can use it display the findings in a nicer way.
-
-To do this exercise, we will use a separate dataset and it can be downloaded [here](data/ggmap_data/ggmap_data.zip). 
-
-If you would like to keep the data tree same as the exercises here, you can extract the zip file inside the data directory. So, the file tree would like this:
-
-* <span style="color:blue">ggplot_geneco_course</span>
-  + <span style="color:blue">data</span>
-    + archaea_nexus.txt
-    + arch_newick.txt
-    + counts_deseq2.txt
-    + counts_filtered.txt
-    + counts_raw.txt
-    + counts_vst.txt
-    + human_biomaRt_annotation.csv
-    + metadata_raw.csv
-    + Time_t24_vs_t0.txt
-    + Time_t2_vs_t0.txt
-    + Time_t6_vs_t0.txt
-    + tree_env.tsv
-    + tree_hmap.tsv
-    + <span style="color:blue">ggmap_data</span>
-      + bc_sites.rds
-      + bike-ride.csv
-      + sisquoc-points.txt
-
 
 ```{r, warning=FALSE, message=FALSE}
 if (!requireNamespace("ggmap", quietly = TRUE)){
