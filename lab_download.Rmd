@@ -98,9 +98,6 @@ The data required for this part of the exercise can be downloaded from [here](da
 
 * Population statistics of the different countries in [2020](data/ggmap_data/world_population.tsv)
 * A small data frame of points from the [Sisquoc River](data/ggmap_data/sisquoc-points.txt)
-* GPS readings from a [bike ride](data/ggmap_data/bike-ride.csv)
-* A dataset of fish sampling [locations](data/ggmap_data/bc_sites.rds)
-
-*Acknowledgement: The map-data in this course are obtained from Eric. C. Anderson's [GitHub page](https://github.com/eriqande)*
+* GPS readings from a personal [run](data/ggmap_data/running.csv)
 
 **End of document.**

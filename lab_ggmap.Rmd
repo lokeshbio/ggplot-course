@@ -65,8 +65,7 @@ If you would like to keep the data tree same as the exercises here, you can extr
     + tree_env.tsv
     + tree_hmap.tsv
     + <span style="color:blue">ggmap_data</span>
-      + bc_sites.rds
-      + bike-ride.csv
+      + running.csv
       + sisquoc-points.txt
       + world_population.tsv
 
@@ -259,7 +258,7 @@ register_google("AIzaSyBR_dx8AmmnJrjVgGOijZ1i-_EBtMg3Oeo")
 
 * `location`: for which I prefer to give a centroid location meaning like one location point with latitude and longtitude. So, here one could take the mean of all the latitude and longtitude values.
 * `maptype` and `source`: This is more upt your taste. You can find all the different options by `?get_map()`
-* `zoom`: This typically from the center point how much zoom do you need to acquire: In google maps, this is in the range of 3 (to a house) to 20 (the entire world)
+* `zoom`: This typically from the center point how much zoom do you need to acquire: In google maps, this is in the range of 3 (to a continent) to 21 (a house)
 
 ```{r, warning=FALSE, message=FALSE}
 ll_means <- sapply(sisquoc[2:3], mean)
@@ -293,22 +292,167 @@ ggmap(sq_map3) +
 Let us take the data points from a bike ride and see how we can plot it better:
 
 ```{r, warning=FALSE, message=FALSE}
-bike <- read.csv("data/ggmap_data/bike-ride.csv")
-head(bike)
+run_df <- read.csv("data/ggmap_data/running.csv")
+head(run_df)
 ```
 
 
 Now let us try to plot the data:
 
 ```{r, warning=FALSE, message=FALSE}
-bike_means <- sapply(bike[1:2], mean)
-bikemap1 <- get_map(location = bike_means, maptype = "terrain", source = "google", zoom = 14)
+run_means <- sapply(run_df[1:2], mean)
+runmap1 <- get_map(location = run_means, maptype = "terrain", source = "google", zoom = 14)
 
-ggmap(bikemap1) + 
-  geom_path(data = bike, aes(color = elevation), size = 3, lineend = "round") + 
-  scale_color_gradientn(colours = rainbow(7), breaks = seq(25, 200, by = 25))
+ggmap(runmap1) + 
+  geom_path(data = run_df, aes(color = elevation), size = 3, lineend = "round") + 
+  scale_color_gradientn(colours = rev(rainbow(7)))
 
 ```
 
 <i class="fas fa-exclamation-circle"></i> Note &nbsp; getting the right zoom and position for the map is sort of trial and error. You can go to google maps to figure out where the center should be (right click and choose “What’s here?” to get the lat-long of any point)
 
+# Swedish map
+
+I found one of the simplest Swedish maps that could be used in R from Reinholdsson's [GitHub page](https://github.com/reinholdsson/swemaps)
+Here, I will show you how to install it in your R and then how to use it! 
+This package gives you the map-data for Sweden like the one we had with the world-map. The dtasets that are included are:
+
+* `map_ln`: regions polygon data
+* `map_kn`: municipalities polygon data
+* `cent_ln`: regions centroids data
+* `cent_kn`: municipalities centroids data
+
+## Map data-sets
+
+Let us take a quick look on how the `map_ln` data looks like:
+
+```{r, warning=FALSE, message=FALSE}
+if (!requireNamespace("devtools", quietly = TRUE)){
+  install.packages("devtools", dependencies = TRUE)
+}
+
+if (!requireNamespace("swemaps", quietly = TRUE)){
+  devtools::install_github("reinholdsson/swemaps", dependencies = TRUE)
+}
+
+library(swemaps)
+head(map_ln)
+```
+
+And the `map_kn` data:
+
+```{r}
+head(map_kn)
+```
+
+It is quite clear from the beginning that `map_kn` is more detailed than the `map_ln`, as expected.
+
+```{r, warning=FALSE, message=FALSE}
+gg_swe <- ggplot(data = map_kn, aes(x=leaflet_long, y = leaflet_lat)) + 
+  geom_polygon(aes(group = group, fill = lnnamn), color = "white") +
+  coord_fixed(1.5)
+gg_swe
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; Here we use `coord_fixed()` for the first time, this is to control the dimentions of the axis to keep the map for in a proper shape than make it looked streched in one axis or the other.
+
+## centroid data-sets
+
+Let us take a quick look on how and what actually is the `cent_ln` data contain.
+
+Here, let us take `cent_ln` for example:
+
+```{r}
+head(cent_ln)
+```
+
+As you can see, it is basically the centroid points of each of the län. And similarly, `cent_kn` contains the centroids of each kommun. We can for example use this datasets in this way: 
+
+```{r, warning=FALSE, message=FALSE, fig.height=8, fig.width=6}
+gg_cen <- ggplot() + 
+  geom_polygon(data = map_kn, aes(x=leaflet_long, y = leaflet_lat, group = group, fill = lnnamn)) +
+  coord_fixed(1.3) +
+   geom_text(data = cent_ln, aes(x=leaflet_long, y = leaflet_lat, label = lnnamn), color = "black", size = 3) +
+  theme(legend.position = "none") + 
+  theme_nothing()
+gg_cen
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; It is important to remember that when you use multiple datsets, you can initate the plot by just `ggplot()` and add the "data" and "aesthetics" in each of the `geoms` you are plotting.
+
+## Particular region
+
+Now, similar to world-map let us try to extract a particular län, like our "Skåne".
+
+```{r, message=FALSE, warning=FALSE}
+scania <- subset(map_kn, lnnamn %in% c("Skåne län"))
+
+gg_scania <- ggplot(data = scania, aes(x=leaflet_long, y=leaflet_lat)) + 
+  geom_polygon(aes(group = group, fill = knnamn)) +
+  coord_fixed(1.1) +
+  theme_void()
+gg_scania
+```
+
+# Interactive maps
+
+Here I will show a quick demo of how to make interactive maps in R based on a package called `leaflet`. This is the reason why `swemaps` had the labels `leaflet_long` and `leaflet_lat`.
+
+There is quite a lot of things you can do with this! You can follow the tutorial [here](https://rstudio.github.io/leaflet/). But here I will show you some of the very simple things. 
+
+```{r, message=FALSE, warning=FALSE}
+
+if (!requireNamespace("leaflet", quietly = TRUE)){
+  devtools::install_github("rstudio/leaflet", dependencies = TRUE)
+}
+library(leaflet)
+m <- leaflet() %>% setView(lng = 13.1914692, lat = 55.7040588, zoom = 12)
+m %>% addTiles()
+```
+
+## Discrete data
+
+Now let us add some data to these maps. Let us first look into the discrete data that we have. 
+
+```{r, message=FALSE, warning=FALSE}
+m <- leaflet(data = sisquoc) %>% setView(lng = -119.75132, lat = 34.75312, zoom = 15)
+m %>% addTiles() %>%
+  addMarkers(~lon, ~lat, popup = ~as.character(name), label = ~as.character(name))
+```
+
+Now let us see if we can make it look prettier:
+
+```{r, message=FALSE, warning=FALSE}
+m <- leaflet(data = sisquoc) %>% setView(lng = -119.75132, lat = 34.75312, zoom = 15)
+m %>% addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
+  addMarkers(~lon, ~lat, popup = ~as.character(name), label = ~as.character(name))
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; Here you can choose the different kinds of base maps available from the function `addProviderTiles()`
+
+## Continous data
+
+Let us see, if we can add the GPS recordings to in a similar interactive map.
+
+```{r, message=FALSE, warning=FALSE}
+m <- leaflet(data = run_df) %>% setView(lng = 13.21943, lat = 55.73118, zoom = 14)
+m %>% addProviderTiles(providers$CartoDB.Voyager) %>%
+  addPolylines(~lon, ~lat)
+```
+
+Now, let us try to make something pretty with it.
+
+```{r, message=FALSE, warning=FALSE}
+
+m <- leaflet(data = run_df) %>% setView(lng = 13.21943, lat = 55.73118, zoom = 14)
+m %>% addProviderTiles(providers$CartoDB.Voyager) %>%
+  addPolylines(~lon, ~lat, color = "blue") %>%
+  addCircleMarkers(data = run_df[1,], ~lon, ~lat, stroke = FALSE, fillOpacity = 0.5, label = "Start", color = "green") %>%
+  addCircleMarkers(data = run_df[667,], ~lon, ~lat, stroke = FALSE, fillOpacity = 0.5, label = "End", color = "red") %>%
+  addMarkers(data = run_df[seq(50,667, 50), ], ~lon, ~lat, popup = ~as.character(elevation), label = ~as.character(time))
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; Here I have used `seq()` function to create a sequence of numbers to pick up the GPS positions from equal intervals. Then using that function I subset the dataframe `run_df` in the last line of the command above. In the `addCircleMarkers()` function I only used the first and the last line of the dataframe to specify the start and the end.
+
+
+**End of document.**
