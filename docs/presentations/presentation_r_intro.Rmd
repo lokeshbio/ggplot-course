@@ -1,0 +1,128 @@
+---
+title: "Introduction to R"
+subtitle: "Workshop on ggplot"
+author: "`r paste0('<b>Lokesh Mano</b> | ',format(Sys.time(), '%d-%b-%Y'))`"
+institute: NBIS, SciLifeLab
+keywords: bioinformatics, course, scilifelab, nbis
+output:
+  xaringan::moon_reader:
+    encoding: 'UTF-8'
+    self_contained: false
+    chakra: 'assets/remark-latest.min.js'
+    css: 'assets/presentation.css'
+    lib_dir: libs
+    nature:
+      ratio: '4:3'
+      highlightLanguage: r
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%/%total%"
+---
+exclude: true
+count: false
+
+```{r,echo=FALSE,child="assets/header-presentation.Rmd"}
+```
+
+<!-- ------------ Only edit title, subtitle & author above this ------------ -->
+
+```{r,include=FALSE}
+# load the packages you need
+library(dplyr)
+library(tidyr)
+#library(stringr)
+library(ggplot2)
+#library(plotly)
+#library(pheatmap)
+#library(DESeq2)
+#library(edgeR)
+```
+
+---
+name: content
+class: spaced
+
+## Contents
+
+* [Overview of R](#r-intro)
+* [Data formats](#data)
+* [Images](#image)
+
+
+---
+name: r-into
+
+## Raw data
+
+- Raw count table
+
+```{r,eval=TRUE,echo=FALSE}
+cr <- read.table("./data/count_raw.txt",header=TRUE)
+cr[1:6,1:6]
+```
+
+- Metadata
+
+```{r,eval=TRUE,echo=FALSE}
+mr <- read.csv2("./data/metadata_raw.csv",header=TRUE,stringsAsFactors=F)
+rownames(mr) <- mr$Sample_ID
+mr[1:6,]
+```
+
+---
+name: data
+
+## Preprocessing
+
+- Remove genes and samples with low counts
+
+```{r,echo=TRUE}
+cf1 <- cr[rowSums(cr>0) >= 2, ]
+cf2 <- cr[rowSums(cr>5) >= 2, ]
+cf3 <- cr[rowSums(edgeR::cpm(cr)>1) >= 2, ]
+```
+
+--
+
+- Inspect distribution
+
+
+
+--
+
+- Inspect the number of rows
+
+```{r,eval=TRUE,echo=FALSE}
+cat(paste0("Raw: ",nrow(cr),", Method 1: ",nrow(cf1),", Method 2: ",nrow(cf2),", Method 3: ",nrow(cf3)))
+cf <- cf3
+rm(cf1,cf2,cf3)
+```
+
+---
+name: image
+
+## Normalisation
+
+
+- Make counts comparable across samples
+- Control for sequencing depth
+
+
+
+---
+name: end_slide
+class: end-slide, middle
+count: false
+
+# Thank you. Questions?
+
+```{r,echo=FALSE,child="assets/footer-presentation.Rmd"}
+```
+
+```{r,include=FALSE,eval=FALSE}
+# manually run this to render this document to HTML
+rmarkdown::render("presentation_dge.Rmd")
+# manually run this to convert HTML to PDF
+#pagedown::chrome_print("presentation_dge.html",output="presentation_dge.pdf")
+```
