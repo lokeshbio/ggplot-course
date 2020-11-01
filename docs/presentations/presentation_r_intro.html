@@ -3,11 +3,12 @@
   <head>
     <title>Introduction to R</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Lokesh Mano | 29-Oct-2020" />
+    <meta name="author" content="Lokesh Mano | 01-Nov-2020" />
     <meta name="keywords" content="bioinformatics, course, scilifelab, nbis" />
     <link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
     <link id="font-awesome-1-attachment" rel="attachment" href="libs/font-awesome-5.1.0/fonts/fontawesome-webfont.ttf"/>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
     <link rel="stylesheet" href="assets/presentation.css" type="text/css" />
   </head>
   <body>
@@ -16,7 +17,7 @@ class: center, middle, inverse, title-slide
 
 # Introduction to R
 ## Workshop on ggplot
-### <b>Lokesh Mano</b> | 29-Oct-2020
+### <b>Lokesh Mano</b> | 01-Nov-2020
 ### NBIS, SciLifeLab
 
 ---
@@ -44,77 +45,430 @@ class: spaced
 
 * [Overview of R](#r-intro)
 * [Data formats](#data)
-* [Images](#image)
-
+* [Data frames](#data-frame)
+* [Important functions](#func)
+* [Tips](#tips)
 
 ---
 name: r-into
 
-## Raw data
+## R
 
-- Raw count table
-
-
-```
-##                 Sample_1 Sample_2 Sample_3 Sample_4 Sample_5 Sample_6
-## ENSG00000000003      321      303      204      492      455      359
-## ENSG00000000005        0        0        0        0        0        0
-## ENSG00000000419      696      660      472      951      963      689
-## ENSG00000000457       59       54       44      109       73       66
-## ENSG00000000460      399      405      236      445      454      374
-## ENSG00000000938        0        0        0        0        0        1
-```
-
-- Metadata
+* Derived from a statistical programming language called **S**
+* You can write your own functions
+* Powerful and flexible.
+* Available for all platforms
 
 
-```
-##          Sample_ID Sample_Name Time Replicate Cell
-## Sample_1  Sample_1        t0_A   t0         A A431
-## Sample_2  Sample_2        t0_B   t0         B A431
-## Sample_3  Sample_3        t0_C   t0         C A431
-## Sample_4  Sample_4        t2_A   t2         A A431
-## Sample_5  Sample_5        t2_B   t2         B A431
-## Sample_6  Sample_6        t2_C   t2         C A431
-```
+--
+
+* `GUI` with **Rstudio**
+
+--
+
+* **RMarkdown**: Embedding codes and results together
+
+--
+.pull-center[
+&lt;img src="images/free.png" alt="drawing" width="300"/&gt;
+]
 
 ---
 name: data
 
-## Preprocessing
+## Data Formats
 
-- Remove genes and samples with low counts
+--
+
+- Wide format
+
+&lt;table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;font-weight: bold;color: blue !important;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;font-weight: bold;color: blue !important;"&gt; Sample_1 &lt;/th&gt;
+   &lt;th style="text-align:right;font-weight: bold;color: blue !important;"&gt; Sample_2 &lt;/th&gt;
+   &lt;th style="text-align:right;font-weight: bold;color: blue !important;"&gt; Sample_3 &lt;/th&gt;
+   &lt;th style="text-align:right;font-weight: bold;color: blue !important;"&gt; Sample_4 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: orange !important;color: red !important;"&gt; ENSG00000000003 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 321 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 303 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 204 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 492 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: orange !important;color: red !important;"&gt; ENSG00000000005 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: orange !important;color: red !important;"&gt; ENSG00000000419 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 696 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 660 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 472 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 951 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: orange !important;color: red !important;"&gt; ENSG00000000457 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 59 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 54 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 44 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 109 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: orange !important;color: red !important;"&gt; ENSG00000000460 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 399 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 405 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 236 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 445 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: orange !important;color: red !important;"&gt; ENSG00000000938 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+* familiarity
+* conveniency
+* you see more data
+
+---
+name: data-2
+
+## Data Formats
+
+- Long format
+
+--
+
+
+&lt;table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Sample_ID &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Gene &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; count &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000003 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 321 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000005 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000419 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 696 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000457 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000460 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 399 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000938 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+
+&lt;table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Sample_ID &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample_Name &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Time &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Replicate &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Cell &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Gene &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; count &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000003 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 321 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000005 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000419 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 696 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000457 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000460 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 399 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000938 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+name: data-3
+
+## Data Formats
+
+- Long format
+
+&lt;table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Sample_ID &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample_Name &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Time &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Replicate &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Cell &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Gene &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; count &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000003 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 321 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000005 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000419 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 696 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000457 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000460 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 399 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; Sample_1 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0_A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; t0 &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;color: blue !important;"&gt; A431 &lt;/td&gt;
+   &lt;td style="text-align:left;color: red !important;"&gt; ENSG00000000938 &lt;/td&gt;
+   &lt;td style="text-align:right;color: orange !important;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+* easier to add data to the existing
+* Most databases store and maintain in long-formats due to its efficiency
+* R tools **like ggplot** require data in long format.
+
+---
+name: data-frame
+
+## Data Frames
+
+- Let us take a quick look into `data.frame` in `R`:
+
+
+.pull-center[
+&lt;img src="images/df.png" alt="drawing" width="600"/&gt;
+]
+
+* imported files re usually in `data.frame`
+* Structured matrix with `row.names` and `colnames`
+* Probably most used `data.type` in Biology! 
+
+---
+name: func
+
+## Vectors
 
 
 ```r
-cf1 &lt;- cr[rowSums(cr&gt;0) &gt;= 2, ]
-cf2 &lt;- cr[rowSums(cr&gt;5) &gt;= 2, ]
-cf3 &lt;- cr[rowSums(edgeR::cpm(cr)&gt;1) &gt;= 2, ]
+n &lt;- c(2,3,4,2,1,2,4,5,10,11,8,9)
+print(n)
+```
+
+```
+##  [1]  2  3  4  2  1  2  4  5 10 11  8  9
 ```
 
 --
 
-- Inspect distribution
 
+```r
+z &lt;- n +3
+print(z)
+```
 
+```
+##  [1]  5  6  7  5  4  5  7  8 13 14 11 12
+```
 
 --
 
-- Inspect the number of rows
 
+```r
+z &lt;- n +3
+mean(z)
+```
 
 ```
-## Raw: 59573, Method 1: 24194, Method 2: 16519, Method 3: 14578
+## [1] 8.083333
+```
+
+--
+
+
+```r
+s &lt;- c("I", "love", "Batman")
+print(s)
+```
+
+```
+## [1] "I"      "love"   "Batman"
 ```
 
 ---
-name: image
+name: vec-typ
 
-## Normalisation
+## Vector types
+
+* `int` stands for *integers*
+* `dbl` stands for *doubles* or real numbers
+* `chr` stands for *charecter* vectors or strings
+* `dttm` stands for *date and time*,
+* `lgl` stands for *logical* with just TRUE or FALSE
+* `fctr` stands for *factors* which R uses to state categorical variables.
+* `date` stands for *dates*
+
+You can find what kind of vectors you have or imported by using the function `class()`
+
+---
+name:tips
+
+## Important tips
+
+- `?` and `??`
+  * `?` help manual for a particular function
+  * `??` searches the entire `R` library for the term
+
+--
+
+- TAB completion
+  * Probably most useful to avoid unnecessary error messages (and/or frustration)!
+
+--
+
+- Case sensitive 
 
 
-- Make counts comparable across samples
-- Control for sequencing depth
+```r
+print(N)
+```
+
+```
+## Error in print(N): object 'N' not found
+```
+
+
+```r
+print(n)
+```
+
+```
+##  [1]  2  3  4  2  1  2  4  5 10 11  8  9
+```
 
 
 
@@ -132,7 +486,7 @@ count: false
 
 &lt;hr&gt;
 
-&lt;span class="small"&gt;Built on : &lt;i class='fa fa-calendar' aria-hidden='true'&gt;&lt;/i&gt; 29-Oct-2020 at &lt;i class='fa fa-clock-o' aria-hidden='true'&gt;&lt;/i&gt; 04:28:53 PM&lt;/span&gt;  
+&lt;span class="small"&gt;Built on : &lt;i class='fa fa-calendar' aria-hidden='true'&gt;&lt;/i&gt; 01-Nov-2020 at &lt;i class='fa fa-clock-o' aria-hidden='true'&gt;&lt;/i&gt; 05:12:47 PM&lt;/span&gt;  
 
 &lt;b&gt;2020&lt;/b&gt; • [SciLifeLab](https://www.scilifelab.se/) • [NBIS](https://nbis.se/)
 ]
