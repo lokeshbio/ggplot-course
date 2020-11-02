@@ -1,7 +1,7 @@
 ---
 title: "Introduction to R"
 subtitle: "Workshop on ggplot"
-author: "`r paste0('<b>Lokesh Mano</b> | ',format(Sys.time(), '%d-%b-%Y'))`"
+author: "`r paste0('<b>Lokesh Mano</b> | <b>04-NOV-2020</b>')`"
 institute: NBIS, SciLifeLab
 keywords: bioinformatics, course, scilifelab, nbis
 output:
@@ -47,11 +47,29 @@ class: spaced
 
 ## Contents
 
+* [Course and webpage](demo)
 * [Overview of R](#r-intro)
 * [Data formats](#data)
 * [Data frames](#data-frame)
 * [Important functions](#func)
 * [Tips](#tips)
+
+---
+name: demo
+
+## Quick checkups
+
+.pull-center[
+<img src="images/inst_check.png" alt="drawing" width="500"/>
+]
+
+--
+
+* Masks and social-distancing
+* Coffe and tea breaks in Ecology
+* Webpage structure
+* Plots from drop-down
+* Times mentioned in schedule are **super** arbitrary
 
 ---
 name: r-into
@@ -230,7 +248,7 @@ name: vec-typ
 
 * `int` stands for *integers*
 * `dbl` stands for *doubles* or real numbers
-* `chr` stands for *charecter* vectors or strings
+* `chr` stands for *character* vectors or strings
 * `dttm` stands for *date and time*,
 * `lgl` stands for *logical* with just TRUE or FALSE
 * `fctr` stands for *factors* which R uses to state categorical variables.
@@ -246,6 +264,7 @@ name:tips
 - `?` and `??`
   * `?` help manual for a particular function
   * `??` searches the entire `R` library for the term
+  * `vignette("ggplot2")`
 
 --
 

@@ -2,7 +2,7 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 04/11/2020;"Cerebrum; D215";15;Welcome;Dag Ahrén;;;https://goo.gl/maps/rQ4ohNgJDMJKYkU96
 ;;45;R Introduction lecture;Lokesh;presentations/presentation_r_intro.html;;
 ;;20;Coffee Break;;;;
-;;70;R Introduction Lab;Lokesh;;lab_r.html;
+;;70;R Introduction Lab;Lokesh;presentations/overview_r.html;lab_r.html;
 ;;30;ggplot basics 1 (overview);Louella;;
 ;;60;Lunch;;;;
 ;;50;ggplot basics 1 (geoms, color and aesthetics) (lab);Louella;;lab_base_grid.html;
