@@ -6,7 +6,7 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 ;;30;ggplot basics 1 (Lecture);Lokesh;presentations/overview_gg1.html;;
 ;;60;Lunch;;;;
 ;;50;ggplot basics 1 (geoms, color and aesthetics) (lab);Louella;;lab_base_grid.html;
-;;20;ggplot basics 2 (facets, barplots and errorbars) (overview);Lokesh;presentations/overview_gg1.html;;
+;;20;ggplot basics 2 (facets, barplots and errorbars) (overview);Lokesh;presentations/overview_gg2.html;;
 ;;50;ggplot basics 2 (facets, barplots and errorbars) (lab);Louella;;lab_gg_2.html;
 ;;20;Coffee Break;;;;
 ;;20;ggplot basics 3 (axes, labels, legends and themes) (overview);Louella;;;
