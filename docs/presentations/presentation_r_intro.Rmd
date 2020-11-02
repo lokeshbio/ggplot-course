@@ -47,7 +47,7 @@ class: spaced
 
 ## Contents
 
-* [Course and webpage](demo)
+* [Course and webpage](#demo)
 * [Overview of R](#r-intro)
 * [Data formats](#data)
 * [Data frames](#data-frame)
@@ -72,7 +72,7 @@ name: demo
 * Times mentioned in schedule are **super** arbitrary
 
 ---
-name: r-into
+name: r-intro
 
 ## R
 

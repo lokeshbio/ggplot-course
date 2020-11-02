@@ -1,0 +1,76 @@
+---
+title: "ggplot basics 2"
+subtitle: "Workshop on ggplot"
+author: "`r paste0('<b>Lokesh Mano</b> | <b>04-NOV-2020</b>')`"
+institute: NBIS, SciLifeLab
+keywords: bioinformatics, course, scilifelab, nbis
+output:
+  xaringan::moon_reader:
+    encoding: 'UTF-8'
+    self_contained: false
+    chakra: 'assets/remark-latest.min.js'
+    css: 'assets/presentation.css'
+    lib_dir: libs
+    nature:
+      ratio: '4:3'
+      highlightLanguage: r
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%/%total%"
+---
+exclude: true
+count: false
+
+```{r,echo=FALSE,child="assets/header-presentation.Rmd"}
+```
+
+<!-- ------------ Only edit title, subtitle & author above this ------------ -->
+
+```{r,include=FALSE}
+# load the packages you need
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+#library(stringr)
+library(ggplot2)
+#library(plotly)
+#library(pheatmap)
+#library(DESeq2)
+#library(edgeR)
+library(kableExtra)
+```
+
+---
+name: content
+class: spaced
+
+## Contents
+
+* [Scales - color](#scales-discrete-color)
+
+
+---
+name: scales-discrete-color
+
+## Scales • Discrete Colors
+
+* scales: position, color, fill, size, shape, alpha, linetype
+* syntax: `scale_<aesthetic>_<type>`
+
+---
+name: end_slide
+class: end-slide, middle
+count: false
+
+# Thank you. Questions?
+
+```{r,echo=FALSE,child="assets/footer-presentation.Rmd"}
+```
+
+```{r,include=FALSE,eval=FALSE}
+# manually run this to render this document to HTML
+rmarkdown::render("presentation_dge.Rmd")
+# manually run this to convert HTML to PDF
+#pagedown::chrome_print("presentation_dge.html",output="presentation_dge.pdf")
+```

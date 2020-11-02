@@ -3,15 +3,15 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 ;;45;R Introduction lecture;Lokesh;presentations/presentation_r_intro.html;;
 ;;20;Coffee Break;;;;
 ;;70;R Introduction Lab;Lokesh;presentations/overview_r.html;lab_r.html;
-;;30;ggplot basics 1 (overview);Louella;;
+;;30;ggplot basics 1 (Lecture);Lokesh;presentations/overview_gg1.html;;
 ;;60;Lunch;;;;
 ;;50;ggplot basics 1 (geoms, color and aesthetics) (lab);Louella;;lab_base_grid.html;
-;;20;ggplot basics 2 (facets, barplots and errorbars) (overview);Lokesh;;;
-;;50;ggplot basics 2 (facets, barplots and errorbars) (lab);Lokesh;;lab_gg_2.html;
+;;20;ggplot basics 2 (facets, barplots and errorbars) (overview);Lokesh;presentations/overview_gg1.html;;
+;;50;ggplot basics 2 (facets, barplots and errorbars) (lab);Louella;;lab_gg_2.html;
 ;;20;Coffee Break;;;;
 ;;20;ggplot basics 3 (axes, labels, legends and themes) (overview);Louella;;;
 ;;80;ggplot basics 3 (axes, labels, legends and themes) (lab);Louella;;lab_gg_3.html;
-05/11/2020;"Cerebrum; D215";30;Vector graphics (lecture);Markus;;;https://goo.gl/maps/rQ4ohNgJDMJKYkU96
+05/11/2020;"Cerebrum; D215";30;Vector and bitmap images (lecture);Markus;;;https://goo.gl/maps/rQ4ohNgJDMJKYkU96
 ;;30;Combining plots (lab);Markus;;lab_gg_4.html;
 ;;20;Coffee Break;;;;
 ;;50;making PCA, heatmap and others (overview);Markus;;;
