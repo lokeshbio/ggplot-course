@@ -11,7 +11,7 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 ;;20;Coffee Break;;;;
 ;;20;ggplot basics 3 (axes, labels, legends and themes) (overview);Lokesh;presentations/overview_gg3.html;;
 ;;80;ggplot basics 3 (axes, labels, legends and themes) (lab);Louella;;lab_gg_3.html;
-05/11/2020;"Cerebrum; D215";30;Vector and bitmap images (lecture);Markus;presentations/Vector_Bitmap_Images.pdf;presentations/overview_last.html;https://goo.gl/maps/rQ4ohNgJDMJKYkU96
+05/11/2020;"Cerebrum; D215";30;Vector and bitmap images (lecture);Markus;presentations/Vector_Bitmap_Images.pdf;;https://goo.gl/maps/rQ4ohNgJDMJKYkU96
 ;;30;Combining plots (lab);Markus;;lab_gg_4.html;
 ;;20;Coffee Break;;;;
 ;;50;making PCA, heatmap and others (overview);Markus;;;
@@ -20,5 +20,5 @@ date;room;dur;topic;person;link_presentation;link_lab;link_room
 ;;60;Optional exercises with phylogenetic tree (lab);Louella;;lab_phylo.html;
 ;;60;Optional exercises with map-data (lab);Lokesh;;lab_ggmap.html;
 ;;20;Coffee Break;;;;
-;;50;Specific questions (Part 1);Everyone;;;
+;;50;Specific questions (Part 1);Everyone;;presentations/overview_last.html;
 ;;50;Specific questions (Part 2);Everyone;;;
