@@ -139,5 +139,32 @@ ggarrange(d1, NULL, p4, d2,
           common.legend = TRUE)
 ```
 
+# PCA
+
+```{r, eval=FALSE}
+Eigenvalues <- gc_mds$eig
+Variance <- Eigenvalues / sum(Eigenvalues) 
+Variance1 <- 100 * signif(Variance[1], 3)
+Variance2 <- 100 * signif(Variance[2], 3)
+
+gc_mds_long <- gc_mds$points %>%
+  as.data.frame() %>%
+  rownames_to_column("Sample_ID") %>%
+  full_join(md, by = "Sample_ID")
+
+gc_mds_long$Sample_Name <- factor(gc_mds_long$Sample_Name, levels = c("t0_A","t0_B","t0_C","t2_A","t2_B","t2_C","t6_A","t6_B","t6_C","t24_A","t24_B","t24_C"))
+gc_mds_long$Time <- factor(gc_mds_long$Time, levels = c("t0","t2","t6","t24"))
+gc_mds_long$Replicate <- factor(gc_mds_long$Replicate, levels = c("A","B","C"))
+
+ggplot(gc_mds_long, aes(x=V1, y=V2, color = Time)) +
+  geom_point(size = 3, aes(shape = Replicate)) +
+  xlab(paste("PCO1: ", Variance1, "%")) +
+  ylab(paste("PCO2: ", Variance2, "%")) +
+  geom_vline(xintercept = 0, linetype=2) +
+  geom_hline(yintercept = 0, linetype=2) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()) 
+```
 
 __End of document__
