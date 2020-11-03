@@ -59,6 +59,10 @@ name: demo
 
 * Errors while reading in files!
 * Demo of things that could go wrong when reading in files into R
+* Demo on using reserved variables like `T`, `F`, `character` and many others ...
+* How can you check if something is a reserved variable?
+--
+
 
 ---
 name: dplyr
