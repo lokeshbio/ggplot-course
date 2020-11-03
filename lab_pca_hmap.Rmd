@@ -122,6 +122,33 @@ ggplot(vst_pca_all, aes(x=PC1, y=PC2, color = Time)) +
         panel.grid.minor = element_blank()) 
 ```
 
+## Plotting genes on PCA
+
+Now, let us say you want to plot two gens that that are hightly correlated to the components `PC1` and `PC2`. We could obtain them by looking at the `vst_pca$rotation` matrix. We could get those genes and their respective coordinates by doing the following:
+
+```{r, message=FALSE, warning=FALSE}
+genes=vst_pca$rotation[c(which.max(vst_pca$rotation[,"PC1"]), which.max(vst_pca$rotation[,"PC2"])),c("PC1","PC2")]
+genes
+```
+
+Now, we could plot these genes as arrows on the previous scatter-plot that we made:
+
+```{r, message=FALSE, warning=FALSE}
+scale=1000
+ggplot(vst_pca_all, aes(x=PC1, y=PC2)) +
+     geom_point(size = 3, aes(shape = Replicate, color = Time)) +
+     geom_vline(xintercept = 0, linetype=2) +
+     geom_hline(yintercept = 0, linetype=2) +
+     theme_bw() +
+     theme(panel.grid.major = element_blank(),  panel.grid.minor = element_blank())  +
+     geom_segment(aes(x=0,y=0, xend=scale*genes[1,1], yend=scale*genes[1,2]), arrow=arrow(), color="grey") +
+     geom_segment(aes(x=0,y=0, xend=scale*genes[2,1], yend=scale*genes[2,2]), arrow=arrow(), color="grey") +
+     geom_label(aes(x=scale*genes[1,1], y= scale*genes[1,2], label=rownames(genes)[1]), hjust=1.2) +
+     geom_label(aes(x=scale*genes[2,1], y=scale*genes[2,2], label=rownames(genes)[2]), hjust=1.2)
+```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; Similarly, let us say, you have environmental variables (continous variables like pH and so on) from the same samples and you would like to see how they would fit this bi-plot. One can use `envfit()` function from the `vegan` package, this function would return both the `p-value` and the `coordinates` of each of the variables in your environmental matrix. Then you could subset the significant variables and plot the arrows in the same way as above. 
+
 # Heatmap
 
 ## pheatmap

@@ -596,6 +596,45 @@ R
 </details>
 </div>
 </div>
+<div id="plotting-genes-on-pca" class="section level2">
+<h2><span class="header-section-number">1.3</span> Plotting genes on PCA</h2>
+<p>Now, let us say you want to plot two gens that that are hightly correlated to the components <code>PC1</code> and <code>PC2</code>. We could obtain them by looking at the <code>vst_pca$rotation</code> matrix. We could get those genes and their respective coordinates by doing the following:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">genes=vst_pca<span class="op">$</span>rotation[<span class="kw">c</span>(<span class="kw">which.max</span>(vst_pca<span class="op">$</span>rotation[,<span class="st">&quot;PC1&quot;</span>]), <span class="kw">which.max</span>(vst_pca<span class="op">$</span>rotation[,<span class="st">&quot;PC2&quot;</span>])),<span class="kw">c</span>(<span class="st">&quot;PC1&quot;</span>,<span class="st">&quot;PC2&quot;</span>)]</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">genes</a></code></pre></div>
+<details>
+<p><summary>output</summary></p>
+<pre><code>##                        PC1         PC2
+## ENSG00000204941 0.05737805 -0.02981714
+## ENSG00000156804 0.01143268  0.03864008</code></pre>
+</details>
+</div>
+<p>Now, we could plot these genes as arrows on the previous scatter-plot that we made:</p>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">scale=<span class="dv">1000</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">ggplot</span>(vst_pca_all, <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">     </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="kw">aes</span>(<span class="dt">shape =</span> Replicate, <span class="dt">color =</span> Time)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">     </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">linetype=</span><span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">     </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">linetype=</span><span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">     </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="st">     </span><span class="kw">theme</span>(<span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(),  <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>())  <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="st">     </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>,<span class="dt">y=</span><span class="dv">0</span>, <span class="dt">xend=</span>scale<span class="op">*</span>genes[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">yend=</span>scale<span class="op">*</span>genes[<span class="dv">1</span>,<span class="dv">2</span>]), <span class="dt">arrow=</span><span class="kw">arrow</span>(), <span class="dt">color=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="st">     </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>,<span class="dt">y=</span><span class="dv">0</span>, <span class="dt">xend=</span>scale<span class="op">*</span>genes[<span class="dv">2</span>,<span class="dv">1</span>], <span class="dt">yend=</span>scale<span class="op">*</span>genes[<span class="dv">2</span>,<span class="dv">2</span>]), <span class="dt">arrow=</span><span class="kw">arrow</span>(), <span class="dt">color=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="st">     </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">x=</span>scale<span class="op">*</span>genes[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">y=</span> scale<span class="op">*</span>genes[<span class="dv">1</span>,<span class="dv">2</span>], <span class="dt">label=</span><span class="kw">rownames</span>(genes)[<span class="dv">1</span>]), <span class="dt">hjust=</span><span class="fl">1.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="st">     </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">x=</span>scale<span class="op">*</span>genes[<span class="dv">2</span>,<span class="dv">1</span>], <span class="dt">y=</span>scale<span class="op">*</span>genes[<span class="dv">2</span>,<span class="dv">2</span>], <span class="dt">label=</span><span class="kw">rownames</span>(genes)[<span class="dv">2</span>]), <span class="dt">hjust=</span><span class="fl">1.2</span>)</a></code></pre></div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-9-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p><i class="fas fa-exclamation-circle"></i> Note   Similarly, let us say, you have environmental variables (continous variables like pH and so on) from the same samples and you would like to see how they would fit this bi-plot. One can use <code>envfit()</code> function from the <code>vegan</code> package, this function would return both the <code>p-value</code> and the <code>coordinates</code> of each of the variables in your environmental matrix. Then you could subset the significant variables and plot the arrows in the same way as above.</p>
+</div>
 </div>
 <div id="heatmap" class="section level1">
 <h1><span class="header-section-number">2</span> Heatmap</h1>
@@ -606,14 +645,14 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">vst_cor &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">cor</span>(gc_vst, <span class="dt">method=</span><span class="st">&quot;spearman&quot;</span>))</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">library</span>(pheatmap)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">pheatmap</span>(vst_cor,<span class="dt">border_color=</span><span class="ot">NA</span>,<span class="dt">annotation_col=</span>md[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F],</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">         <span class="dt">annotation_row=</span>md[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F],<span class="dt">annotation_legend=</span>T)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">vst_cor &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">cor</span>(gc_vst, <span class="dt">method=</span><span class="st">&quot;spearman&quot;</span>))</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">library</span>(pheatmap)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw">pheatmap</span>(vst_cor,<span class="dt">border_color=</span><span class="ot">NA</span>,<span class="dt">annotation_col=</span>md[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F],</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">         <span class="dt">annotation_row=</span>md[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F],<span class="dt">annotation_legend=</span>T)</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
-<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-8-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-10-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
 <p>Now, this is based on a correlation matrix where you have a very simple square matrix with samples and their correlations to each to each other. Now let us look into how we can make a heatmap from an expression dataset.</p>
@@ -623,13 +662,13 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">diff_t2_vs_t0 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/Time_t24_vs_t0.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">hmap_t2_t0 &lt;-<span class="st"> </span><span class="kw">subset</span>(gc_vst, <span class="kw">rownames</span>(gc_vst) <span class="op">%in%</span><span class="st"> </span>diff_t2_vs_t0<span class="op">$</span>gene)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">pheatmap</span>(hmap_t2_t0, <span class="dt">border_color=</span><span class="ot">NA</span>, <span class="dt">annotation_col=</span>md[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F], <span class="dt">annotation_row=</span><span class="ot">NULL</span>, <span class="dt">annotation_legend=</span>T)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">diff_t2_vs_t0 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/Time_t24_vs_t0.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">hmap_t2_t0 &lt;-<span class="st"> </span><span class="kw">subset</span>(gc_vst, <span class="kw">rownames</span>(gc_vst) <span class="op">%in%</span><span class="st"> </span>diff_t2_vs_t0<span class="op">$</span>gene)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">pheatmap</span>(hmap_t2_t0, <span class="dt">border_color=</span><span class="ot">NA</span>, <span class="dt">annotation_col=</span>md[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F], <span class="dt">annotation_row=</span><span class="ot">NULL</span>, <span class="dt">annotation_legend=</span>T)</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
-<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-9-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-11-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
 <p>Further, we can also customize using the <code>pheatmap</code> and also use the continous color options we talked about in the earlier sections.</p>
@@ -637,13 +676,13 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">library</span>(wesanderson)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">md<span class="op">$</span>Time &lt;-<span class="st"> </span><span class="kw">factor</span>(md<span class="op">$</span>Time, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;t0&quot;</span>,<span class="st">&quot;t2&quot;</span>,<span class="st">&quot;t6&quot;</span>,<span class="st">&quot;t24&quot;</span>))</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">pheatmap</span>(hmap_t2_t0, <span class="dt">color =</span> <span class="kw">wes_palette</span>(<span class="st">&quot;Moonrise3&quot;</span>, <span class="dv">100</span>, <span class="dt">type =</span> <span class="st">&quot;continuous&quot;</span>), <span class="dt">border_color=</span><span class="ot">NA</span>, <span class="dt">annotation_col=</span>md[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F], <span class="dt">annotation_row=</span><span class="ot">NULL</span>, <span class="dt">annotation_legend=</span>T, <span class="dt">show_rownames =</span> <span class="ot">FALSE</span>, <span class="dt">fontsize =</span> <span class="dv">14</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">library</span>(wesanderson)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">md<span class="op">$</span>Time &lt;-<span class="st"> </span><span class="kw">factor</span>(md<span class="op">$</span>Time, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;t0&quot;</span>,<span class="st">&quot;t2&quot;</span>,<span class="st">&quot;t6&quot;</span>,<span class="st">&quot;t24&quot;</span>))</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">pheatmap</span>(hmap_t2_t0, <span class="dt">color =</span> <span class="kw">wes_palette</span>(<span class="st">&quot;Moonrise3&quot;</span>, <span class="dv">100</span>, <span class="dt">type =</span> <span class="st">&quot;continuous&quot;</span>), <span class="dt">border_color=</span><span class="ot">NA</span>, <span class="dt">annotation_col=</span>md[,<span class="st">&quot;Time&quot;</span>,<span class="dt">drop=</span>F], <span class="dt">annotation_row=</span><span class="ot">NULL</span>, <span class="dt">annotation_legend=</span>T, <span class="dt">show_rownames =</span> <span class="ot">FALSE</span>, <span class="dt">fontsize =</span> <span class="dv">14</span>)</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
-<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-10-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-12-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
 </div>
@@ -654,25 +693,25 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">hmap_t2_t0_long &lt;-<span class="st"> </span>hmap_t2_t0 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;Gene&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>(Sample_ID, VST, <span class="op">-</span>Gene) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw">full_join</span>(md, <span class="dt">by =</span> <span class="st">&quot;Sample_ID&quot;</span>)  </a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">hmap_t2_t0_long<span class="op">$</span>Sample_Name &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Sample_Name, <span class="dt">levels =</span> </a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">                                        <span class="kw">c</span>(<span class="st">&quot;t0_A&quot;</span>,<span class="st">&quot;t0_B&quot;</span>,<span class="st">&quot;t0_C&quot;</span>,<span class="st">&quot;t2_A&quot;</span>,<span class="st">&quot;t2_B&quot;</span>,<span class="st">&quot;t2_C&quot;</span>,<span class="st">&quot;t6_A&quot;</span>,<span class="st">&quot;t6_B&quot;</span>,<span class="st">&quot;t6_C&quot;</span>,<span class="st">&quot;t24_A&quot;</span>,<span class="st">&quot;t24_B&quot;</span>,<span class="st">&quot;t24_C&quot;</span>))</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">hmap_t2_t0_long<span class="op">$</span>Time &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Time, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;t0&quot;</span>,<span class="st">&quot;t2&quot;</span>,<span class="st">&quot;t6&quot;</span>,<span class="st">&quot;t24&quot;</span>))</a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">hmap_t2_t0_long<span class="op">$</span>Replicate &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Replicate, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>))</a>
-<a class="sourceLine" id="cb9-10" data-line-number="10">hmap_t2_t0_long<span class="op">$</span>Gene &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Gene, <span class="dt">levels =</span> <span class="kw">row.names</span>(hmap_t2_t0))</a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="kw">ggplot</span>(hmap_t2_t0_long) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> Gene, <span class="dt">fill =</span> VST)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colours =</span> <span class="kw">rainbow</span>(<span class="dv">5</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="st">&quot;t0_A&quot;</span>,<span class="st">&quot;t0_B&quot;</span>,<span class="st">&quot;t0_C&quot;</span>,<span class="st">&quot;t24_A&quot;</span>,<span class="st">&quot;t24_B&quot;</span>,<span class="st">&quot;t24_C&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>()) </a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">hmap_t2_t0_long &lt;-<span class="st"> </span>hmap_t2_t0 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;Gene&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>(Sample_ID, VST, <span class="op">-</span>Gene) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw">full_join</span>(md, <span class="dt">by =</span> <span class="st">&quot;Sample_ID&quot;</span>)  </a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">hmap_t2_t0_long<span class="op">$</span>Sample_Name &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Sample_Name, <span class="dt">levels =</span> </a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">                                        <span class="kw">c</span>(<span class="st">&quot;t0_A&quot;</span>,<span class="st">&quot;t0_B&quot;</span>,<span class="st">&quot;t0_C&quot;</span>,<span class="st">&quot;t2_A&quot;</span>,<span class="st">&quot;t2_B&quot;</span>,<span class="st">&quot;t2_C&quot;</span>,<span class="st">&quot;t6_A&quot;</span>,<span class="st">&quot;t6_B&quot;</span>,<span class="st">&quot;t6_C&quot;</span>,<span class="st">&quot;t24_A&quot;</span>,<span class="st">&quot;t24_B&quot;</span>,<span class="st">&quot;t24_C&quot;</span>))</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8">hmap_t2_t0_long<span class="op">$</span>Time &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Time, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;t0&quot;</span>,<span class="st">&quot;t2&quot;</span>,<span class="st">&quot;t6&quot;</span>,<span class="st">&quot;t24&quot;</span>))</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">hmap_t2_t0_long<span class="op">$</span>Replicate &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Replicate, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>))</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10">hmap_t2_t0_long<span class="op">$</span>Gene &lt;-<span class="st"> </span><span class="kw">factor</span>(hmap_t2_t0_long<span class="op">$</span>Gene, <span class="dt">levels =</span> <span class="kw">row.names</span>(hmap_t2_t0))</a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="kw">ggplot</span>(hmap_t2_t0_long) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> Gene, <span class="dt">fill =</span> VST)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colours =</span> <span class="kw">rainbow</span>(<span class="dv">5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="st">&quot;t0_A&quot;</span>,<span class="st">&quot;t0_B&quot;</span>,<span class="st">&quot;t0_C&quot;</span>,<span class="st">&quot;t24_A&quot;</span>,<span class="st">&quot;t24_B&quot;</span>,<span class="st">&quot;t24_C&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>()) </a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
-<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-11-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-13-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
 </div>
@@ -684,8 +723,8 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">gc_dist &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(gc_vst))</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">gc_mds &lt;-<span class="st"> </span><span class="kw">cmdscale</span>(gc_dist,<span class="dt">eig=</span><span class="ot">TRUE</span>, <span class="dt">k=</span><span class="dv">2</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">gc_dist &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(gc_vst))</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">gc_mds &lt;-<span class="st"> </span><span class="kw">cmdscale</span>(gc_dist,<span class="dt">eig=</span><span class="ot">TRUE</span>, <span class="dt">k=</span><span class="dv">2</span>) </a></code></pre></div>
 </div>
 <p><i class="fas fa-clipboard-list"></i> Task   Now, try to replicate the example <code>MDS</code> plot below if you have enough time.</p>
 <div class="block-title-parent">
@@ -694,7 +733,7 @@ Output
 </div>
 <details>
 <p><summary>plot</summary></p>
-<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-13-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-15-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
 <p><i class="fas fa-clipboard-list"></i> Hint   The mds object <code>gc_mds</code> has “eigenvalues”. You can calculate the variance by <code>Variance &lt;- Eigenvalues / sum(Eigenvalues)</code></p>
@@ -705,7 +744,7 @@ Output
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS

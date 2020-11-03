@@ -200,7 +200,7 @@ When we initiate the ggplot object using the data, it just creates a blank plot!
 ggplot(iris) 
 ```
 
-Now we can specify what we want on the x and y axes using aethetic mapping. And we specify the geometric using `geoms`. <i class="fas fa-exclamation-circle"></i> Note &nbsp; that the variable names do not have double quotes `""` like in base plots.
+Now we can specify what we want on the x and y axes using aesthetic mapping. And we specify the geometric using `geoms`. <i class="fas fa-exclamation-circle"></i> Note &nbsp; that the variable names do not have double quotes `""` like in base plots.
 
 ```{r}
 ggplot(data=iris)+
@@ -303,14 +303,14 @@ We can change the default colors by specifying new values inside a scale.
 
 ```{r}
 ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
-  geom_point(aes(color=Species,size=Sepal.Width))+
+  geom_point(aes(color=Species))+
   geom_smooth(method="lm")+
   scale_color_manual(values=c("red","blue","green"))
 ```
 
 <i class="fas fa-lightbulb"></i> Tip &nbsp; To specify manual colors, you could specify by their `names` or their `hexadecimal codes`. For example, you can choose the colors based on `names` from an online source like in this [cheatsheet](http://bc.bojanorama.pl/wp-content/uploads/2013/04/rcolorsheet.pdf) or you can use the `hexadecimal code` and choose it from a source like [here](https://htmlcolorcodes.com/). I personally prefer the `hexa` based options for manual colors.
 
-### Continous colors
+### Continuous colors
 
 We can also map the colors to a continuous variable. This creates a color bar legend item.
 
@@ -320,7 +320,7 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
   geom_smooth(method="lm")
 ```
 
-<i class="fas fa-lightbulb"></i> Tip &nbsp; Here, you can also choose different `palettes` for choosing the right contious pallete. There are some common packages of paletes that are used very often. [RColorBrewer](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) and [wesanderson](https://github.com/karthik/wesanderson), if you are fan of his choice of colors ;)
+<i class="fas fa-lightbulb"></i> Tip &nbsp; Here, you can also choose different `palettes` for choosing the right continuous pallet. There are some common packages of palettes that are used very often. [RColorBrewer](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) and [wesanderson](https://github.com/karthik/wesanderson), if you are fan of his choice of colors ;)
 
 ```{r}
 library(wesanderson)

@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 12-Aug-2020" />
+<meta name="author" content="Lokesh Mano • 03-Nov-2020" />
 
 
 <title>ggplot basics 1</title>
@@ -473,7 +473,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">ggplot basics 1</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 12-Aug-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 03-Nov-2020</h4>
 
 </div>
 
@@ -678,7 +678,7 @@ R
 <p><img src="lab_base_grid_files/figure-html/unnamed-chunk-18-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
-<p>Now we can specify what we want on the x and y axes using aethetic mapping. And we specify the geometric using <code>geoms</code>. <i class="fas fa-exclamation-circle"></i> Note   that the variable names do not have double quotes <code>&quot;&quot;</code> like in base plots.</p>
+<p>Now we can specify what we want on the x and y axes using aesthetic mapping. And we specify the geometric using <code>geoms</code>. <i class="fas fa-exclamation-circle"></i> Note   that the variable names do not have double quotes <code>&quot;&quot;</code> like in base plots.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -809,7 +809,7 @@ R
 R
 </div>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Petal.Length,<span class="dt">y=</span>Petal.Width))<span class="op">+</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species,<span class="dt">size=</span>Sepal.Width))<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species))<span class="op">+</span></a>
 <a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)<span class="op">+</span></a>
 <a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>))</a></code></pre></div>
 <details>
@@ -819,8 +819,8 @@ R
 </div>
 <p><i class="fas fa-lightbulb"></i> Tip   To specify manual colors, you could specify by their <code>names</code> or their <code>hexadecimal codes</code>. For example, you can choose the colors based on <code>names</code> from an online source like in this <a href="http://bc.bojanorama.pl/wp-content/uploads/2013/04/rcolorsheet.pdf">cheatsheet</a> or you can use the <code>hexadecimal code</code> and choose it from a source like <a href="https://htmlcolorcodes.com/">here</a>. I personally prefer the <code>hexa</code> based options for manual colors.</p>
 </div>
-<div id="continous-colors" class="section level3">
-<h3><span class="header-section-number">2.2.4</span> Continous colors</h3>
+<div id="continuous-colors" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Continuous colors</h3>
 <p>We can also map the colors to a continuous variable. This creates a color bar legend item.</p>
 <div class="block-title-parent">
 <div class="block-title small">
@@ -834,7 +834,7 @@ R
 <p><img src="lab_base_grid_files/figure-html/unnamed-chunk-29-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
-<p><i class="fas fa-lightbulb"></i> Tip   Here, you can also choose different <code>palettes</code> for choosing the right contious pallete. There are some common packages of paletes that are used very often. <a href="https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html">RColorBrewer</a> and <a href="https://github.com/karthik/wesanderson">wesanderson</a>, if you are fan of his choice of colors ;)</p>
+<p><i class="fas fa-lightbulb"></i> Tip   Here, you can also choose different <code>palettes</code> for choosing the right continuous pallet. There are some common packages of palettes that are used very often. <a href="https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html">RColorBrewer</a> and <a href="https://github.com/karthik/wesanderson">wesanderson</a>, if you are fan of his choice of colors ;)</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -991,25 +991,25 @@ R
 ## 
 ## other attached packages:
 ##  [1] wesanderson_0.3.6 forcats_0.5.0     stringr_1.4.0     purrr_0.3.4      
-##  [5] readr_1.3.1       tidyr_1.1.1       tibble_3.0.3      tidyverse_1.3.0  
-##  [9] reshape2_1.4.4    ggplot2_3.3.2     dplyr_1.0.1       captioner_2.2.3  
+##  [5] readr_1.3.1       tidyr_1.1.2       tibble_3.0.4      tidyverse_1.3.0  
+##  [9] reshape2_1.4.4    ggplot2_3.3.2     dplyr_1.0.2       captioner_2.2.3  
 ## [13] bookdown_0.20     knitr_1.29       
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.1.0 xfun_0.16        splines_3.6.3    haven_2.3.1     
-##  [5] lattice_0.20-40  colorspace_1.4-1 vctrs_0.3.2      generics_0.0.2  
+##  [1] tidyselect_1.1.0 xfun_0.18        splines_3.6.3    haven_2.3.1     
+##  [5] lattice_0.20-40  colorspace_1.4-1 vctrs_0.3.4      generics_0.0.2  
 ##  [9] htmltools_0.5.0  yaml_2.2.1       mgcv_1.8-31      blob_1.2.1      
-## [13] rlang_0.4.7      pillar_1.4.6     glue_1.4.1       withr_2.2.0     
+## [13] rlang_0.4.8      pillar_1.4.6     glue_1.4.2       withr_2.3.0     
 ## [17] DBI_1.1.0        dbplyr_1.4.4     modelr_0.1.8     readxl_1.3.1    
 ## [21] lifecycle_0.2.0  plyr_1.8.6       munsell_0.5.0    gtable_0.3.0    
-## [25] cellranger_1.1.0 rvest_0.3.6      evaluate_0.14    labeling_0.3    
+## [25] cellranger_1.1.0 rvest_0.3.6      evaluate_0.14    labeling_0.4.2  
 ## [29] fansi_0.4.1      broom_0.7.0      Rcpp_1.0.5       scales_1.1.1    
-## [33] backports_1.1.8  jsonlite_1.7.0   fs_1.5.0         farver_2.0.3    
-## [37] hms_0.5.3        digest_0.6.25    stringi_1.4.6    grid_3.6.3      
-## [41] cli_2.0.2        tools_3.6.3      magrittr_1.5     crayon_1.3.4    
+## [33] backports_1.1.10 jsonlite_1.7.1   fs_1.5.0         farver_2.0.3    
+## [37] hms_0.5.3        digest_0.6.27    stringi_1.5.3    grid_3.6.3      
+## [41] cli_2.1.0        tools_3.6.3      magrittr_1.5     crayon_1.3.4    
 ## [45] pkgconfig_2.0.3  ellipsis_0.3.1   Matrix_1.2-18    xml2_1.3.2      
 ## [49] reprex_0.3.0     lubridate_1.7.9  rstudioapi_0.11  assertthat_0.2.1
-## [53] rmarkdown_2.3    httr_1.4.2       R6_2.4.1         nlme_3.1-144    
+## [53] rmarkdown_2.3    httr_1.4.2       R6_2.5.0         nlme_3.1-144    
 ## [57] compiler_3.6.3</code></pre>
 </div>
 <p><strong>End of document</strong></p>

@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 10-Aug-2020" />
+<meta name="author" content="Lokesh Mano • 03-Nov-2020" />
 
 
 <title>ggplot basics 2</title>
@@ -473,7 +473,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">ggplot basics 2</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 10-Aug-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 03-Nov-2020</h4>
 
 </div>
 
@@ -694,7 +694,7 @@ R
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(Time) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>)),<span class="dt">se=</span><span class="kw">se</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>))) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Time, <span class="dt">y=</span>mean, <span class="dt">fill =</span> Time)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb14-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymax=</span>mean<span class="op">+</span>se,<span class="dt">ymin=</span>mean<span class="op">-</span>se),<span class="dt">width=</span><span class="fl">0.2</span>)</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
@@ -758,7 +758,7 @@ R
 <p><img src="lab_gg_2_files/figure-html/unnamed-chunk-19-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 </details>
 </div>
-<p>We can try now to plot error bars on them. This gets a bit complicated as the error</p>
+<p>We can try now to plot error bars on them. The errorbars would look weird and complicated if one forgets to add <code>position = dodge</code> to the <code>geom_errorbar()</code> as well.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -839,25 +839,25 @@ R
 ## 
 ## other attached packages:
 ##  [1] ggrepel_0.8.2   forcats_0.5.0   stringr_1.4.0   purrr_0.3.4    
-##  [5] readr_1.3.1     tidyr_1.1.1     tibble_3.0.3    tidyverse_1.3.0
-##  [9] reshape2_1.4.4  ggplot2_3.3.2   dplyr_1.0.1     captioner_2.2.3
+##  [5] readr_1.3.1     tidyr_1.1.2     tibble_3.0.4    tidyverse_1.3.0
+##  [9] reshape2_1.4.4  ggplot2_3.3.2   dplyr_1.0.2     captioner_2.2.3
 ## [13] bookdown_0.20   knitr_1.29     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.1.0 xfun_0.16        lattice_0.20-40  splines_3.6.3   
-##  [5] haven_2.3.1      colorspace_1.4-1 vctrs_0.3.2      generics_0.0.2  
+##  [1] tidyselect_1.1.0 xfun_0.18        lattice_0.20-40  splines_3.6.3   
+##  [5] haven_2.3.1      colorspace_1.4-1 vctrs_0.3.4      generics_0.0.2  
 ##  [9] htmltools_0.5.0  mgcv_1.8-31      yaml_2.2.1       utf8_1.1.4      
-## [13] blob_1.2.1       rlang_0.4.7      pillar_1.4.6     glue_1.4.1      
-## [17] withr_2.2.0      DBI_1.1.0        dbplyr_1.4.4     modelr_0.1.8    
+## [13] blob_1.2.1       rlang_0.4.8      pillar_1.4.6     glue_1.4.2      
+## [17] withr_2.3.0      DBI_1.1.0        dbplyr_1.4.4     modelr_0.1.8    
 ## [21] readxl_1.3.1     lifecycle_0.2.0  plyr_1.8.6       munsell_0.5.0   
 ## [25] gtable_0.3.0     cellranger_1.1.0 rvest_0.3.6      evaluate_0.14   
-## [29] labeling_0.3     fansi_0.4.1      broom_0.7.0      Rcpp_1.0.5      
-## [33] backports_1.1.8  scales_1.1.1     jsonlite_1.7.0   farver_2.0.3    
-## [37] fs_1.5.0         hms_0.5.3        digest_0.6.25    stringi_1.4.6   
-## [41] grid_3.6.3       cli_2.0.2        tools_3.6.3      magrittr_1.5    
+## [29] labeling_0.4.2   fansi_0.4.1      broom_0.7.0      Rcpp_1.0.5      
+## [33] backports_1.1.10 scales_1.1.1     jsonlite_1.7.1   farver_2.0.3    
+## [37] fs_1.5.0         hms_0.5.3        digest_0.6.27    stringi_1.5.3   
+## [41] grid_3.6.3       cli_2.1.0        tools_3.6.3      magrittr_1.5    
 ## [45] crayon_1.3.4     pkgconfig_2.0.3  Matrix_1.2-18    ellipsis_0.3.1  
 ## [49] xml2_1.3.2       reprex_0.3.0     lubridate_1.7.9  assertthat_0.2.1
-## [53] rmarkdown_2.3    httr_1.4.2       rstudioapi_0.11  R6_2.4.1        
+## [53] rmarkdown_2.3    httr_1.4.2       rstudioapi_0.11  R6_2.5.0        
 ## [57] nlme_3.1-144     compiler_3.6.3</code></pre>
 </div>
 <p><strong>End of document</strong></p>

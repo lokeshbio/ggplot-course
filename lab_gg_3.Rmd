@@ -147,7 +147,7 @@ ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+
 # Legends
 
 There are many ways to control the legends, below are some of the examples:
-First by using `guiles()` function.
+First by using `guides()` function.
 
 ```{r}
 ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width))+

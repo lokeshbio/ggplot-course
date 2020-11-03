@@ -198,7 +198,7 @@ gc_long %>%
   group_by(Time) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x=Time, y=mean, fill = Time)) + 
-  geom_bar(position = "dodge", stat = "identity") +
+  geom_bar(stat = "identity") +
   geom_errorbar(aes(ymax=mean+se,ymin=mean-se),width=0.2)
 ```
 
@@ -235,7 +235,7 @@ gc_long %>%
   geom_bar(position = "dodge", stat = "identity")
 ```
 
-We can try now to plot error bars on them. This gets a bit complicated as the error
+We can try now to plot error bars on them. The errorbars would look weird and complicated if one forgets to add `position = dodge` to the `geom_errorbar()` as well.
 
 ```{r}
 gc_long %>% 
