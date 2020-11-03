@@ -45,6 +45,7 @@ class: spaced
 * [Scales - color](#scales-discrete-color)
 
 
+
 ---
 name: scales-discrete-color
 
@@ -52,6 +53,36 @@ name: scales-discrete-color
 
 * scales: position, color, fill, size, shape, alpha, linetype
 * syntax: `scale_&lt;aesthetic&gt;_&lt;type&gt;`
+
+.center[
+&lt;img src="images/scales.png" alt="drawing" width="400"/&gt;
+]
+
+--
+
+.pull-left-50[
+
+```r
+p &lt;- ggplot(iris)+geom_point(aes(x=Sepal.Length,
+                     y=Sepal.Width,color=Species))
+p
+```
+
+&lt;img src="overview_gg2_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto auto auto 0;" /&gt;
+]
+
+--
+
+.pull-right-50[
+
+```r
+p + scale_color_manual(
+     name="Manual",
+     values=c("#5BC0EB","#FDE74C","#9BC53D"))
+```
+
+&lt;img src="overview_gg2_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto auto auto 0;" /&gt;
+]
 
 ---
 name: end_slide
@@ -67,7 +98,7 @@ count: false
 
 &lt;hr&gt;
 
-&lt;span class="small"&gt;Built on : &lt;i class='fa fa-calendar' aria-hidden='true'&gt;&lt;/i&gt; 02-Nov-2020 at &lt;i class='fa fa-clock-o' aria-hidden='true'&gt;&lt;/i&gt; 06:12:17 PM&lt;/span&gt;  
+&lt;span class="small"&gt;Built on : &lt;i class='fa fa-calendar' aria-hidden='true'&gt;&lt;/i&gt; 03-Nov-2020 at &lt;i class='fa fa-clock-o' aria-hidden='true'&gt;&lt;/i&gt; 11:29:34 AM&lt;/span&gt;  
 
 &lt;b&gt;2020&lt;/b&gt; • [SciLifeLab](https://www.scilifelab.se/) • [NBIS](https://nbis.se/)
 ]

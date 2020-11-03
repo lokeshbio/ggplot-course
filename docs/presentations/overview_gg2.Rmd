@@ -50,6 +50,7 @@ class: spaced
 * [Scales - color](#scales-discrete-color)
 
 
+
 ---
 name: scales-discrete-color
 
@@ -57,6 +58,30 @@ name: scales-discrete-color
 
 * scales: position, color, fill, size, shape, alpha, linetype
 * syntax: `scale_<aesthetic>_<type>`
+
+.center[
+<img src="images/scales.png" alt="drawing" width="400"/>
+]
+
+--
+
+.pull-left-50[
+```{r,fig.height=2,fig.width=4}
+p <- ggplot(iris)+geom_point(aes(x=Sepal.Length,
+                     y=Sepal.Width,color=Species))
+p
+```
+]
+
+--
+
+.pull-right-50[
+```{r,fig.height=2,fig.width=4}
+p + scale_color_manual(
+     name="Manual",
+     values=c("#5BC0EB","#FDE74C","#9BC53D"))
+```
+]
 
 ---
 name: end_slide

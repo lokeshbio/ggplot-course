@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 10-Aug-2020" />
+<meta name="author" content="Lokesh Mano • 03-Nov-2020" />
 
 
 <title>PCA and Heatmap</title>
@@ -473,7 +473,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">PCA and Heatmap</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 10-Aug-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 03-Nov-2020</h4>
 
 </div>
 
@@ -497,9 +497,15 @@ R
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">gc_vst &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/counts_vst.txt&quot;</span>, <span class="dt">header =</span> T, <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">vst_pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(<span class="kw">t</span>(gc_vst))</a></code></pre></div>
 </div>
+<p>After you computer the PCA, if you type the object <code>vst_pca$</code> and press <code>TAB</code>, you will notice that this R object has multiple vecors and data.frames within it. Some of the important ones are <code>sdev</code> and <code>x</code></p>
+<ul>
+<li><code>sdev:</code> standard deviation of the components</li>
+<li><code>x:</code> contains the biplot co-ordinates of the samples.</li>
+</ul>
+<p><i class="fas fa-exclamation-circle"></i> Note   There are quite a few functions in R from different packages that can run PCA. So, one should look into the structure of the PCA object and import into <code>ggplot</code> accordingly!</p>
 <div id="variance-of-components" class="section level2">
 <h2><span class="header-section-number">1.1</span> Variance of components</h2>
-<p>The next line of code plots the variance explained by the top PCs. Th</p>
+<p>First, let us look into plotting the variance explained by the top PCs.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
@@ -671,13 +677,35 @@ R
 </div>
 </div>
 </div>
-<div id="session-info" class="section level1">
-<h1><span class="header-section-number">3</span> Session info</h1>
+<div id="exercise" class="section level1">
+<h1><span class="header-section-number">3</span> Exercise</h1>
+<p>Now, as I have mentioned earlier, building a plot similar to PCA really depends on how the object looks like. Now, let us try to make a <code>MDS</code> or <code>PCoA</code> plot from the same data as we have used. Here is how you get the MDS object in R.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">gc_dist &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(gc_vst))</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">gc_mds &lt;-<span class="st"> </span><span class="kw">cmdscale</span>(gc_dist,<span class="dt">eig=</span><span class="ot">TRUE</span>, <span class="dt">k=</span><span class="dv">2</span>) </a></code></pre></div>
+</div>
+<p><i class="fas fa-clipboard-list"></i> Task   Now, try to replicate the example <code>MDS</code> plot below if you have enough time.</p>
+<div class="block-title-parent">
+<div class="block-title small">
+Output
+</div>
+<details>
+<p><summary>plot</summary></p>
+<p><img src="lab_pca_hmap_files/figure-html/unnamed-chunk-13-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+</details>
+</div>
+<p><i class="fas fa-clipboard-list"></i> Hint   The mds object <code>gc_mds</code> has “eigenvalues”. You can calculate the variance by <code>Variance &lt;- Eigenvalues / sum(Eigenvalues)</code></p>
+</div>
+<div id="session-info" class="section level1">
+<h1><span class="header-section-number">4</span> Session info</h1>
+<div class="block-title-parent">
+<div class="block-title small">
+R
+</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS
@@ -699,24 +727,24 @@ R
 ## 
 ## other attached packages:
 ##  [1] wesanderson_0.3.6 pheatmap_1.0.12   scales_1.1.1      forcats_0.5.0    
-##  [5] stringr_1.4.0     purrr_0.3.4       readr_1.3.1       tidyr_1.1.1      
-##  [9] tibble_3.0.3      tidyverse_1.3.0   reshape2_1.4.4    ggplot2_3.3.2    
-## [13] dplyr_1.0.1       captioner_2.2.3   bookdown_0.20     knitr_1.29       
+##  [5] stringr_1.4.0     purrr_0.3.4       readr_1.3.1       tidyr_1.1.2      
+##  [9] tibble_3.0.4      tidyverse_1.3.0   reshape2_1.4.4    ggplot2_3.3.2    
+## [13] dplyr_1.0.2       captioner_2.2.3   bookdown_0.20     knitr_1.29       
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.1.0   xfun_0.16          haven_2.3.1        colorspace_1.4-1  
-##  [5] vctrs_0.3.2        generics_0.0.2     htmltools_0.5.0    yaml_2.2.1        
-##  [9] blob_1.2.1         rlang_0.4.7        pillar_1.4.6       glue_1.4.1        
-## [13] withr_2.2.0        DBI_1.1.0          RColorBrewer_1.1-2 dbplyr_1.4.4      
+##  [1] tidyselect_1.1.0   xfun_0.18          haven_2.3.1        colorspace_1.4-1  
+##  [5] vctrs_0.3.4        generics_0.0.2     htmltools_0.5.0    yaml_2.2.1        
+##  [9] blob_1.2.1         rlang_0.4.8        pillar_1.4.6       glue_1.4.2        
+## [13] withr_2.3.0        DBI_1.1.0          RColorBrewer_1.1-2 dbplyr_1.4.4      
 ## [17] modelr_0.1.8       readxl_1.3.1       lifecycle_0.2.0    plyr_1.8.6        
 ## [21] munsell_0.5.0      gtable_0.3.0       cellranger_1.1.0   rvest_0.3.6       
-## [25] evaluate_0.14      labeling_0.3       fansi_0.4.1        broom_0.7.0       
-## [29] Rcpp_1.0.5         backports_1.1.8    jsonlite_1.7.0     farver_2.0.3      
-## [33] fs_1.5.0           hms_0.5.3          digest_0.6.25      stringi_1.4.6     
-## [37] grid_3.6.3         cli_2.0.2          tools_3.6.3        magrittr_1.5      
+## [25] evaluate_0.14      labeling_0.4.2     fansi_0.4.1        broom_0.7.0       
+## [29] Rcpp_1.0.5         backports_1.1.10   jsonlite_1.7.1     farver_2.0.3      
+## [33] fs_1.5.0           hms_0.5.3          digest_0.6.27      stringi_1.5.3     
+## [37] grid_3.6.3         cli_2.1.0          tools_3.6.3        magrittr_1.5      
 ## [41] crayon_1.3.4       pkgconfig_2.0.3    ellipsis_0.3.1     xml2_1.3.2        
 ## [45] reprex_0.3.0       lubridate_1.7.9    assertthat_0.2.1   rmarkdown_2.3     
-## [49] httr_1.4.2         rstudioapi_0.11    R6_2.4.1           compiler_3.6.3</code></pre>
+## [49] httr_1.4.2         rstudioapi_0.11    R6_2.5.0           compiler_3.6.3</code></pre>
 </div>
 <p><strong>End of document</strong></p>
 </div>
