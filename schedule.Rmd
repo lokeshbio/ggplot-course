@@ -17,6 +17,7 @@ output:
 ```{r,child="assets/header-lab.Rmd"}
 ```
 
+
 ```{r,eval=TRUE,include=FALSE}
 library(lubridate)
 library(dplyr)
@@ -27,6 +28,8 @@ library(formattable)
 # set start time for the course (assumes same start time everyday)
 time_begin <- as.POSIXct("09:00:00",format="%T")
 ```
+
+[Google Docs for questions, comments and Typos](https://docs.google.com/document/d/1RMt19xJBtdP7A7iHr5SQ2nl89CtYn5zmghWPOPl76_k/edit?usp=sharing)
 
 ```{r,eval=TRUE,include=FALSE}
 s <- read.delim("schedule.csv",sep=";",stringsAsFactors=F,header=T,na.strings="",colClasses="character")
