@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 31-Jul-2020" />
+<meta name="author" content="Lokesh Mano • 04-Nov-2020" />
 
 
 <title>Intro to R</title>
@@ -474,7 +474,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Intro to R</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 31-Jul-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 04-Nov-2020</h4>
 
 </div>
 
@@ -1827,7 +1827,7 @@ R
 </div>
 <div id="exercise" class="section level1">
 <h1><span class="header-section-number">5</span> Exercise</h1>
-<p><i class="fas fa-clipboard-list"></i> Task   Here in this exercise we have used the <code>counts_raw.txt</code> file, you can try to make similar R objects for the other three (<code>count_filtered.txt</code>, <code>counts_vst.txt</code> and <code>counts_deseq2.txt</code>) counts in <code>long format</code>.</p>
+<p><i class="fas fa-clipboard-list"></i> Task   Here in this exercise we have used the <code>counts_raw.txt</code> file, you can try to make similar R objects for each of the other three counts (<code>count_filtered.txt</code>, <code>counts_vst.txt</code> and <code>counts_deseq2.txt</code>) in <code>long format</code>. So for example you would have <code>gc_filt</code>, <code>gc_vst</code> and <code>gc_deseq2</code> R objects in the end.</p>
 <p><i class="fas fa-lightbulb"></i> Tip   Remember to take a look at how these files are formatted, before you import!</p>
 </div>
 <div id="acknowledgements" class="section level1">
@@ -1873,26 +1873,26 @@ R
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] reshape2_1.4.4   kableExtra_1.1.0 forcats_0.4.0    stringr_1.4.0   
-##  [5] purrr_0.3.4      readr_1.3.1      tidyr_1.0.2      tibble_3.0.1    
-##  [9] ggplot2_3.3.0    tidyverse_1.3.0  dplyr_0.8.5      captioner_2.2.3 
-## [13] bookdown_0.17    knitr_1.28      
+##  [1] reshape2_1.4.4   kableExtra_1.1.0 forcats_0.5.0    stringr_1.4.0   
+##  [5] purrr_0.3.4      readr_1.3.1      tidyr_1.1.2      tibble_3.0.4    
+##  [9] ggplot2_3.3.2    tidyverse_1.3.0  dplyr_1.0.2      captioner_2.2.3 
+## [13] bookdown_0.20    knitr_1.29      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.1.0  xfun_0.13         haven_2.2.0       lattice_0.20-40  
-##  [5] colorspace_1.4-1  vctrs_0.3.0       generics_0.0.2    viridisLite_0.3.0
-##  [9] htmltools_0.4.0   yaml_2.2.1        rlang_0.4.6       pillar_1.4.4     
-## [13] glue_1.4.0        withr_2.2.0       DBI_1.1.0         dbplyr_1.4.2     
+##  [1] tidyselect_1.1.0  xfun_0.18         haven_2.3.1       colorspace_1.4-1 
+##  [5] vctrs_0.3.4       generics_0.0.2    htmltools_0.5.0   viridisLite_0.3.0
+##  [9] yaml_2.2.1        blob_1.2.1        rlang_0.4.8       pillar_1.4.6     
+## [13] glue_1.4.2        withr_2.3.0       DBI_1.1.0         dbplyr_1.4.4     
 ## [17] modelr_0.1.8      readxl_1.3.1      plyr_1.8.6        lifecycle_0.2.0  
-## [21] munsell_0.5.0     gtable_0.3.0      cellranger_1.1.0  rvest_0.3.5      
-## [25] evaluate_0.14     fansi_0.4.1       highr_0.8         broom_0.5.4      
-## [29] Rcpp_1.0.4.6      scales_1.1.1      backports_1.1.7   webshot_0.5.2    
-## [33] jsonlite_1.6.1    fs_1.3.1          hms_0.5.3         digest_0.6.25    
-## [37] stringi_1.4.6     grid_3.6.3        cli_2.0.2         tools_3.6.3      
-## [41] magrittr_1.5      crayon_1.3.4      pkgconfig_2.0.3   ellipsis_0.3.0   
-## [45] xml2_1.2.2        reprex_0.3.0      lubridate_1.7.4   assertthat_0.2.1 
-## [49] rmarkdown_2.1     httr_1.4.1        rstudioapi_0.11   R6_2.4.1         
-## [53] nlme_3.1-144      compiler_3.6.3</code></pre>
+## [21] munsell_0.5.0     gtable_0.3.0      cellranger_1.1.0  rvest_0.3.6      
+## [25] evaluate_0.14     fansi_0.4.1       highr_0.8         broom_0.7.0      
+## [29] Rcpp_1.0.5        scales_1.1.1      backports_1.1.10  webshot_0.5.2    
+## [33] jsonlite_1.7.1    fs_1.5.0          hms_0.5.3         digest_0.6.27    
+## [37] stringi_1.5.3     grid_3.6.3        cli_2.1.0         tools_3.6.3      
+## [41] magrittr_1.5      crayon_1.3.4      pkgconfig_2.0.3   ellipsis_0.3.1   
+## [45] xml2_1.3.2        reprex_0.3.0      lubridate_1.7.9   assertthat_0.2.1 
+## [49] rmarkdown_2.3     httr_1.4.2        rstudioapi_0.11   R6_2.5.0         
+## [53] compiler_3.6.3</code></pre>
 </div>
 <p><strong>End of document</strong></p>
 </div>
@@ -1968,7 +1968,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0

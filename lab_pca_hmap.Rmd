@@ -76,12 +76,12 @@ After you computer the PCA, if you type the object `vst_pca$` and press `TAB`, y
 First, let us look into plotting the variance explained by the top PCs.
 
 ```{r, warning=FALSE, message=FALSE}
-comp_var <- function(x) x^2/sum(x^2)
+frac_var <- function(x) x^2/sum(x^2)
 library(scales)
 
 vst_pca$sdev %>% 
   as_tibble() %>% 
-  comp_var() %>% 
+  frac_var() %>% 
   mutate(Comp = colnames(vst_pca$x)) %>% 
   slice(1:9) %>% 
   ggplot(aes(x=Comp, y = value)) + 
@@ -143,7 +143,7 @@ A loading plot shows how strongly each variable (gene) influences a principal co
 ggplot(genes.selected, aes(x=PC1, y=PC2)) +
   geom_point() +
   geom_segment(aes(xend=PC1, yend=PC2), x=0, y=0, color="Grey") +
-  geom_label(aes(x=PC1, y=PC2, label=Gene_ID), size=2) +
+  geom_label(aes(x=PC1, y=PC2, label=Gene_ID), size=2, vjust="outward") +
   theme_bw() +
   theme(panel.grid.major = element_blank(),  panel.grid.minor = element_blank()) 
 ```
@@ -159,8 +159,8 @@ ggplot(data=vst_pca_all, mapping=aes(x=PC1, y=PC2)) +
      geom_point(size = 3, aes(shape = Replicate, color = Time)) +
      geom_vline(xintercept = 0, linetype=2) +
      geom_hline(yintercept = 0, linetype=2) +
-     geom_segment(data=genes.selected, mapping=aes(xend=scale*PC1,yend=scale*PC2), x=0, y=0, color="grey") +
-     geom_label(data=genes.selected, mapping=aes(x=scale*PC1,y=scale*PC2, label=Gene_ID), size=2) +
+     geom_segment(data=genes.selected, mapping=aes(xend=scale*PC1,yend=scale*PC2), x=0, y=0, arrow=arrow(), color="grey") +
+     geom_label(data=genes.selected, mapping=aes(x=scale*PC1,y=scale*PC2, label=Gene_ID), size=2, hjust="outward", vjust="outward") +
      theme_bw() +
      theme(panel.grid.major = element_blank(),  panel.grid.minor = element_blank())
      
