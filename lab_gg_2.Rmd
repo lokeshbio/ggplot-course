@@ -176,7 +176,7 @@ gc_long %>%
 
 <i class="fas fa-exclamation-circle"></i> Note &nbsp; Notice that the `%>%` sign is used in the `tidyverse` based commands and `+` is used for all the `ggplot` based commands.
 
-## Flip co-ordinates
+## Flip coordinates
 
 One can also easily just flip the `x` and `y` axis.
 
@@ -205,7 +205,7 @@ gc_long %>%
 
 # Stacked bars
 
-Let's now try to make stacked bars. For this let's try to make the data more usable for stacked bars. For this let's use the `greoup_by` function to make the groups based on both `Time` and `Replicate`.
+Let's now try to make stacked bars. For this let's try to make the data more usable for stacked bars. For this let's use the `group_by` function to make the groups based on both `Time` and `Replicate`.
 
 ```{r}
 se <- function(x) sqrt(var(x)/length(x))
