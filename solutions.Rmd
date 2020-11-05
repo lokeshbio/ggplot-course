@@ -62,10 +62,10 @@ gc_deseq <- read.table(file = "data/counts_deseq2.txt", sep = "\t", header = T)
 md <- read.table("data/metadata_raw.csv", header = T, sep = ";")
 
 gene_counts_all <- 
-  gc_raw %>% gather(Sample_ID, Raw, -Gene) %>%
-  full_join(gc_filt %>% gather(Sample_ID, Filtered, -Gene), by = c("Gene", "Sample_ID")) %>%
-  full_join(gc_vst %>% gather(Sample_ID, VST, -Gene), by = c("Gene", "Sample_ID")) %>%
-  full_join(gc_deseq %>% gather(Sample_ID, DESeq2, -Gene), by = c("Gene", "Sample_ID")) %>%
+  gc_raw %>% rownames_to_column(var = "Gene") %>% gather(Sample_ID, Raw, -Gene) %>%
+  full_join(gc_filt %>% rownames_to_column(var = "Gene") %>% gather(Sample_ID, Filtered, -Gene), by = c("Gene", "Sample_ID")) %>%
+  full_join(gc_vst %>% rownames_to_column(var = "Gene") %>% gather(Sample_ID, VST, -Gene), by = c("Gene", "Sample_ID")) %>%
+  full_join(gc_deseq %>% rownames_to_column(var = "Gene") %>% gather(Sample_ID, DESeq2, -Gene), by = c("Gene", "Sample_ID")) %>%
   gather(Method, count, Raw:DESeq2) %>%
   filter(!is.na(count)) %>%
   full_join(md, by = "Sample_ID")
