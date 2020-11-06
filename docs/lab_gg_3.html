@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 03-Nov-2020" />
+<meta name="author" content="Lokesh Mano • 06-Nov-2020" />
 
 
 <title>ggplot basics 3</title>
@@ -473,7 +473,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">ggplot basics 3</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 03-Nov-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 06-Nov-2020</h4>
 
 </div>
 
@@ -778,8 +778,8 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">Q &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gc_long, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> <span class="kw">log10</span>(count <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">fill =</span> Time)) </a>
-<a class="sourceLine" id="cb19-2" data-line-number="2">Q <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() </a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">Q &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gc_long, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> <span class="kw">log10</span>(count <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">fill =</span> Time)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>()</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">Q  </a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_3_files/figure-html/unnamed-chunk-22-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -791,7 +791,7 @@ R
 R
 </div>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">library</span>(ggthemes)</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2">Q <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_tufte</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb20-2" data-line-number="2">Q <span class="op">+</span><span class="st"> </span><span class="kw">theme_tufte</span>()</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_3_files/figure-html/unnamed-chunk-23-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -801,7 +801,8 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">Q <span class="op">+</span><span class="st"> </span><span class="kw">theme_economist</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">Q <span class="op">+</span><span class="st"> </span><span class="kw">theme_economist</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw">scale_color_economist</span>()</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_3_files/figure-html/unnamed-chunk-24-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -811,7 +812,8 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">Q <span class="op">+</span><span class="st"> </span><span class="kw">theme_stata</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">Q <span class="op">+</span><span class="st"> </span><span class="kw">theme_stata</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">  </span><span class="kw">scale_color_stata</span>()</a></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_3_files/figure-html/unnamed-chunk-25-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>

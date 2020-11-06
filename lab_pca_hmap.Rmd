@@ -183,6 +183,8 @@ pheatmap(vst_cor,border_color=NA,annotation_col=md[,"Time",drop=F],
          annotation_row=md[,"Time",drop=F],annotation_legend=T)
 ```
 
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; If you get a `gpar()` error, this is due to the reason that the metadata table you provide here does not have the sample ids as `rownames`. `pheatmap` maps the meta-data to the count data using `rownames`  
+
 Now, this is based on a correlation matrix where you have a very simple square matrix with samples and their correlations to each to each other. Now let us look into how we can make a heatmap from an expression dataset. 
 
 For this we will use the dataset: `Time_t2_vs_t0.txt` here that basically has the list of genes that are differentially expressed in `t2` vs `t0` and we would like to visualize this in an heatmap. To be more precise, these are the top and bottom 200 (2 X 100) genes with `adjusted p-value < 0.01`. We use just these 200, for the  sake of visualization. Let us take the `t24 vs t0` here as these are most different based on our PCA.

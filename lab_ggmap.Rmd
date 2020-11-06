@@ -70,7 +70,7 @@ If you would like to keep the data tree same as the exercises here, you can extr
       + world_population.tsv
 
 
-Before, we go into `ggmap` package and it's options. Let us take a quick look about some of the other options available for making maps in R.
+Before, we go into `ggmap` package and its options. Let us take a quick look about some of the other options available for making maps in R.
 
 ## maps and mapdata
 

@@ -268,24 +268,26 @@ P + theme_minimal(base_size = 16)
 Let's look into some of the fancier themes that comes in this package
 
 ```{r, plot.fold = FALSE, warning=FALSE, message=FALSE}
-Q <- ggplot(data = gc_long, mapping = aes(x = Sample_Name, y = log10(count + 1), fill = Time)) 
-Q + geom_boxplot() 
+Q <- ggplot(data = gc_long, mapping = aes(x = Sample_Name, y = log10(count + 1), fill = Time)) + geom_boxplot()
+Q  
 ```
 
 Using the `theme_tufte()`
 
 ```{r}
 library(ggthemes)
-Q + geom_boxplot() + theme_tufte()
+Q + theme_tufte()
 ```
 
 
 ```{r}
-Q + theme_economist()
+Q + theme_economist() + 
+  scale_color_economist()
 ```
 
 ```{r}
-Q + theme_stata()
+Q + theme_stata() +
+  scale_color_stata()
 ```
 
 # Exercise
