@@ -72,7 +72,7 @@ p1 <- gc_long %>%
   group_by(Time, Replicate) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x= Time, y= mean, fill = Replicate)) + 
-  geom_bar(position = position_dodge2(), stat = "identity") +
+  geom_col(position = position_dodge2()) +
   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), position = position_dodge2(.9, padding = .6)) +
   ylab("mean(log10(count+1))") +
   theme(axis.ticks = element_blank()) +
@@ -104,7 +104,7 @@ p1 <- gc_long %>%
   group_by(Time, Replicate) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x= Time, y= mean, fill = Replicate)) + 
-  geom_bar(position = position_dodge2(), stat = "identity") +
+  geom_col(position = position_dodge2()) +
   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), position = position_dodge2(.9, padding = .6)) +
   ylab("mean(log10(count+1))") +
   theme(axis.ticks = element_blank()) +

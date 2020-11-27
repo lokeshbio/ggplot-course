@@ -148,8 +148,10 @@ Let's now make some bar charts with the data we have. We can start with the simp
 
 ```{r}
 ggplot(data=iris,mapping=aes(x=Species,y=Petal.Width))+
-  geom_bar(stat="identity")
+  geom_col()
 ```
+
+<i class="fas fa-exclamation-circle"></i> Note &nbsp; There are two types of bar charts: `geom_bar()` and `geom_col()`. `geom_bar()` makes the height of the bar proportional to the number of cases in each group (or if the `weight` aesthetic is supplied, the sum of the weights). If you want the heights of the bars to represent values in the data, use `geom_col()` instead. `geom_bar()` uses `stat_count()` by default: it counts the number of cases at each x position. `geom_col()` uses `stat_identity()` and it leaves the data as is.
 
 Similarly, we can use the `gene counts` data to make a barplot as well. But first, let's make the data into the right format so as to make the bar plots. This is where knowledge on `tidyverse` would be super useful. 
 
@@ -171,7 +173,7 @@ gc_long %>%
   group_by(Time) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x=Time, y=mean)) + 
-  geom_bar( stat = "identity")
+  geom_col()
 ```
 
 <i class="fas fa-exclamation-circle"></i> Note &nbsp; Notice that the `%>%` sign is used in the `tidyverse` based commands and `+` is used for all the `ggplot` based commands.
@@ -185,7 +187,7 @@ gc_long %>%
   group_by(Time) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x=Time, y=mean)) + 
-  geom_bar( stat = "identity") +
+  geom_col() +
   coord_flip()
 ```
 
@@ -198,7 +200,7 @@ gc_long %>%
   group_by(Time) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x=Time, y=mean, fill = Time)) + 
-  geom_bar(stat = "identity") +
+  geom_col() +
   geom_errorbar(aes(ymax=mean+se,ymin=mean-se),width=0.2)
 ```
 
@@ -222,7 +224,7 @@ gc_long %>%
   group_by(Time, Replicate) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x=Time, y=mean, fill = Replicate)) + 
-  geom_bar(stat = "identity")
+  geom_col(position = "stack")
 ```
 
 One can also have `dodge` bars.
@@ -232,17 +234,17 @@ gc_long %>%
   group_by(Time, Replicate) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x=Time, y=mean, fill = Replicate)) + 
-  geom_bar(position = "dodge", stat = "identity")
+  geom_col(position = "dodge")
 ```
 
 We can try now to plot error bars on them. The errorbars would look weird and complicated if one forgets to add `position = dodge` to the `geom_errorbar()` as well.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 gc_long %>% 
   group_by(Time, Replicate) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x= Time, y= mean, fill = Replicate)) + 
-  geom_bar(position = "dodge", stat = "identity") +
+  geom_col(position = "dodge") +
   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), position = "dodge")
 ```
 
@@ -255,7 +257,7 @@ gc_long %>%
   group_by(Time, Replicate) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x= Time, y= mean, fill = Replicate)) + 
-  geom_bar(position = position_dodge2(), stat = "identity") +
+  geom_col(position = position_dodge2()) +
   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), position = position_dodge2(.9, padding = .6))
 ```
 

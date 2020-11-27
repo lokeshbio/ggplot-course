@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lokesh Mano • 27-Aug-2020" />
+<meta name="author" content="Lokesh Mano • 27-Nov-2020" />
 
 
 <title>Combining plots</title>
@@ -24,15 +24,16 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -42,14 +43,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -58,9 +61,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -473,7 +476,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Combining plots</h1>
 <h3 class="subtitle">Workshop on ggplot</h3>
-<h4 class="author"><b>Lokesh Mano</b> • 27-Aug-2020</h4>
+<h4 class="author"><b>Lokesh Mano</b> • 27-Nov-2020</h4>
 
 </div>
 
@@ -495,30 +498,30 @@ Output
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">p1 &lt;-<span class="st"> </span>gc_long <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(Time, Replicate) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>)),<span class="dt">se=</span><span class="kw">se</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span> Time, <span class="dt">y=</span> mean, <span class="dt">fill =</span> Replicate)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="kw">position_dodge2</span>(), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>mean<span class="op">-</span>se, <span class="dt">ymax=</span>mean<span class="op">+</span>se), <span class="dt">position =</span> <span class="kw">position_dodge2</span>(.<span class="dv">9</span>, <span class="dt">padding =</span> <span class="fl">.6</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;mean(log10(count+1))&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gc_long) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> <span class="kw">log10</span>(count <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">fill =</span> Replicate)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span>Time , <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">space =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">10</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.ticks.x =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>())</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length))<span class="op">+</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Species), <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="st">  </span><span class="kw">theme_light</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22">p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="st">  </span><span class="kw">theme_light</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>p1 &lt;-<span class="st"> </span>gc_long <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="st">  </span><span class="kw">group_by</span>(Time, Replicate) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>)),<span class="dt">se=</span><span class="kw">se</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span> Time, <span class="dt">y=</span> mean, <span class="dt">fill =</span> Replicate)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">position =</span> <span class="kw">position_dodge2</span>()) <span class="op">+</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>mean<span class="op">-</span>se, <span class="dt">ymax=</span>mean<span class="op">+</span>se), <span class="dt">position =</span> <span class="kw">position_dodge2</span>(.<span class="dv">9</span>, <span class="dt">padding =</span> <span class="fl">.6</span>)) <span class="op">+</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;mean(log10(count+1))&quot;</span>) <span class="op">+</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a>p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gc_long) <span class="op">+</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sample_Name, <span class="dt">y =</span> <span class="kw">log10</span>(count <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">fill =</span> Replicate)) <span class="op">+</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span>Time , <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">space =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time&quot;</span>) <span class="op">+</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">10</span>) <span class="op">+</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.ticks.x =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>())</span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a>p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length))<span class="op">+</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Species), <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="st">  </span><span class="kw">theme_light</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a>p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>iris,<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species)) <span class="op">+</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a><span class="st">  </span><span class="kw">theme_light</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</span></code></pre></div>
 </div>
 <p>The objects <code>p1</code>, <code>p2</code>, <code>p3</code> and <code>p4</code> as intuitively represent the plots <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong> repectively.</p>
 <div id="cowplot" class="section level1">
@@ -530,8 +533,8 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(cowplot)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">plot_grid</span>(p1, p2)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(cowplot)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">plot_grid</span>(p1, p2)</span></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_4_files/figure-html/unnamed-chunk-5-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -542,7 +545,7 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">plot_grid</span>(p1, p2, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">plot_grid</span>(p1, p2, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>))</span></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_4_files/figure-html/unnamed-chunk-6-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -559,9 +562,9 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">ggdraw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">draw_plot</span>(p3, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">draw_plot</span>(p4, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="fl">.5</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">ggdraw</span>() <span class="op">+</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">draw_plot</span>(p3, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) <span class="op">+</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw">draw_plot</span>(p4, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="fl">.5</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) </span></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_4_files/figure-html/unnamed-chunk-7-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -572,10 +575,10 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">ggdraw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">draw_plot</span>(p3, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">draw_plot</span>(p4, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">draw_plot_label</span>(<span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">size =</span> <span class="dv">15</span>, <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">ggdraw</span>() <span class="op">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">draw_plot</span>(p3, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) <span class="op">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">draw_plot</span>(p4, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">.5</span>) <span class="op">+</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw">draw_plot_label</span>(<span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">size =</span> <span class="dv">15</span>, <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>))</span></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_4_files/figure-html/unnamed-chunk-8-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -586,11 +589,11 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ggdraw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">draw_plot</span>(p3, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">height =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw">draw_plot</span>(p4, <span class="dt">x =</span> <span class="fl">0.5</span>, <span class="dt">y =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">height =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw">draw_plot</span>(p2, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw">draw_plot_label</span>(<span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="dt">size =</span> <span class="dv">15</span>, <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="dv">0</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>,<span class="fl">0.5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">ggdraw</span>() <span class="op">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw">draw_plot</span>(p3, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">height =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw">draw_plot</span>(p4, <span class="dt">x =</span> <span class="fl">0.5</span>, <span class="dt">y =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">height =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw">draw_plot</span>(p2, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw">draw_plot_label</span>(<span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="dt">size =</span> <span class="dv">15</span>, <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="dv">0</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>,<span class="fl">0.5</span>))</span></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_4_files/figure-html/unnamed-chunk-9-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -607,8 +610,8 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">library</span>(ggpubr)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">ggarrange</span>(p3, p4, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">nrow =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">library</span>(ggpubr)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">ggarrange</span>(p3, p4, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_4_files/figure-html/unnamed-chunk-10-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -619,7 +622,7 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">ggarrange</span>(p3, p4, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">common.legend =</span> <span class="ot">TRUE</span>, <span class="dt">legend =</span> <span class="st">&quot;right&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">ggarrange</span>(p3, p4, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">common.legend =</span> <span class="ot">TRUE</span>, <span class="dt">legend =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_4_files/figure-html/unnamed-chunk-11-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -633,27 +636,27 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">gc_table &lt;-<span class="st"> </span>gc_long <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(Time) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>)),<span class="dt">se=</span><span class="kw">se</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>)))</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">tab1 &lt;-<span class="st"> </span><span class="kw">ggtexttable</span>(gc_table, <span class="dt">rows =</span> <span class="ot">NULL</span>, </a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">                        <span class="dt">theme =</span> <span class="kw">ttheme</span>(<span class="st">&quot;mOrange&quot;</span>))</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">gc_text &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;In the experiment, RNA was extracted at four time points:&quot;</span>, </a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">                 <span class="st">&quot;before the gefinitib treatment (t=0), and two, six and twenty-four hours&quot;</span>,</a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">                 <span class="st">&quot;after treatment (t=2, t=6, t=24, respectively).&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)</a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">tex1 &lt;-<span class="st"> </span><span class="kw">ggparagraph</span>(<span class="dt">text =</span> gc_text, <span class="dt">face =</span> <span class="st">&quot;italic&quot;</span>, <span class="dt">size =</span> <span class="dv">11</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>gc_table &lt;-<span class="st"> </span>gc_long <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">group_by</span>(Time) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean=</span><span class="kw">mean</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>)),<span class="dt">se=</span><span class="kw">se</span>(<span class="kw">log10</span>(count <span class="op">+</span><span class="dv">1</span>)))</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a>tab1 &lt;-<span class="st"> </span><span class="kw">ggtexttable</span>(gc_table, <span class="dt">rows =</span> <span class="ot">NULL</span>, </span>
+<span id="cb9-6"><a href="#cb9-6"></a>                        <span class="dt">theme =</span> <span class="kw">ttheme</span>(<span class="st">&quot;mOrange&quot;</span>))</span>
+<span id="cb9-7"><a href="#cb9-7"></a>gc_text &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;In the experiment, RNA was extracted at four time points:&quot;</span>, </span>
+<span id="cb9-8"><a href="#cb9-8"></a>                 <span class="st">&quot;before the gefinitib treatment (t=0), and two, six and twenty-four hours&quot;</span>,</span>
+<span id="cb9-9"><a href="#cb9-9"></a>                 <span class="st">&quot;after treatment (t=2, t=6, t=24, respectively).&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-11"><a href="#cb9-11"></a>tex1 &lt;-<span class="st"> </span><span class="kw">ggparagraph</span>(<span class="dt">text =</span> gc_text, <span class="dt">face =</span> <span class="st">&quot;italic&quot;</span>, <span class="dt">size =</span> <span class="dv">11</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
 </div>
 <p><i class="fas fa-exclamation-circle"></i> Note   Here, for the <code>text</code> part, <code>paste()</code> has been used just to make it a bit easier to show here in the code. It could be used without the <code>paste()</code> command as well.</p>
 <div class="block-title-parent">
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">ggarrange</span>(<span class="kw">ggarrange</span>(p1, p2, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">common.legend =</span> <span class="ot">TRUE</span>, <span class="dt">legend =</span> <span class="st">&quot;top&quot;</span>),</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">          <span class="kw">ggarrange</span>(tab1, tex1, <span class="dt">nrow =</span> <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">          <span class="dt">ncol =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">          <span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">ggarrange</span>(<span class="kw">ggarrange</span>(p1, p2, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">common.legend =</span> <span class="ot">TRUE</span>, <span class="dt">legend =</span> <span class="st">&quot;top&quot;</span>),</span>
+<span id="cb10-2"><a href="#cb10-2"></a>          <span class="kw">ggarrange</span>(tab1, tex1, <span class="dt">nrow =</span> <span class="dv">2</span>),</span>
+<span id="cb10-3"><a href="#cb10-3"></a>          <span class="dt">ncol =</span> <span class="dv">2</span>,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>          <span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code></pre></div>
 <details>
 <p><summary>plot</summary></p>
 <p><img src="lab_gg_4_files/figure-html/unnamed-chunk-13-1.svg" width="672" style="display: block; margin: auto auto auto 0;" /></p>
@@ -667,9 +670,9 @@ R
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">multi.page &lt;-<span class="st"> </span><span class="kw">ggarrange</span>(p1, p2, p3, p4,</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">                        <span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">ncol =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">ggexport</span>(multi.page, <span class="dt">filename =</span> <span class="st">&quot;multi.page.ggplot2.pdf&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>multi.page &lt;-<span class="st"> </span><span class="kw">ggarrange</span>(p1, p2, p3, p4,</span>
+<span id="cb11-2"><a href="#cb11-2"></a>                        <span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="kw">ggexport</span>(multi.page, <span class="dt">filename =</span> <span class="st">&quot;multi.page.ggplot2.pdf&quot;</span>)</span></code></pre></div>
 </div>
 <p><i class="fas fa-exclamation-circle"></i> Note   From this <code>multi.page</code> R object (which is of class list) , you can get the indivdual plots by <code>multi.page[[1]]</code>, <code>multi.page[[2]]</code> and so on.</p>
 </div>
@@ -692,7 +695,7 @@ Output
 <div class="block-title small">
 R
 </div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS
@@ -713,27 +716,27 @@ R
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] ggpubr_0.4.0    cowplot_1.0.0   forcats_0.5.0   stringr_1.4.0  
-##  [5] purrr_0.3.4     readr_1.3.1     tidyr_1.1.1     tibble_3.0.3   
-##  [9] tidyverse_1.3.0 reshape2_1.4.4  ggplot2_3.3.2   dplyr_1.0.1    
+##  [1] ggpubr_0.4.0    cowplot_1.1.0   forcats_0.5.0   stringr_1.4.0  
+##  [5] purrr_0.3.4     readr_1.3.1     tidyr_1.1.2     tibble_3.0.4   
+##  [9] tidyverse_1.3.0 reshape2_1.4.4  ggplot2_3.3.2   dplyr_1.0.2    
 ## [13] captioner_2.2.3 bookdown_0.20   knitr_1.29     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.5        lubridate_1.7.9   assertthat_0.2.1  digest_0.6.25    
-##  [5] R6_2.4.1          cellranger_1.1.0  plyr_1.8.6        backports_1.1.8  
+##  [1] Rcpp_1.0.5        lubridate_1.7.9   assertthat_0.2.1  digest_0.6.27    
+##  [5] R6_2.5.0          cellranger_1.1.0  plyr_1.8.6        backports_1.1.10 
 ##  [9] reprex_0.3.0      evaluate_0.14     httr_1.4.2        pillar_1.4.6     
-## [13] rlang_0.4.7       curl_4.3          readxl_1.3.1      rstudioapi_0.11  
-## [17] data.table_1.13.0 car_3.0-9         blob_1.2.1        rmarkdown_2.3    
-## [21] labeling_0.3      foreign_0.8-75    munsell_0.5.0     broom_0.7.0      
-## [25] compiler_3.6.3    modelr_0.1.8      xfun_0.16         pkgconfig_2.0.3  
+## [13] rlang_0.4.8       curl_4.3          readxl_1.3.1      rstudioapi_0.11  
+## [17] data.table_1.13.2 car_3.0-9         blob_1.2.1        rmarkdown_2.3    
+## [21] labeling_0.4.2    foreign_0.8-75    munsell_0.5.0     broom_0.7.0      
+## [25] compiler_3.6.3    modelr_0.1.8      xfun_0.18         pkgconfig_2.0.3  
 ## [29] htmltools_0.5.0   tidyselect_1.1.0  gridExtra_2.3     rio_0.5.16       
-## [33] fansi_0.4.1       crayon_1.3.4      dbplyr_1.4.4      withr_2.2.0      
-## [37] grid_3.6.3        jsonlite_1.7.0    gtable_0.3.0      lifecycle_0.2.0  
+## [33] fansi_0.4.1       crayon_1.3.4      dbplyr_1.4.4      withr_2.3.0      
+## [37] grid_3.6.3        jsonlite_1.7.1    gtable_0.3.0      lifecycle_0.2.0  
 ## [41] DBI_1.1.0         magrittr_1.5      scales_1.1.1      zip_2.1.0        
-## [45] carData_3.0-4     cli_2.0.2         stringi_1.4.6     farver_2.0.3     
+## [45] carData_3.0-4     cli_2.1.0         stringi_1.5.3     farver_2.0.3     
 ## [49] ggsignif_0.6.0    fs_1.5.0          xml2_1.3.2        ellipsis_0.3.1   
-## [53] generics_0.0.2    vctrs_0.3.2       openxlsx_4.1.5    tools_3.6.3      
-## [57] glue_1.4.1        hms_0.5.3         abind_1.4-5       yaml_2.2.1       
+## [53] generics_0.0.2    vctrs_0.3.4       openxlsx_4.1.5    tools_3.6.3      
+## [57] glue_1.4.2        hms_0.5.3         abind_1.4-5       yaml_2.2.1       
 ## [61] colorspace_1.4-1  rstatix_0.6.0     rvest_0.3.6       haven_2.3.1</code></pre>
 </div>
 <p><strong>End of document</strong></p>

@@ -134,7 +134,7 @@ Let's create a barplot as well.
 
 ```{r}
 ggplot(ldr,aes(x=a,y=b))+
-  geom_bar(stat="identity")
+  geom_col()
 ```
 
 
