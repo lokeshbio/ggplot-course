@@ -173,7 +173,7 @@ gc_long %>%
   group_by(Time) %>% 
   summarise(mean=mean(log10(count +1)),se=se(log10(count +1))) %>%
   ggplot(aes(x=Time, y=mean)) + 
-  geom_col()
+  geom_bar(stat = "identity")
 ```
 
 <i class="fas fa-exclamation-circle"></i> Note &nbsp; Notice that the `%>%` sign is used in the `tidyverse` based commands and `+` is used for all the `ggplot` based commands.
